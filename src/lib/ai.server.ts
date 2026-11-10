@@ -1,7 +1,7 @@
 import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
 
-export const MODEL = process.env.FIN_ZEUS_MODEL || "claude-opus-5-5";
+export const MODEL = process.env.FINTEL_MODEL || process.env.FIN_ZEUS_MODEL || "claude-opus-5-5";
 
 export function aiConfigured() {
   return Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);

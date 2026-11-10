@@ -1,7 +1,7 @@
-# Fintel-Hub 2.0 — Financial Intelligence Hub
+# Fintel Hub 2.0 — Financial Intelligence Hub
 
 An interactive web app that turns company statements into decisions. Upload your P&L or ledger
-exports and the Fintel Hub categorizes every line, builds a KPI dashboard, forecasts, runs sensitivity
+exports and Fintel Hub categorizes every line, builds a KPI dashboard, forecasts, runs sensitivity
 and goal-seek analysis, optimizes decisions under constraints, tests pricing strategies, tells you
 which documents you need for any analysis, and finds where AI can make roles and processes more efficient.
 

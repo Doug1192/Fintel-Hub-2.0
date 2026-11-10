@@ -3,7 +3,7 @@ import "./globals.css";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata: Metadata = {
-  title: "Fin-Zeus 2.0 — Financial Intelligence Hub",
+  title: "Fintel Hub 2.0 — Financial Intelligence",
   description: "Upload company statements, classify costs, track KPIs, forecast, run sensitivity and optimization, test pricing, and find AI efficiency gains.",
 };
 

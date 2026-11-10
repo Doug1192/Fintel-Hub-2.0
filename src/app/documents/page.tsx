@@ -56,7 +56,7 @@ export default function DocumentsPage() {
       <PageHeader
         eyebrow="Advise"
         title="Document advisor"
-        subtitle="Tell Fin-Zeus what you're trying to do and it lists the exact documents you need, the periods they should cover, why each matters and where to get it. It also shows which ones you've already uploaded."
+        subtitle="Tell Fintel Hub what you're trying to do and it lists the exact documents you need, the periods they should cover, why each matters and where to get it. It also shows which ones you've already uploaded."
       />
 
       <Card className="mb-5 p-5">

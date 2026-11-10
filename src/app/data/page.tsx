@@ -153,10 +153,10 @@ export default function DataPage() {
       <PageHeader
         eyebrow="Data"
         title="Statements & data"
-        subtitle="Upload income statements, P&L exports, trial balances or general-ledger extracts (CSV, Excel, PDF). Fin-Zeus pulls out revenue and other income, and sorts every expense into fixed or variable. Review and fix anything below."
+        subtitle="Upload income statements, P&L exports, trial balances or general-ledger extracts (CSV, Excel, PDF). Fintel Hub pulls out revenue and other income, and sorts every expense into fixed or variable. Review and fix anything below."
         right={
           <>
-            <Button variant="secondary" size="sm" onClick={() => downloadText("fin-zeus-template.csv", TEMPLATE)}><Download className="h-3.5 w-3.5" />CSV template</Button>
+            <Button variant="secondary" size="sm" onClick={() => downloadText("fintel-hub-template.csv", TEMPLATE)}><Download className="h-3.5 w-3.5" />CSV template</Button>
             <Button variant="secondary" size="sm" onClick={loadSample}><RotateCcw className="h-3.5 w-3.5" />Load demo</Button>
             <Button variant="danger" size="sm" onClick={() => { if (confirm("Remove all statement data?")) clear(); }}><Trash2 className="h-3.5 w-3.5" />Clear</Button>
           </>

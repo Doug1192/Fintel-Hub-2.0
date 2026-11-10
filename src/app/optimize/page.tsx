@@ -69,7 +69,7 @@ export default function OptimizePage() {
       <PageHeader
         eyebrow="Decide"
         title="Optimization studio"
-        subtitle="Define your decision variables, constraints and objective, and Fin-Zeus finds the best solution with linear or integer programming. Start from a template or describe the problem in plain English."
+        subtitle="Define your decision variables, constraints and objective, and Fintel Hub finds the best solution with linear or integer programming. Start from a template or describe the problem in plain English."
         right={<Button onClick={() => setSolved(clone(model))}><Calculator className="h-4 w-4" />Solve{dirty ? " (changes pending)" : ""}</Button>}
       />
 

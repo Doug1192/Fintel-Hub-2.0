@@ -42,6 +42,7 @@ export const useStore = create<State>()(
       removeDoc: (id) => set((s) => ({ docs: s.docs.filter((d) => d.id !== id) })),
     }),
     {
+      // Storage key kept from the original name so saved browser data survives the rebrand.
       name: "fin-zeus-v1",
       storage: createJSONStorage(() => {
         try {

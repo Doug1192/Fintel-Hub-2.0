@@ -85,7 +85,7 @@ export default function WorkflowPage() {
       <PageHeader
         eyebrow="Advise"
         title="AI workflow & job analyzer"
-        subtitle="Paste a job description or an end-to-end process. Fin-Zeus breaks it into tasks, scores how much automation or AI could take on, and shows what to improve, what to automate and what should stay with people."
+        subtitle="Paste a job description or an end-to-end process. Fintel Hub breaks it into tasks, scores how much automation or AI could take on, and shows what to improve, what to automate and what should stay with people."
       />
 
       <div className="grid gap-5 xl:grid-cols-[420px_1fr]">

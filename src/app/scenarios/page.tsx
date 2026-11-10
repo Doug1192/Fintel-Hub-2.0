@@ -230,7 +230,7 @@ function GoalSeek({ b, d, cur, onApply }: { b: Baseline; d: Drivers; cur: string
   return (
     <>
       <Card>
-        <CardHeader icon={<Target className="h-4 w-4" />} title="Reverse planning: what does it take?" subtitle="Set a target. Fin-Zeus finds the smallest change in each lever that reaches it on its own, plus a balanced mix." />
+        <CardHeader icon={<Target className="h-4 w-4" />} title="Reverse planning: what does it take?" subtitle="Set a target. Fintel Hub finds the smallest change in each lever that reaches it on its own, plus a balanced mix." />
         <div className="grid gap-4 p-5 sm:grid-cols-3">
           <Field label="Target metric">
             <select className={inputCls} value={metric} onChange={(e) => { const m = e.target.value as TargetMetric; setMetric(m); setTarget(defaultTarget(m)); }}>

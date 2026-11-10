@@ -27,17 +27,17 @@ const NAV = [
   ] },
 ];
 
-function Logo() {
+function Logo({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <div className="flex items-center gap-2.5">
+    <Link href="/" onClick={onNavigate} aria-label="Fintel Hub 2.0 home" title="Go to dashboard" className="flex items-center gap-2.5 rounded-xl transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/60">
       <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-700 shadow-lg shadow-indigo-900/30">
         <Zap className="h-5 w-5 text-amber-300" fill="currentColor" />
       </div>
       <div className="leading-tight">
-        <div className="text-[15px] font-bold tracking-tight text-white">Fin-Zeus <span className="text-amber-300">2.0</span></div>
-        <div className="text-[11px] text-indigo-200/70">Financial Intelligence Hub</div>
+        <div className="text-[15px] font-bold tracking-tight text-white">Fintel Hub <span className="text-amber-300">2.0</span></div>
+        <div className="text-[11px] text-indigo-200/70">Financial Intelligence Platform</div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -47,7 +47,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col bg-[#0f1330] text-slate-300">
       <div className="px-5 pb-6 pt-5">
-        <Logo />
+        <Logo onNavigate={onNavigate} />
       </div>
       <nav className="flex-1 space-y-6 overflow-y-auto px-3">
         {NAV.map((g) => (
