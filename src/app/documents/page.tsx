@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ArrowRight, Check, CircleDashed, ClipboardList, Copy, FileSearch, Search, Sparkles } from "lucide-react";
 import { Badge, Button, Callout, Card, CardHeader, inputCls, PageHeader } from "@/components/ui";
-import { useStore } from "@/store/useStore";
+import { useAliasDocs, useDataset } from "@/store/useStore";
 import { docById, matchTasks, TASKS, type AnalysisTask } from "@/lib/documents";
 import { postAi, useAiStatus } from "@/components/useAi";
 
@@ -17,8 +17,8 @@ interface AiDocs {
 }
 
 export default function DocumentsPage() {
-  const docs = useStore((s) => s.docs);
-  const isSample = useStore((s) => s.dataset.isSample);
+  const docs = useAliasDocs();
+  const isSample = useDataset().isSample;
   const ai = useAiStatus();
   const [selected, setSelected] = useState<string>(TASKS[0].id);
   const [query, setQuery] = useState("");

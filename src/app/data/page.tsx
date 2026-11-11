@@ -2,15 +2,17 @@
 
 import clsx from "clsx";
 import { useMemo, useRef, useState } from "react";
-import { Database, Download, FileSpreadsheet, FileText, RotateCcw, Search, Sparkles, Trash2, UploadCloud, Wand2 } from "lucide-react";
+import Link from "next/link";
+import { Archive, Database, Download, FileSpreadsheet, FileText, FolderPlus, Link2Off, RotateCcw, Search, Sparkles, Trash2, UploadCloud, Wand2 } from "lucide-react";
 import { Badge, Button, Callout, Card, CardHeader, Field, inputCls, NumInput, PageHeader, Segmented } from "@/components/ui";
-import { useStore } from "@/store/useStore";
-import { mergeIntoDataset, parseTable, parseText, toLineItems, type ParsedStatement } from "@/lib/parse";
+import { useActiveAlias, useAliasDocs, useDataset, useStore } from "@/store/useStore";
+import { parseTable, parseText, toLineItems, type ParsedStatement } from "@/lib/parse";
 import { downloadText, fileToBase64, readCsv, readPdfText, readXlsx } from "@/lib/fileReaders";
-import { CATEGORY_META, CATEGORY_ORDER, type Category, type LineItem } from "@/lib/types";
+import { CATEGORY_META, CATEGORY_ORDER, MODULE_PRESETS, type Category, type LineItem, type VaultDoc } from "@/lib/types";
 import { detectDocType, docById, DOC_TYPES } from "@/lib/documents";
 import { fmtMoney, periodLabel, uid } from "@/lib/format";
 import { postAi, useAiStatus } from "@/components/useAi";
+import { PreviewTable } from "@/components/PreviewTable";
 import { periodsPerYear } from "@/lib/finance";
 
 interface Pending {
@@ -21,7 +23,19 @@ interface Pending {
   via: "parser" | "ai";
   notes?: string;
   company?: string;
+  preview?: string[][];
+  /** Keep only as reference data (no statement lines), e.g. a capacity sheet for the Optimizer. */
+  asReference: boolean;
 }
+
+/** A table with no period columns where rows hold several numbers looks like data, not a statement. */
+const looksLikeDataTable = (parsed: ParsedStatement, preview?: string[][]) =>
+  parsed.layout === "single" && Boolean(preview && preview.slice(1).filter((r) => r.filter((c) => c.trim() !== "" && !isNaN(Number(c.replace(/[$,%()]/g, "")))).length >= 2).length >= 2);
+
+const VAULT = "__vault__";
+
+const toPreview = (rows: unknown[][]) =>
+  rows.filter((r) => r && r.some((c) => c !== null && c !== undefined && String(c).trim() !== "")).slice(0, 60).map((r) => r.slice(0, 16).map((c) => (c === null || c === undefined ? "" : c instanceof Date ? c.toISOString().slice(0, 10) : String(c))));
 
 interface AiExtract {
   company: string;
@@ -49,8 +63,19 @@ Income tax expense,4100,3900,4800,5000,5400,5200
 `;
 
 export default function DataPage() {
-  const { dataset: ds, docs, setDataset, loadSample, clear, updateLine, removeLine, setMeta, addDoc, removeDoc } = useStore();
+  const ds = useDataset();
+  const alias = useActiveAlias();
+  const aliasDocs = useAliasDocs();
+  const { aliases, docs, loadSample, clear, updateLine, removeLine, setMeta, addDoc, attachDoc, detachDoc, createAlias, setActiveAlias } = useStore();
   const ai = useAiStatus();
+  const [target, setTarget] = useState<string>(alias?.id ?? VAULT);
+  const targetRef = useRef(target);
+  targetRef.current = target;
+  const [newName, setNewName] = useState("");
+  const [newPreset, setNewPreset] = useState(MODULE_PRESETS[0].id);
+  const [showNew, setShowNew] = useState(false);
+  const [notice, setNotice] = useState<{ tone: "good" | "warn" | "bad"; text: string; aliasId?: string } | null>(null);
+  const [pickDoc, setPickDoc] = useState("");
   const [useAi, setUseAi] = useState(true);
   const [pending, setPending] = useState<Pending[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
@@ -75,6 +100,7 @@ export default function DataPage() {
         let via: Pending["via"] = "parser";
         let notes: string | undefined;
         let company: string | undefined;
+        let preview: string[][] | undefined;
         const isPdf = ext === "pdf" || file.type === "application/pdf";
         const isImg = /^image\//.test(file.type);
 
@@ -83,26 +109,30 @@ export default function DataPage() {
           const res = await postAi<AiExtract>("/api/ai/extract", { filename: file.name, mediaType: isPdf ? "application/pdf" : file.type, data: await fileToBase64(file) });
           parsed = { periods: res.periods, granularity: res.granularity, lines: res.lines.map((l) => ({ name: l.name, values: l.values })), warnings: [], layout: "wide" };
           const items: LineItem[] = res.lines.map((l) => ({ id: uid("ln"), name: l.name, category: l.category, group: l.group || CATEGORY_META[l.category].short, values: res.periods.map((_, i) => l.values[i] ?? 0), confidence: 0.9, source: file.name }));
-          setPending((p) => [...p, { file, parsed: parsed!, items, docKind: detectDocType(file.name, res.lines.map((l) => l.name).join(" ")), via: "ai", notes: res.notes, company: res.company }]);
+          setPending((p) => [...p, { file, parsed: parsed!, items, docKind: detectDocType(file.name, res.lines.map((l) => l.name).join(" ")), via: "ai", notes: res.notes, company: res.company, asReference: !items.length }]);
           continue;
         }
         if (isImg) throw new Error("Images need the AI engine to read them. Add an API key, or upload CSV, Excel or PDF.");
         if (ext === "csv" || ext === "tsv" || file.type === "text/csv") {
           const rows = await readCsv(file);
           sample = rows.slice(0, 40).map((r) => r.join(" ")).join("\n");
+          preview = toPreview(rows);
           parsed = parseTable(rows);
         } else if (["xlsx", "xls", "xlsm", "ods"].includes(ext)) {
           const { rows } = await readXlsx(file);
           sample = rows.slice(0, 40).map((r) => r.join(" ")).join("\n");
+          preview = toPreview(rows);
           parsed = parseTable(rows);
         } else if (isPdf) {
           const text = await readPdfText(file);
           sample = text;
           if (!text.trim()) throw new Error("This PDF has no text layer (it may be scanned). Turn on AI extraction to read it.");
+          preview = toPreview(text.split(/\r?\n/).map((l) => l.split(/\t| {2,}/)));
           parsed = parseText(text);
         } else {
           const text = await file.text();
           sample = text;
+          preview = toPreview(text.split(/\r?\n/).map((l) => l.split(/\t| {2,}|,/)));
           if (aiOn && text.length > 0) {
             setBusy(`AI is reading ${file.name}…`);
             const res = await postAi<AiExtract>("/api/ai/extract", { filename: file.name, text });
@@ -112,8 +142,12 @@ export default function DataPage() {
             company = res.company;
           } else parsed = parseText(text);
         }
-        if (!parsed.lines.length) throw new Error(`No statement lines found in ${file.name}. ${parsed.warnings.join(" ")}`);
-        setPending((p) => [...p, { file, parsed: parsed!, items: toLineItems(parsed!, file.name), docKind: detectDocType(file.name, sample), via, notes, company }]);
+        if (!parsed.lines.length && !preview?.length) throw new Error(`Nothing readable was found in ${file.name}.`);
+
+        const destAlias = useStore.getState().aliases.find((a) => a.id === targetRef.current);
+        const statementFree = Boolean(destAlias && !destAlias.modules.some((m) => m !== "optimize"));
+        const asReference = !parsed.lines.length || looksLikeDataTable(parsed, preview) || statementFree;
+        setPending((p) => [...p, { file, parsed: parsed!, items: toLineItems(parsed!, file.name), docKind: detectDocType(file.name, sample), via, notes, company, preview, asReference }]);
       } catch (e) {
         setError((e as Error).message);
       }
@@ -122,13 +156,39 @@ export default function DataPage() {
   }
 
   function commit(p: Pending) {
-    const base = mode === "replace" ? null : ds;
-    const next = mergeIntoDataset(base, p.parsed, p.items, p.company || (ds.isSample ? p.file.name.replace(/\.[^.]+$/, "") : ds.company));
-    setDataset({ ...next, isSample: false });
-    addDoc({ id: uid("doc"), name: p.file.name, size: p.file.size, kind: p.docKind, addedAt: new Date().toISOString(), linesExtracted: p.items.length });
+    const doc: VaultDoc = {
+      id: uid("doc"),
+      name: p.file.name,
+      size: p.file.size,
+      kind: p.docKind,
+      addedAt: new Date().toISOString(),
+      via: p.via,
+      periods: p.parsed.periods,
+      granularity: p.parsed.granularity,
+      items: p.asReference ? [] : p.items,
+      preview: p.preview,
+      notes: p.notes,
+    };
+    const aliasId = target === VAULT ? null : target;
+    const dest = aliases.find((a) => a.id === aliasId);
+    const r = addDoc(doc, aliasId, mode);
     setPending((list) => list.filter((x) => x !== p));
+    if (!r.ok) setNotice({ tone: "bad", text: `${r.error} The file was saved to the General Vault instead.` });
+    else if (!dest) setNotice({ tone: "good", text: `"${doc.name}" was saved to the General Vault. Assign it to an alias any time from Aliases & Vault.` });
+    else setNotice({ tone: r.warnings.length ? "warn" : "good", text: `"${doc.name}" was added to ${dest.name}.${r.warnings.length ? " " + r.warnings.join(" ") : ""}`, aliasId: dest.id });
     if (mode === "replace") setMode("merge");
   }
+
+  function makeAlias() {
+    const preset = MODULE_PRESETS.find((x) => x.id === newPreset)!;
+    const id = createAlias(newName || "New alias", preset.modules, undefined, !alias);
+    setTarget(id);
+    setNewName("");
+    setShowNew(false);
+  }
+
+  const vaultOnly = docs.filter((d) => !aliases.some((a) => a.docIds.includes(d.id)));
+  const otherDocs = alias ? docs.filter((d) => !alias.docIds.includes(d.id)) : [];
 
   const counts = useMemo(() => {
     const m = new Map<Category, number>();
@@ -153,12 +213,12 @@ export default function DataPage() {
       <PageHeader
         eyebrow="Data"
         title="Statements & data"
-        subtitle="Upload income statements, P&L exports, trial balances or general-ledger extracts (CSV, Excel, PDF). Fintel Hub pulls out revenue and other income, and sorts every expense into fixed or variable. Review and fix anything below."
+        subtitle="Upload income statements, P&L exports, ledgers or any supporting file (CSV, Excel, PDF). Choose an alias for each upload so different analyses never mix, or keep it in the General Vault until you decide. Fintel Hub pulls out revenue and other income and sorts every expense into fixed or variable."
         right={
           <>
             <Button variant="secondary" size="sm" onClick={() => downloadText("fintel-hub-template.csv", TEMPLATE)}><Download className="h-3.5 w-3.5" />CSV template</Button>
-            <Button variant="secondary" size="sm" onClick={loadSample}><RotateCcw className="h-3.5 w-3.5" />Load demo</Button>
-            <Button variant="danger" size="sm" onClick={() => { if (confirm("Remove all statement data?")) clear(); }}><Trash2 className="h-3.5 w-3.5" />Clear</Button>
+            {alias && <Button variant="secondary" size="sm" onClick={() => { if (confirm(`Replace the data in “${alias.name}” with the demo company?`)) loadSample(); }}><RotateCcw className="h-3.5 w-3.5" />Load demo</Button>}
+            {alias && <Button variant="danger" size="sm" onClick={() => { if (confirm(`Remove all statement data from “${alias.name}”? Documents stay in the vault.`)) clear(); }}><Trash2 className="h-3.5 w-3.5" />Clear alias</Button>}
           </>
         }
       />
@@ -171,6 +231,29 @@ export default function DataPage() {
             onDragLeave={() => setDrag(false)}
             onDrop={(e) => { e.preventDefault(); setDrag(false); handleFiles(e.dataTransfer.files); }}
           >
+            <div className="flex flex-wrap items-center gap-2 border-b border-dashed border-slate-300 px-5 py-3 text-[13px]">
+              <span className="font-semibold text-ink">Save uploads to</span>
+              <select aria-label="Upload destination" className="h-9 min-w-[220px] rounded-lg border border-line bg-white px-2 text-[13px] font-medium" value={target} onChange={(e) => setTarget(e.target.value)}>
+                <optgroup label="Aliases">
+                  {aliases.map((a) => <option key={a.id} value={a.id}>{a.name}{a.id === alias?.id ? " (current)" : ""}</option>)}
+                </optgroup>
+                <option value={VAULT}>General Vault (no alias yet)</option>
+              </select>
+              <Button size="sm" variant="secondary" onClick={() => setShowNew((v) => !v)}><FolderPlus className="h-3.5 w-3.5" />New alias</Button>
+              {target !== VAULT && (
+                <Segmented size="sm" value={mode} onChange={setMode} options={[{ value: "merge", label: "Add to alias data" }, { value: "replace", label: "Replace alias data" }]} />
+              )}
+            </div>
+            {showNew && (
+              <div className="grid gap-2 border-b border-dashed border-slate-300 bg-slate-50/70 px-5 py-3 sm:grid-cols-[1fr_200px_auto]">
+                <input autoFocus className={inputCls} placeholder="Alias name, e.g. “Q3 board pack” or “Plant 2 product mix”" value={newName} onChange={(e) => setNewName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && makeAlias()} />
+                <select className={inputCls} value={newPreset} onChange={(e) => setNewPreset(e.target.value)} aria-label="What is this alias for?">
+                  {MODULE_PRESETS.map((x) => <option key={x.id} value={x.id}>{x.label}</option>)}
+                </select>
+                <Button onClick={makeAlias}>Create</Button>
+                <p className="text-[11.5px] text-muted sm:col-span-3">{MODULE_PRESETS.find((x) => x.id === newPreset)?.description}</p>
+              </div>
+            )}
             <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
               <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand"><UploadCloud className="h-7 w-7" /></div>
               <div>
@@ -179,7 +262,6 @@ export default function DataPage() {
               </div>
               <input ref={input} type="file" multiple hidden accept=".csv,.tsv,.xlsx,.xls,.xlsm,.ods,.pdf,.txt,image/*" onChange={(e) => e.target.files && handleFiles(e.target.files)} />
               <div className="mt-1 flex flex-wrap items-center justify-center gap-3 text-[12px]">
-                <Segmented size="sm" value={mode} onChange={setMode} options={[{ value: "merge", label: "Merge with current data" }, { value: "replace", label: "Replace current data" }]} />
                 {ai?.configured ? (
                   <label className="inline-flex items-center gap-1.5 text-muted">
                     <input type="checkbox" checked={useAi} onChange={(e) => setUseAi(e.target.checked)} className="accent-indigo-600" />
@@ -194,6 +276,17 @@ export default function DataPage() {
           </Card>
 
           {error && <Callout tone="bad" title="Couldn't import a file">{error}</Callout>}
+          {notice && (
+            <Callout tone={notice.tone}>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span>{notice.text}</span>
+                <span className="flex gap-2">
+                  {notice.aliasId && notice.aliasId !== alias?.id && <Button size="sm" variant="secondary" onClick={() => setActiveAlias(notice.aliasId!)}>Open that alias</Button>}
+                  <Button size="sm" variant="ghost" onClick={() => setNotice(null)}>Dismiss</Button>
+                </span>
+              </div>
+            </Callout>
+          )}
 
           {pending.map((p, idx) => (
             <Card key={idx} className="overflow-hidden ring-2 ring-indigo-100">
@@ -207,7 +300,9 @@ export default function DataPage() {
                       {DOC_TYPES.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
                     </select>
                     <Button size="sm" variant="ghost" onClick={() => setPending((l) => l.filter((x) => x !== p))}>Discard</Button>
-                    <Button size="sm" onClick={() => commit(p)}><Wand2 className="h-3.5 w-3.5" />{mode === "replace" ? "Replace data" : "Import"}</Button>
+                    <Button size="sm" onClick={() => commit(p)}>
+                      {target === VAULT ? <><Archive className="h-3.5 w-3.5" />Save to vault</> : <><Wand2 className="h-3.5 w-3.5" />{mode === "replace" ? "Replace data in" : "Add to"} {aliases.find((a) => a.id === target)?.name ?? "alias"}</>}
+                    </Button>
                   </>
                 }
               />
@@ -217,7 +312,13 @@ export default function DataPage() {
                   {p.notes && <Callout tone="info" title="AI notes">{p.notes}</Callout>}
                 </div>
               )}
-              <div className="max-h-72 overflow-auto p-2">
+              <div className="flex flex-wrap items-center gap-2 px-5 pt-4 text-[12.5px]">
+                <span className="font-medium">Treat this file as</span>
+                <Segmented size="sm" value={p.asReference ? "ref" : "stmt"} onChange={(v) => setPending((l) => l.map((x) => (x === p ? { ...x, asReference: v === "ref" } : x)))} options={[{ value: "stmt", label: "Financial statement", disabled: !p.items.length }, { value: "ref", label: "Reference data" }]} />
+                <span className="text-muted">{p.asReference ? "Kept as-is for viewing (e.g. Optimizer inputs). It won't change any statement analysis." : "Its lines feed the dashboard, forecast and other statement analysis."}</span>
+              </div>
+              {p.asReference && p.preview && <PreviewTable rows={p.preview} />}
+              <div className={clsx("max-h-72 overflow-auto p-2", (p.asReference || !p.items.length) && "hidden")}>
                 <table className="w-full text-[12.5px]">
                   <tbody className="divide-y divide-line">
                     {p.items.map((it) => (
@@ -238,7 +339,19 @@ export default function DataPage() {
             </Card>
           ))}
 
-          <Card>
+          {!alias && (
+            <Card className="p-6 text-center">
+              <Archive className="mx-auto h-8 w-8 text-brand" />
+              <div className="mt-2 font-semibold">No alias selected</div>
+              <p className="mx-auto mt-1 max-w-md text-[13px] text-muted">Uploads go to the General Vault for now. Create an alias when you know what the analysis is for, then add documents to it from the vault.</p>
+              <div className="mt-4 flex justify-center gap-2">
+                <Button size="sm" onClick={() => setShowNew(true)}><FolderPlus className="h-3.5 w-3.5" />New alias</Button>
+                <Link href="/vault"><Button size="sm" variant="secondary">Open the vault ({vaultOnly.length})</Button></Link>
+              </div>
+            </Card>
+          )}
+
+          {alias && <Card>
             <CardHeader
               icon={<Database className="h-4 w-4" />}
               title="Line items & classification"
@@ -305,12 +418,12 @@ export default function DataPage() {
                 </tbody>
               </table>
             </div>
-          </Card>
+          </Card>}
         </div>
 
         <div className="min-w-0 space-y-5">
-          <Card>
-            <CardHeader title="Company settings" />
+          {alias && <Card>
+            <CardHeader title="Company settings" subtitle={<>For alias <b className="text-ink">{alias.name}</b></>} />
             <div className="space-y-3 p-5">
               <Field label="Company name"><input className={inputCls} value={ds.company} onChange={(e) => setMeta({ company: e.target.value })} /></Field>
               <div className="grid grid-cols-2 gap-3">
@@ -327,22 +440,47 @@ export default function DataPage() {
                 {ds.periods.length} {ds.granularity}ly periods{ds.periods.length ? ` from ${periodLabel(ds.periods[0])} to ${periodLabel(ds.periods[ds.periods.length - 1])}` : ""}.
               </div>
             </div>
-          </Card>
+          </Card>}
 
-          <Card>
-            <CardHeader title="Uploaded documents" subtitle="Used by the Document Advisor to show what's still missing" />
-            <div className="divide-y divide-line">
-              {docs.length === 0 && <div className="px-5 py-6 text-center text-[13px] text-muted">{ds.isSample ? "You're viewing the demo dataset." : "No documents uploaded yet."}</div>}
-              {docs.map((d) => (
-                <div key={d.id} className="flex items-center justify-between gap-2 px-5 py-2.5">
-                  <div className="min-w-0">
-                    <div className="truncate text-[13px] font-medium">{d.name}</div>
-                    <div className="text-[11px] text-muted">{docById(d.kind)?.name} · {d.linesExtracted} lines</div>
+          {alias && (
+            <Card>
+              <CardHeader title={`Documents in ${alias.name}`} subtitle="Only these feed this alias's analysis" />
+              <div className="divide-y divide-line">
+                {aliasDocs.length === 0 && <div className="px-5 py-6 text-center text-[13px] text-muted">{ds.isSample ? "This alias uses the built-in demo data." : "No documents in this alias yet."}</div>}
+                {aliasDocs.map((d) => (
+                  <div key={d.id} className="flex items-center justify-between gap-2 px-5 py-2.5">
+                    <div className="min-w-0">
+                      <div className="truncate text-[13px] font-medium">{d.name}</div>
+                      <div className="text-[11px] text-muted">{docById(d.kind)?.name} · {d.items.length ? `${d.items.length} lines` : d.via === "legacy" ? "added before aliases" : "reference document"}</div>
+                    </div>
+                    <button className="rounded p-1 text-slate-400 hover:text-warn" title="Remove from this alias (stays in the vault)" onClick={() => detachDoc(d.id, alias.id)} aria-label={`Remove ${d.name} from alias`}><Link2Off className="h-3.5 w-3.5" /></button>
                   </div>
-                  <button className="rounded p-1 text-slate-400 hover:text-bad" onClick={() => removeDoc(d.id)} aria-label="Remove document"><Trash2 className="h-3.5 w-3.5" /></button>
+                ))}
+              </div>
+              {otherDocs.length > 0 && (
+                <div className="flex gap-2 border-t border-line p-3">
+                  <select aria-label="Add a document from the vault" className={clsx(inputCls, "h-8 text-[12.5px]")} value={pickDoc} onChange={(e) => setPickDoc(e.target.value)}>
+                    <option value="">Add a document from the vault…</option>
+                    {otherDocs.map((d) => <option key={d.id} value={d.id}>{d.name}{vaultOnly.includes(d) ? " (General Vault)" : ""}</option>)}
+                  </select>
+                  <Button size="sm" disabled={!pickDoc} onClick={() => {
+                    const r = attachDoc(pickDoc, alias.id);
+                    const name = docs.find((d) => d.id === pickDoc)?.name;
+                    setNotice(r.ok ? { tone: r.warnings.length ? "warn" : "good", text: `"${name}" was added to ${alias.name}. ${r.warnings.join(" ")}` } : { tone: "bad", text: r.error ?? "Couldn't add the document." });
+                    setPickDoc("");
+                  }}>Add</Button>
                 </div>
-              ))}
+              )}
+            </Card>
+          )}
+
+          <Card className="p-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-[13px] font-semibold"><Archive className="h-4 w-4 text-brand" />General Vault</div>
+              <Badge tone={vaultOnly.length ? "warn" : "neutral"}>{vaultOnly.length} unassigned</Badge>
             </div>
+            <p className="mt-1 text-[12.5px] text-muted">Every upload is kept in the vault. Unassigned documents wait there until you add them to an alias.</p>
+            <Link href="/vault" className="mt-3 inline-block text-[13px] font-medium text-brand hover:underline">Open Aliases & Vault →</Link>
           </Card>
 
           <Card className="p-5 text-[13px]">
@@ -372,3 +510,4 @@ function Spark({ values, color }: { values: number[]; color: string }) {
     </svg>
   );
 }
+

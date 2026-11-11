@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { CheckCircle2, Crosshair, RotateCcw, SlidersHorizontal, Target, XCircle } from "lucide-react";
 import { Badge, Button, Card, CardHeader, Field, inputCls, Kpi, NumInput, PageHeader, Segmented, Slider } from "@/components/ui";
-import { useStore } from "@/store/useStore";
+import { useDataset, useStore } from "@/store/useStore";
 import { baselineFrom, dataTable, evaluate, goalSeek, TARGET_LABEL, tornado, ZERO_DRIVERS, type Baseline, type Drivers, type TargetMetric } from "@/lib/scenario";
 import { fmtMoney, fmtPct } from "@/lib/format";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import Link from "next/link";
 type Tab = "whatif" | "sensitivity" | "goal";
 
 export default function ScenariosPage() {
-  const ds = useStore((s) => s.dataset);
+  const ds = useDataset();
   const setMeta = useStore((s) => s.setMeta);
   const base0 = useMemo(() => baselineFrom(ds), [ds]);
   const [avgCost, setAvgCost] = useState<number | null>(null);

@@ -9,6 +9,7 @@ which documents you need for any analysis, and finds where AI can make roles and
 
 | Module | What it does |
 |---|---|
+| **Aliases & Vault** | Each analysis or check lives in its own **alias** (workspace) with its own documents, data, saved optimizer model and chosen features (full analysis, optimization only, pricing review, forecast & planning, or custom), so uploads never mix. Every upload is kept in the **vault**; unassigned documents wait in the **General Vault** until you add them to one or more aliases. |
 | **Statements & Data** | Upload CSV, Excel, PDF or text (wide, long/ledger, or single-period). Auto-classifies lines as revenue, other income, COGS, **variable** or **fixed** opex, interest or tax, and skips subtotals. Reclassify inline. |
 | **Dashboard** | KPIs (growth, gross / contribution / operating / net margin, break-even, margin of safety, operating leverage), trends, cost and income breakdowns, a condensed P&L, a quick forecast, and rule-based insights (plus an AI deep-dive). |
 | **Forecast** | Monthly, quarterly or yearly timeline with a choice of horizon. Auto-selects Holt-Winters, damped Holt, linear or CAGR, shows 80% prediction ranges, and adjusts for growth, inflation, cost ratio and tax. CSV export. |
@@ -36,7 +37,7 @@ A demo company is preloaded. Use **Statements & Data → CSV template** to see t
 
 - `npm run dev` / `npm run build` / `npm start`
 - `npm run lint`, `npm run typecheck`
-- `npm run selftest` runs the engine tests (classifier, parser, forecast, goal seek, optimizer, pricing, workflow)
+- `npm run selftest` runs the engine tests (classifier, parser, forecast, goal seek, optimizer, pricing, workflow, aliases & vault)
 
 ## Tech
 
@@ -51,8 +52,8 @@ Anthropic, when an AI feature is used and an API key is configured.
 ## Project layout
 
 ```
-src/app/            pages (dashboard, data, forecast, scenarios, optimize, pricing, documents, workflow) + api/ai/*
-src/lib/            engines: classify, parse, finance, forecast, scenario, optimize, pricing, documents, workflow
+src/app/            pages (dashboard, vault, data, forecast, scenarios, optimize, pricing, documents, workflow) + api/ai/*
+src/lib/            engines: aliases, classify, parse, finance, forecast, scenario, optimize, pricing, documents, workflow
 src/components/     app shell, UI kit, chart helpers
 scripts/selftest.ts engine tests
 ```

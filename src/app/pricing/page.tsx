@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { AlertTriangle, CheckCircle2, RotateCcw, Tag, Trophy, XCircle } from "lucide-react";
 import { Badge, Button, Card, CardHeader, Field, NumInput, PageHeader, Slider } from "@/components/ui";
-import { useStore } from "@/store/useStore";
+import { useDataset } from "@/store/useStore";
 import { pricingChecks, simulate, STRATEGIES, type PricingInputs, type Strategy } from "@/lib/pricing";
 import { periodsPerYear, trailingYear } from "@/lib/finance";
 import { fmtMoney, fmtPct } from "@/lib/format";
@@ -42,7 +42,7 @@ function defaultsFrom(ds: Dataset): PricingInputs {
 }
 
 export default function PricingPage() {
-  const ds = useStore((s) => s.dataset);
+  const ds = useDataset();
   const defaults = useMemo(() => defaultsFrom(ds), [ds]);
   const [inp, setInp] = useState<PricingInputs>(defaults);
   const [custom, setCustom] = useState<Strategy>({ id: "custom", name: "Custom strategy", description: "Your own price change and assumptions.", priceChange: 0.05, churnChange: 0, acquisitionBoost: 0 });

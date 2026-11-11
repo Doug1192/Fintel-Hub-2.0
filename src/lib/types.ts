@@ -46,6 +46,8 @@ export interface LineItem {
   /** 0..1 classifier confidence. 1 = set by the user. */
   confidence: number;
   source?: string;
+  /** Vault document this line came from (used to detach a document from an alias). */
+  docId?: string;
 }
 
 export interface UploadedDoc {
@@ -82,4 +84,55 @@ export interface PeriodSummary {
   contribution: number;
   operatingIncome: number;
   netIncome: number;
+}
+
+/** Analysis modules an alias can switch on. Data, Documents and Workflow are always available. */
+export type ModuleKey = "dashboard" | "forecast" | "scenarios" | "pricing" | "optimize";
+
+export const MODULES: Record<ModuleKey, { label: string; href: string; needsStatements: boolean }> = {
+  dashboard: { label: "Dashboard", href: "/", needsStatements: true },
+  forecast: { label: "Forecast", href: "/forecast", needsStatements: true },
+  scenarios: { label: "Sensitivity & Goal Seek", href: "/scenarios", needsStatements: true },
+  pricing: { label: "Pricing Lab", href: "/pricing", needsStatements: false },
+  optimize: { label: "Optimizer", href: "/optimize", needsStatements: false },
+};
+
+export const ALL_MODULES = Object.keys(MODULES) as ModuleKey[];
+
+export const MODULE_PRESETS: { id: string; label: string; description: string; modules: ModuleKey[] }[] = [
+  { id: "full", label: "Full analysis", description: "Every analysis feature: dashboard, forecast, scenarios, pricing and optimizer.", modules: ALL_MODULES },
+  { id: "optimization", label: "Optimization only", description: "Just the Optimizer. Documents are kept as reference; no statement analysis.", modules: ["optimize"] },
+  { id: "pricing", label: "Pricing review", description: "Pricing Lab plus the dashboard.", modules: ["dashboard", "pricing"] },
+  { id: "forecast", label: "Forecast & planning", description: "Dashboard, forecast and scenarios.", modules: ["dashboard", "forecast", "scenarios"] },
+];
+
+/** A document saved in the vault. It can belong to any number of aliases (or none: the General Vault). */
+export interface VaultDoc {
+  id: string;
+  name: string;
+  size: number;
+  kind: string; // detected document type id, see documents.ts
+  addedAt: string;
+  via: "parser" | "ai" | "legacy";
+  /** Parsed statement content; empty for reference-only documents. */
+  periods: string[];
+  granularity: Granularity;
+  items: LineItem[];
+  /** First rows of the raw table, for reference documents (e.g. capacity sheets used by the Optimizer). */
+  preview?: string[][];
+  notes?: string;
+}
+
+/** A named workspace ("alias") that keeps one analysis separate from another. */
+export interface Alias {
+  id: string;
+  name: string;
+  color: string;
+  description?: string;
+  modules: ModuleKey[];
+  dataset: Dataset;
+  docIds: string[];
+  /** Saved Optimizer model for this alias (shape defined in optimize.ts). */
+  optModel?: unknown;
+  createdAt: string;
 }

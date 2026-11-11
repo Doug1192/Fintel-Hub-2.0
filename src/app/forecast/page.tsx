@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { Area, Bar, CartesianGrid, ComposedChart, Legend, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Download, LineChart as LineIcon } from "lucide-react";
 import { Badge, Button, Callout, Card, CardHeader, Field, inputCls, Kpi, PageHeader, Segmented, Slider } from "@/components/ui";
-import { useStore } from "@/store/useStore";
+import { useDataset } from "@/store/useStore";
 import { canAggregate, summarize, totals } from "@/lib/finance";
 import { forecastPnl, type ForecastMethod } from "@/lib/forecast";
 import { fmtMoney, fmtPct, periodLabel } from "@/lib/format";
@@ -23,7 +23,7 @@ const METHOD_LABEL: Record<ForecastMethod, string> = {
 const HORIZONS: Record<Granularity, number[]> = { month: [3, 6, 12, 18, 24, 36], quarter: [2, 4, 6, 8, 12], year: [1, 2, 3, 5] };
 
 export default function ForecastPage() {
-  const ds = useStore((s) => s.dataset);
+  const ds = useDataset();
   const grans = (["month", "quarter", "year"] as Granularity[]).filter((g) => canAggregate(ds.granularity, g));
   const [g, setG] = useState<Granularity>(grans[0]);
   const [h, setH] = useState(g === "month" ? 12 : g === "quarter" ? 4 : 3);

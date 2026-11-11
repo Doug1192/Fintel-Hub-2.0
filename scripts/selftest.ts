@@ -103,4 +103,54 @@ t("workflow rules", () => {
   assert.ok(a.tasks[0].automationPotential > a.tasks[2].automationPotential);
 });
 
+
+// ---- aliases & vault
+import { attachDocToDataset, detachDocFromDataset, emptyDataset, generalVault, migrateV1, newAlias } from "../src/lib/aliases";
+import type { VaultDoc } from "../src/lib/types";
+
+const mkDoc = (id: string, periods: string[], rows: [string, number[]][], gran: "month" | "quarter" | "year" = "month"): VaultDoc => {
+  const parsed = { periods, granularity: gran, lines: rows.map(([name, values]) => ({ name, values })), warnings: [], layout: "wide" as const };
+  return { id, name: id + ".csv", size: 1, kind: "income_statement", addedAt: "", via: "parser", periods, granularity: gran, items: toLineItems(parsed, id) };
+};
+
+t("aliases: attach, merge, detach, vault", () => {
+  const h1 = mkDoc("h1", ["2025-01", "2025-02"], [["Sales", [100, 110]], ["Rent", [20, 20]]]);
+  const h2 = mkDoc("h2", ["2025-03"], [["Sales", [120]], ["Rent", [20]]]);
+  let ds = attachDocToDataset(emptyDataset(), h1).dataset;
+  assert.deepEqual(ds.periods, ["2025-01", "2025-02"]);
+  const r2 = attachDocToDataset(ds, h2);
+  assert.equal(r2.warnings.length, 0);
+  ds = r2.dataset;
+  assert.deepEqual(ds.periods, ["2025-01", "2025-02", "2025-03"]);
+  assert.equal(summarize(ds).reduce((a, r) => a + r.revenue, 0), 330);
+  // Same document twice → double-counting warning.
+  assert.equal(attachDocToDataset(ds, mkDoc("dup", ["2025-01"], [["Sales", [100]]])).warnings.length, 1);
+  // Different granularity → refused, data unchanged.
+  const yr = attachDocToDataset(ds, mkDoc("y", ["2024"], [["Sales", [1000]]], "year"));
+  assert.ok(yr.error);
+  assert.equal(yr.dataset, ds);
+  // Detach h2 → back to two periods.
+  const back = detachDocFromDataset(ds, "h2");
+  assert.deepEqual(back.periods, ["2025-01", "2025-02"]);
+  assert.equal(summarize(back).reduce((a, r) => a + r.revenue, 0), 210);
+  // Reference docs leave data alone.
+  const ref: VaultDoc = { ...mkDoc("ref", [], []), preview: [["Product", "Hours"], ["A", "3"]] };
+  assert.equal(attachDocToDataset(back, ref).dataset, back);
+  // General vault = docs in no alias.
+  const a = newAlias("A");
+  a.docIds = ["h1"];
+  assert.deepEqual(generalVault([h1, h2, ref], [a]).map((d) => d.id), ["h2", "ref"]);
+});
+
+t("aliases: migrate v1 storage", () => {
+  const sample = migrateV1({ dataset: buildSampleDataset(), docs: [] });
+  assert.equal(sample.aliases.length, 1);
+  const real = { ...buildSampleDataset(), isSample: false, company: "Acme" };
+  const m = migrateV1({ dataset: real, docs: [{ id: "d1", name: "pl.csv", size: 1, kind: "income_statement", addedAt: "", linesExtracted: 3 }] });
+  assert.equal(m.aliases[0].name, "Acme");
+  assert.deepEqual(m.aliases[0].docIds, ["d1"]);
+  assert.equal(m.activeAliasId, m.aliases[0].id);
+  assert.equal(m.aliases[0].dataset.lines.length, real.lines.length);
+});
+
 console.log(`\nAll ${n} test groups passed.`);

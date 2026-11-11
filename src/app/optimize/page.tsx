@@ -2,9 +2,13 @@
 
 import { tipFmt } from "@/components/chart";
 import clsx from "clsx";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { Calculator, CheckCircle2, Plus, Sparkles, Trash2, Wand2, XCircle } from "lucide-react";
+import { Calculator, CheckCircle2, ChevronDown, ChevronRight, FileText, Plus, Sparkles, Trash2, Wand2, XCircle } from "lucide-react";
+import Link from "next/link";
+import { PreviewTable } from "@/components/PreviewTable";
+import { useActiveAlias, useAliasDocs, useStore } from "@/store/useStore";
+import type { VaultDoc } from "@/lib/types";
 import { Badge, Button, Callout, Card, CardHeader, inputCls, PageHeader, Segmented } from "@/components/ui";
 import { solve, TEMPLATES, type OptModel } from "@/lib/optimize";
 import { fmtNum } from "@/lib/format";
@@ -22,10 +26,22 @@ interface AiModel {
 const clone = (m: OptModel): OptModel => JSON.parse(JSON.stringify(m));
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "") || "x";
 
+function isModel(m: unknown): m is OptModel {
+  return Boolean(m && typeof m === "object" && Array.isArray((m as OptModel).variables) && Array.isArray((m as OptModel).constraints));
+}
+
 export default function OptimizePage() {
-  const [model, setModel] = useState<OptModel>(clone(TEMPLATES[0].model));
-  const [tpl, setTpl] = useState(TEMPLATES[0].id);
+  const alias = useActiveAlias();
+  const refDocs = useAliasDocs();
+  const saveOptModel = useStore((s) => s.saveOptModel);
+  // Each alias keeps its own model, so optimizations for different checks never mix.
+  const saved = isModel(alias?.optModel) ? alias!.optModel : null;
+  const [model, setModel] = useState<OptModel>(clone(saved ?? TEMPLATES[0].model));
+  const [tpl, setTpl] = useState(saved ? "" : TEMPLATES[0].id);
   const [solved, setSolved] = useState<OptModel | null>(model);
+  useEffect(() => {
+    if (alias && solved) saveOptModel(alias.id, solved);
+  }, [alias?.id, solved, saveOptModel]); // eslint-disable-line react-hooks/exhaustive-deps
   const ai = useAiStatus();
   const [desc, setDesc] = useState("");
   const [busy, setBusy] = useState(false);
@@ -69,7 +85,7 @@ export default function OptimizePage() {
       <PageHeader
         eyebrow="Decide"
         title="Optimization studio"
-        subtitle="Define your decision variables, constraints and objective, and Fintel Hub finds the best solution with linear or integer programming. Start from a template or describe the problem in plain English."
+        subtitle={<>Define your decision variables, constraints and objective, and Fintel Hub finds the best solution with linear or integer programming. The model is saved to the alias <b className="text-ink">{alias?.name}</b> each time you solve.</>}
         right={<Button onClick={() => setSolved(clone(model))}><Calculator className="h-4 w-4" />Solve{dirty ? " (changes pending)" : ""}</Button>}
       />
 
@@ -233,6 +249,7 @@ export default function OptimizePage() {
               )}
             </>
           )}
+          <ReferenceDocs docs={refDocs} aliasName={alias?.name ?? ""} />
           <Card className="p-5 text-[12.5px] text-muted">
             <div className="mb-1 font-semibold text-ink">Tips</div>
             <ul className="list-disc space-y-1 pl-4">
@@ -244,5 +261,39 @@ export default function OptimizePage() {
         </div>
       </div>
     </>
+  );
+}
+
+function ReferenceDocs({ docs, aliasName }: { docs: VaultDoc[]; aliasName: string }) {
+  const [open, setOpen] = useState<string | null>(docs[0]?.id ?? null);
+  return (
+    <Card>
+      <CardHeader icon={<FileText className="h-4 w-4" />} title="Reference documents" subtitle={`Documents in ${aliasName}. Use their figures for coefficients and limits.`} />
+      {docs.length === 0 ? (
+        <div className="px-5 py-5 text-[12.5px] text-muted">
+          No documents in this alias. <Link href="/data" className="font-medium text-brand hover:underline">Upload</Link> a capacity sheet, price list or cost table, or <Link href="/vault" className="font-medium text-brand hover:underline">add one from the vault</Link>.
+        </div>
+      ) : (
+        <div className="divide-y divide-line">
+          {docs.map((d) => (
+            <div key={d.id}>
+              <button className="flex w-full items-center gap-2 px-5 py-2.5 text-left text-[13px] font-medium hover:bg-slate-50" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id}>
+                {open === d.id ? <ChevronDown className="h-4 w-4 text-slate-400" /> : <ChevronRight className="h-4 w-4 text-slate-400" />}
+                <span className="truncate">{d.name}</span>
+              </button>
+              {open === d.id && (
+                d.preview?.length ? <PreviewTable rows={d.preview} /> : d.items.length ? (
+                  <div className="max-h-60 overflow-auto px-3 pb-3">
+                    <table className="w-full text-[12px]"><tbody className="divide-y divide-line">
+                      {d.items.map((it) => <tr key={it.id}><td className="px-2 py-1">{it.name}</td><td className="tabular px-2 py-1 text-right text-muted">{fmtNum(it.values.reduce((a, b) => a + b, 0))}</td></tr>)}
+                    </tbody></table>
+                  </div>
+                ) : <div className="px-5 pb-3 text-[12px] text-muted">No preview available.</div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </Card>
   );
 }

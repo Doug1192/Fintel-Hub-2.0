@@ -8,11 +8,11 @@ import {
 } from "recharts";
 import { AlertTriangle, CheckCircle2, FileUp, Info, Lightbulb, LineChart as LineIcon, Sparkles, TrendingDown, XCircle } from "lucide-react";
 import { Badge, Button, Card, CardHeader, Callout, EmptyState, Kpi, PageHeader, Segmented } from "@/components/ui";
-import { useStore } from "@/store/useStore";
+import { useDataset } from "@/store/useStore";
 import { canAggregate, computeKpis, groupBreakdown, ruleInsights, summarize, totals, trailingYear, type Insight } from "@/lib/finance";
 import { forecastPnl } from "@/lib/forecast";
 import { fmtMoney, fmtPct, periodLabel } from "@/lib/format";
-import { CATEGORY_META, type Granularity } from "@/lib/types";
+import { CATEGORY_META, type Dataset, type Granularity } from "@/lib/types";
 import { postAi, useAiStatus } from "@/components/useAi";
 
 type Tab = "overview" | "trends" | "breakdown" | "forecast";
@@ -31,7 +31,7 @@ interface AiInsights {
 }
 
 export default function Dashboard() {
-  const ds = useStore((s) => s.dataset);
+  const ds = useDataset();
   const [tab, setTab] = useState<Tab>("overview");
   const [gran, setGran] = useState<Granularity>(ds.granularity === "month" ? "month" : ds.granularity);
   const g = canAggregate(ds.granularity, gran) ? gran : ds.granularity;
@@ -329,7 +329,7 @@ function KpiTable({ kpis, cur, headcount }: { kpis: ReturnType<typeof computeKpi
   );
 }
 
-function PnlTable({ ds, cur }: { ds: ReturnType<typeof useStore.getState>["dataset"]; cur: string }) {
+function PnlTable({ ds, cur }: { ds: Dataset; cur: string }) {
   const g: Granularity = canAggregate(ds.granularity, "quarter") ? "quarter" : ds.granularity;
   const rows = summarize(ds, g).slice(-6);
   const t = totals(rows);
@@ -361,7 +361,7 @@ function PnlTable({ ds, cur }: { ds: ReturnType<typeof useStore.getState>["datas
   );
 }
 
-function QuickForecast({ ds }: { ds: ReturnType<typeof useStore.getState>["dataset"] }) {
+function QuickForecast({ ds }: { ds: Dataset }) {
   const options: Granularity[] = (["month", "quarter", "year"] as Granularity[]).filter((x) => canAggregate(ds.granularity, x));
   const [g, setG] = useState<Granularity>(options.includes("quarter") ? "quarter" : options[0]);
   const defaultH = { month: 12, quarter: 4, year: 3 };
