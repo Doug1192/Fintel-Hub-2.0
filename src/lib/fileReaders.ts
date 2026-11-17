@@ -71,3 +71,17 @@ export function downloadText(name: string, text: string, type = "text/csv") {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
+/** First rows of an uploaded table as text cells (CSV, TSV, Excel, PDF text or plain text). */
+export async function readTableFile(file: File): Promise<string[][]> {
+  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+  let rows: unknown[][];
+  if (ext === "csv" || ext === "tsv" || file.type === "text/csv") rows = await readCsv(file);
+  else if (["xlsx", "xls", "xlsm", "ods"].includes(ext)) rows = (await readXlsx(file)).rows;
+  else if (ext === "pdf" || file.type === "application/pdf") rows = (await readPdfText(file)).split(/\r?\n/).map((l) => l.split(/\t| {2,}/));
+  else rows = (await file.text()).split(/\r?\n/).map((l) => l.split(/\t|,/));
+  return rows
+    .filter((r) => r && r.some((c) => c !== null && c !== undefined && String(c).trim() !== ""))
+    .slice(0, 200)
+    .map((r) => r.slice(0, 30).map((c) => (c === null || c === undefined ? "" : c instanceof Date ? c.toISOString().slice(0, 10) : String(c).trim())));
+}

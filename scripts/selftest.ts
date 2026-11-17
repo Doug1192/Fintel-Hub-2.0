@@ -8,6 +8,7 @@ import { forecastPnl } from "../src/lib/forecast";
 import { baselineFrom, evaluate, goalSeek, ZERO_DRIVERS } from "../src/lib/scenario";
 import { addFixedCharge, checkFeasible, formulation, maxOfSum, sensitivity, solve, toLpFormat, toPulp, toScipy, weightedAverageConstraint, type OptModel } from "../src/lib/optimize";
 import { TEMPLATES } from "../src/lib/optTemplates";
+import { checkMapping, guessMapping, modelFromTable } from "../src/lib/docToModel";
 import { allocationModel, coverageModel, inventoryModel, networkModel, parsePerPeriod } from "../src/lib/optBuilders";
 import { readFileSync } from "node:fs";
 import { simulate, STRATEGIES } from "../src/lib/pricing";
@@ -287,6 +288,35 @@ t("optimizer: network builder — 30 random fixed-cost networks match SciPy (HiG
   assert.equal(solve(networkModel({ title: "n", periods: 1, periodLabel: "Month", holdingOn: "ending",
     nodes: [{ name: "F", produceMax: 100, produceCost: 1, canStore: false }, { name: "S", demand: 60, startingStock: 60 }],
     arcs: [{ from: "F", to: "S", unitCost: 2, fixedCost: 50 }] })).objective, 0);
+});
+
+t("optimizer: build a model straight from an uploaded table", () => {
+  // Price/cost sheet with an "Available" row → profit = price − cost, limits read from the row.
+  const pc = [["Product", "Price ($)", "Cost ($)", "Sewing hrs", "Assembly hrs", "Max demand"], ["Backpack", "$80", "$42", "0.8", "0.4", "1,800"], ["Rain shell", "$95", "$43", "1.2", "0.3", "1,200"], ["Camp stove", "$60", "$33", "0", "0.9", "2,500"], ["Available", "", "", "2,400", "2,100", ""]];
+  const g = guessMapping(pc);
+  assert.deepEqual(g.roles, ["label", "price", "cost", "resource", "resource", "max"]);
+  assert.equal(g.limitRow, 4);
+  assert.deepEqual(g.variableRows, [1, 2, 3]);
+  assert.equal(checkMapping(pc, g).length, 0);
+  const m = modelFromTable(pc, g, "Outdoor");
+  assert.deepEqual(m.variables.map((v) => [v.name, v.objective, v.max]), [["Backpack", 38, 1800], ["Rain_shell", 52, 1200], ["Camp_stove", 27, 2500]]);
+  assert.equal(solve(m).objective, 145800, "same answer as the product-mix template built from this data");
+  // Profit column, no limit row → resources need typed limits (warned), then solve.
+  const cap = [["Product", "Profit per unit", "Machine hours", "Labour hours", "Max demand"], ["Tables", "40", "3", "2", "50"], ["Chairs", "25", "1", "1.5", "120"], ["Desks", "55", "4", "3", "30"]];
+  const g2 = guessMapping(cap);
+  assert.deepEqual(g2.roles, ["label", "objective", "resource", "resource", "max"]);
+  assert.ok(checkMapping(cap, g2).some((p) => p.level === "warn" && p.text.includes("Machine hours")));
+  g2.limits[2] = 240; g2.limits[3] = 200;
+  assert.equal(solve(modelFromTable(cap, g2, "Furniture")).objective, 3725);
+  // Cost-only supplier sheet → minimize; empty min cells default to 0.
+  const sup = [["Supplier", "Cost per ton", "Min order", "Max supply"], ["A", "52", "0", "400"], ["B", "47", "100", "300"], ["C", "58", "", "500"]];
+  const g3 = guessMapping(sup);
+  assert.equal(g3.direction, "min");
+  const m3 = modelFromTable(sup, g3, "Suppliers");
+  m3.constraints.push({ name: "Need 600 t", terms: { A: 1, B: 1, C: 1 }, relation: ">=", rhs: 600 });
+  assert.equal(solve(m3).objective, 300 * 47 + 300 * 52, "cheapest first: B at its max, then A");
+  // Nothing marked as objective → error, no model.
+  assert.ok(checkMapping(cap, { ...g2, roles: g2.roles.map((r) => (r === "objective" ? "ignore" : r)) }).some((p) => p.level === "error"));
 });
 
 t("optimizer: objective constant", () => {

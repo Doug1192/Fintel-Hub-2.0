@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Archive, Database, Download, FileSpreadsheet, FileText, FolderPlus, Link2Off, RotateCcw, Search, Sparkles, Trash2, UploadCloud, Wand2 } from "lucide-react";
 import { Badge, Button, Callout, Card, CardHeader, Field, inputCls, NumInput, PageHeader, Segmented } from "@/components/ui";
 import { useActiveAlias, useAliasDocs, useDataset, useStore } from "@/store/useStore";
@@ -74,7 +75,13 @@ export default function DataPage() {
   const [newName, setNewName] = useState("");
   const [newPreset, setNewPreset] = useState(MODULE_PRESETS[0].id);
   const [showNew, setShowNew] = useState(false);
-  const [notice, setNotice] = useState<{ tone: "good" | "warn" | "bad"; text: string; aliasId?: string } | null>(null);
+  const [notice, setNotice] = useState<{ tone: "good" | "warn" | "bad"; text: string; aliasId?: string; docId?: string } | null>(null);
+  const router = useRouter();
+  /** Jump to the Optimizer with this document open in the document builder. */
+  const optimizeWith = (docId: string, aliasId: string) => {
+    if (aliasId !== alias?.id) setActiveAlias(aliasId);
+    router.push(`/optimize?doc=${docId}`);
+  };
   const [pickDoc, setPickDoc] = useState("");
   const [useAi, setUseAi] = useState(true);
   const [pending, setPending] = useState<Pending[]>([]);
@@ -175,7 +182,7 @@ export default function DataPage() {
     setPending((list) => list.filter((x) => x !== p));
     if (!r.ok) setNotice({ tone: "bad", text: `${r.error} The file was saved to the General Vault instead.` });
     else if (!dest) setNotice({ tone: "good", text: `"${doc.name}" was saved to the General Vault. Assign it to an alias any time from Aliases & Vault.` });
-    else setNotice({ tone: r.warnings.length ? "warn" : "good", text: `"${doc.name}" was added to ${dest.name}.${r.warnings.length ? " " + r.warnings.join(" ") : ""}`, aliasId: dest.id });
+    else setNotice({ tone: r.warnings.length ? "warn" : "good", text: `"${doc.name}" was added to ${dest.name}.${r.warnings.length ? " " + r.warnings.join(" ") : ""}`, aliasId: dest.id, docId: doc.id });
     if (mode === "replace") setMode("merge");
   }
 
@@ -258,7 +265,7 @@ export default function DataPage() {
               <div className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand"><UploadCloud className="h-7 w-7" /></div>
               <div>
                 <div className="text-base font-semibold">Drop statements here or <button className="text-brand underline-offset-2 hover:underline" onClick={() => input.current?.click()}>browse</button></div>
-                <div className="mt-1 text-[13px] text-muted">CSV, XLSX/XLS, PDF, TXT{ai?.configured ? ", or images (with AI)" : ""}. Multi-period (months, quarters, years) or single-period statements.</div>
+                <div className="mt-1 text-[13px] text-muted">CSV, XLSX/XLS, PDF, TXT{ai?.configured ? ", or images (with AI)" : ""}. Financial statements for analysis, or data tables (products, capacities, costs) to optimize. After importing, click <b>Optimize with this</b> to build a model straight from the file.</div>
               </div>
               <input ref={input} type="file" multiple hidden accept=".csv,.tsv,.xlsx,.xls,.xlsm,.ods,.pdf,.txt,image/*" onChange={(e) => e.target.files && handleFiles(e.target.files)} />
               <div className="mt-1 flex flex-wrap items-center justify-center gap-3 text-[12px]">
@@ -281,6 +288,7 @@ export default function DataPage() {
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span>{notice.text}</span>
                 <span className="flex gap-2">
+                  {notice.docId && notice.aliasId && <Button size="sm" onClick={() => optimizeWith(notice.docId!, notice.aliasId!)}><Wand2 className="h-3.5 w-3.5" />Optimize with this</Button>}
                   {notice.aliasId && notice.aliasId !== alias?.id && <Button size="sm" variant="secondary" onClick={() => setActiveAlias(notice.aliasId!)}>Open that alias</Button>}
                   <Button size="sm" variant="ghost" onClick={() => setNotice(null)}>Dismiss</Button>
                 </span>
@@ -453,7 +461,10 @@ export default function DataPage() {
                       <div className="truncate text-[13px] font-medium">{d.name}</div>
                       <div className="text-[11px] text-muted">{docById(d.kind)?.name} · {d.items.length ? `${d.items.length} lines` : d.via === "legacy" ? "added before aliases" : "reference document"}</div>
                     </div>
-                    <button className="rounded p-1 text-slate-400 hover:text-warn" title="Remove from this alias (stays in the vault)" onClick={() => detachDoc(d.id, alias.id)} aria-label={`Remove ${d.name} from alias`}><Link2Off className="h-3.5 w-3.5" /></button>
+                    <span className="flex shrink-0 items-center gap-0.5">
+                      <button className="rounded px-1.5 py-1 text-[11.5px] font-medium text-brand hover:bg-brand-soft" title="Build an optimization model from this file" onClick={() => optimizeWith(d.id, alias.id)} aria-label={`Optimize with ${d.name}`}><Wand2 className="mr-0.5 inline h-3.5 w-3.5" />Optimize</button>
+                      <button className="rounded p-1 text-slate-400 hover:text-warn" title="Remove from this alias (stays in the vault)" onClick={() => detachDoc(d.id, alias.id)} aria-label={`Remove ${d.name} from alias`}><Link2Off className="h-3.5 w-3.5" /></button>
+                    </span>
                   </div>
                 ))}
               </div>

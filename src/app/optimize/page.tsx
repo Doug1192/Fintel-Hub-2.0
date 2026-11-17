@@ -12,6 +12,8 @@ import {
 import { Badge, Button, Callout, Card, CardHeader, inputCls, PageHeader, Segmented } from "@/components/ui";
 import { PreviewTable } from "@/components/PreviewTable";
 import { ModelBuilder, type BuilderSpec } from "@/components/ModelBuilder";
+import { DocModelWizard, type DocSource } from "@/components/DocModelWizard";
+import type { TableMapping } from "@/lib/docToModel";
 import { postAi, useAiStatus } from "@/components/useAi";
 import { useActiveAlias, useAliasDocs, useStore } from "@/store/useStore";
 import {
@@ -19,7 +21,9 @@ import {
   weightedAverageConstraint, type OptConstraint, type OptModel, type OptResult, type Relation, type Sensitivity,
 } from "@/lib/optimize";
 import { TEMPLATE_GROUPS, TEMPLATES, type OptTemplate } from "@/lib/optTemplates";
-import { downloadText } from "@/lib/fileReaders";
+import { downloadText, readTableFile } from "@/lib/fileReaders";
+import { detectDocType } from "@/lib/documents";
+import { uid } from "@/lib/format";
 import { fmtNum } from "@/lib/format";
 import type { VaultDoc } from "@/lib/types";
 
@@ -55,6 +59,16 @@ export default function OptimizePage() {
   const refDocs = useAliasDocs();
   const saveOptModel = useStore((s) => s.saveOptModel);
   const hidden = useStore((s) => s.hiddenTemplates);
+  const addDoc = useStore((s) => s.addDoc);
+  /** Save an uploaded table to this alias (as a reference document) and return its rows for mapping. */
+  const uploadForOptimizer = async (file: File) => {
+    if (!alias) throw new Error("Choose an alias first.");
+    const rows = await readTableFile(file);
+    const id = uid("doc");
+    const r = addDoc({ id, name: file.name, size: file.size, kind: detectDocType(file.name, rows.slice(0, 20).map((x) => x.join(" ")).join("\n")), addedAt: new Date().toISOString(), via: "parser", periods: [], granularity: "month", items: [], preview: rows.slice(0, 60) }, alias.id);
+    if (!r.ok) throw new Error(r.error ?? "Couldn't save the file.");
+    return { docId: id, rows };
+  };
   const hideTemplates = useStore((s) => s.hideTemplates);
   const restoreTemplates = useStore((s) => s.restoreTemplates);
   const saved = alias && isModel(alias.optModel) ? (alias.optModel as OptModel) : null;
@@ -70,6 +84,16 @@ export default function OptimizePage() {
   const [aiNote, setAiNote] = useState<string | null>(null);
   const [showProblem, setShowProblem] = useState(true);
   const [showBuilder, setShowBuilder] = useState(false);
+  const [docWizard, setDocWizard] = useState<{ docId: string; mapping?: TableMapping } | null>(null);
+  const docSource = model.source?.kind === "document" ? (model.source as DocSource) : null;
+  // Arriving from "Optimize with this" (?doc=<id>): open the document builder for that file.
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("doc");
+    if (id && refDocs.some((d) => d.id === id)) {
+      setDocWizard({ docId: id });
+      window.history.replaceState(null, "", "/optimize");
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const builderSpec = (model.source && ["inventory", "allocation", "coverage", "network"].includes(model.source.kind) ? model.source : null) as BuilderSpec | null;
   const generate = (m: OptModel, spec: BuilderSpec) => {
     const next = { ...m, source: spec };
@@ -104,11 +128,11 @@ export default function OptimizePage() {
     setAiNote(null);
   };
 
-  const buildWithAi = async () => {
+  const buildWithAi = async (description = desc, fromDoc = false) => {
     setBusy(true);
     setErr(null);
     try {
-      const r = await postAi<AiModel>("/api/ai/optimize", { description: desc });
+      const r = await postAi<AiModel>("/api/ai/optimize", { description });
       const m: OptModel = {
         title: r.title, direction: r.direction, objectiveName: r.objectiveName, notes: r.notes, nonNegative: true,
         variables: r.variables.map((v) => ({ ...v, name: slug(v.name) })),
@@ -118,7 +142,9 @@ export default function OptimizePage() {
       setSolved(m);
       setTplId("");
       setAiNote(r.linear ? null : "This problem looks nonlinear. The model below is a linear approximation; check it before relying on the answer.");
+      if (fromDoc) setDocWizard(null);
     } catch (e) {
+      if (fromDoc) throw e;
       setErr((e as Error).message);
     } finally {
       setBusy(false);
@@ -139,6 +165,9 @@ export default function OptimizePage() {
         subtitle={<>Built the way Excel Solver works: <b className="text-ink">set the objective</b>, choose the <b className="text-ink">changing (decision) variables</b>, add the <b className="text-ink">constraints</b>, and solve with the Simplex LP method. Linear and integer models are supported. The model is saved to the alias <b className="text-ink">{alias?.name}</b>.</>}
         right={
           <>
+            <Button variant="secondary" onClick={() => setDocWizard(docWizard ? null : docSource ? { docId: docSource.spec.docId, mapping: docSource.spec.mapping } : { docId: refDocs[0]?.id ?? "" })}>
+              <FileSpreadsheet className="h-4 w-4" />{docSource ? "Edit file mapping" : "Optimize a file"}
+            </Button>
             <Button variant="secondary" onClick={() => setShowBuilder((v) => !v)}><Wand2 className="h-4 w-4" />{builderSpec ? "Edit in builder" : "Build from a pattern"}</Button>
             <Button onClick={() => setSolved(clone(model))} disabled={pendingErrors.length > 0}><Calculator className="h-4 w-4" />Solve{dirty ? " (changes pending)" : ""}</Button>
           </>
@@ -182,12 +211,27 @@ export default function OptimizePage() {
           <textarea className={clsx(inputCls, "mt-3 h-24 resize-y py-2")} placeholder="Paste the problem statement, e.g. “We make tables ($40 profit) and chairs ($25). Tables need 3 h of carpentry, chairs 1 h; 120 h available…”" value={desc} onChange={(e) => setDesc(e.target.value)} disabled={!ai?.configured} />
           <div className="mt-2 flex items-center justify-between gap-2">
             <p className="text-[11.5px] text-muted">{ai?.configured ? "Claude drafts the variables, objective and constraints; you check them, then solve." : "Needs the AI engine (an Anthropic API key on the server). Templates and the builder work without it."}</p>
-            <Button onClick={buildWithAi} loading={busy} disabled={!ai?.configured || desc.trim().length < 15}><Wand2 className="h-4 w-4" />Build model</Button>
+            <Button onClick={() => buildWithAi()} loading={busy} disabled={!ai?.configured || desc.trim().length < 15}><Wand2 className="h-4 w-4" />Build model</Button>
           </div>
           {err && <div className="mt-2"><Callout tone="bad">{err}</Callout></div>}
         </Card>
       </div>
 
+      {docWizard && (
+        <DocModelWizard
+          key={docWizard.docId + (docWizard.mapping ? "-m" : "")}
+          docs={refDocs}
+          initial={docWizard}
+          aiAvailable={Boolean(ai?.configured)}
+          onAskAi={(prompt) => buildWithAi(prompt, true)}
+          onUpload={uploadForOptimizer}
+          onClose={() => setDocWizard(null)}
+          onGenerate={(m, src) => {
+            const next = { ...m, source: src };
+            setModel(next); setSolved(next); setTplId(""); setDocWizard(null); setShowBuilder(false); setAiNote(null);
+          }}
+        />
+      )}
       {showBuilder && (
         <ModelBuilder
           key={JSON.stringify(builderSpec ?? "new")}
@@ -254,7 +298,7 @@ export default function OptimizePage() {
             </Card>
           )}
           {result && result.status === "optimal" && tab !== "formulation" && tab !== "export" && <Card><FormulationView model={solved} compact /></Card>}
-          <ReferenceDocs docs={refDocs} aliasName={alias?.name ?? ""} />
+          <ReferenceDocs docs={refDocs} aliasName={alias?.name ?? ""} onBuild={(id) => { setDocWizard({ docId: id }); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
         </div>
       </div>
     </>
@@ -641,7 +685,7 @@ function ExportView({ model, result }: { model: OptModel; result: OptResult }) {
   );
 }
 
-function ReferenceDocs({ docs, aliasName }: { docs: VaultDoc[]; aliasName: string }) {
+function ReferenceDocs({ docs, aliasName, onBuild }: { docs: VaultDoc[]; aliasName: string; onBuild: (docId: string) => void }) {
   const [open, setOpen] = useState<string | null>(docs[0]?.id ?? null);
   return (
     <Card>
@@ -654,10 +698,13 @@ function ReferenceDocs({ docs, aliasName }: { docs: VaultDoc[]; aliasName: strin
         <div className="divide-y divide-line">
           {docs.map((d) => (
             <div key={d.id}>
-              <button className="flex w-full items-center gap-2 px-5 py-2.5 text-left text-[13px] font-medium hover:bg-slate-50" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id}>
-                {open === d.id ? <ChevronDown className="h-4 w-4 text-slate-400" /> : <ChevronRight className="h-4 w-4 text-slate-400" />}
-                <span className="truncate">{d.name}</span>
-              </button>
+              <div className="flex items-center gap-2 pr-3">
+                <button className="flex min-w-0 flex-1 items-center gap-2 px-5 py-2.5 text-left text-[13px] font-medium hover:bg-slate-50" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id}>
+                  {open === d.id ? <ChevronDown className="h-4 w-4 shrink-0 text-slate-400" /> : <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />}
+                  <span className="truncate">{d.name}</span>
+                </button>
+                <Button size="sm" variant="secondary" onClick={() => onBuild(d.id)} aria-label={`Build a model from ${d.name}`}><Wand2 className="h-3.5 w-3.5" />Build model</Button>
+              </div>
               {open === d.id && (
                 d.preview?.length ? <PreviewTable rows={d.preview} /> : d.items.length ? (
                   <div className="max-h-60 overflow-auto px-3 pb-3">

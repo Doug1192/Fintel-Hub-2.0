@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { Archive, ArrowRight, Check, ChevronDown, ChevronRight, FileText, FolderPlus, Link2Off, Pencil, Plus, Trash2, UploadCloud } from "lucide-react";
+import { Archive, ArrowRight, Check, ChevronDown, ChevronRight, FileText, FolderPlus, Link2Off, Pencil, Plus, Trash2, UploadCloud, Wand2 } from "lucide-react";
 import { Badge, Button, Callout, Card, CardHeader, Field, inputCls, PageHeader, Segmented } from "@/components/ui";
 import { PreviewTable } from "@/components/PreviewTable";
 import { useStore } from "@/store/useStore";
@@ -116,6 +116,17 @@ export default function VaultPage() {
                   setNotice(r.ok ? { tone: r.warnings.length ? "warn" : "good", text: `“${d.name}” added to ${an}. ${r.warnings.join(" ")}` } : { tone: "bad", text: r.error ?? "Couldn't add the document." });
                 }}
                 onDetach={(aliasId) => detachDoc(d.id, aliasId)}
+                onOptimize={() => {
+                  const holders = aliasesForDoc(d.id, aliases);
+                  const target = holders.find((a) => a.id === activeAliasId) ?? holders[0];
+                  if (target) { setActiveAlias(target.id); router.push(`/optimize?doc=${d.id}`); return; }
+                  const active = aliases.find((a) => a.id === activeAliasId);
+                  if (!active) { setNotice({ tone: "warn", text: "Create an alias first: documents are optimized inside an alias." }); setShowNew(true); return; }
+                  if (!confirm(`Add “${d.name}” to ${active.name} and build an optimization model from it?`)) return;
+                  const r = attachDoc(d.id, active.id);
+                  if (!r.ok) { setNotice({ tone: "bad", text: r.error ?? "Couldn't add the document." }); return; }
+                  router.push(`/optimize?doc=${d.id}`);
+                }}
                 onDelete={() => {
                   const used = aliasesForDoc(d.id, aliases);
                   if (confirm(`Delete “${d.name}” permanently?${used.length ? ` It will also be removed from ${used.map((a) => a.name).join(", ")}.` : ""}`)) deleteDoc(d.id);
@@ -244,9 +255,9 @@ function AliasCard({ alias, active, docs, onOpen, onUpdate, onDetach, onDelete }
   );
 }
 
-function DocRow({ doc, aliases, onAttach, onDetach, onDelete }: {
+function DocRow({ doc, aliases, onAttach, onDetach, onDelete, onOptimize }: {
   doc: VaultDoc; aliases: Alias[];
-  onAttach: (aliasId: string, mode: "merge" | "replace") => void; onDetach: (aliasId: string) => void; onDelete: () => void;
+  onAttach: (aliasId: string, mode: "merge" | "replace") => void; onDetach: (aliasId: string) => void; onDelete: () => void; onOptimize: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const [pick, setPick] = useState("");
@@ -292,6 +303,7 @@ function DocRow({ doc, aliases, onAttach, onDetach, onDelete }: {
               <Button size="sm" disabled={!pick} onClick={() => { onAttach(pick, mode); setPick(""); setMode("merge"); }}>Add</Button>
             </>
           )}
+          <Button size="sm" variant="secondary" onClick={onOptimize} aria-label={`Optimize with ${doc.name}`}><Wand2 className="h-3.5 w-3.5" />Optimize</Button>
           <button className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-bad" onClick={onDelete} title="Delete document" aria-label={`Delete ${doc.name}`}><Trash2 className="h-4 w-4" /></button>
         </div>
       </div>
