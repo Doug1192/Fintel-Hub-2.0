@@ -1,0 +1,12958 @@
+[
+{
+"model": {
+"title": "case1",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 14,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 6.71,
+"min": 17,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 26.27,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 0.87,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 4.94,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": -5.18,
+"min": 2,
+"max": 86,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.22,
+"x3": 7.53,
+"x4": 4.82,
+"x5": 4.31,
+"x6": 3.21
+},
+"relation": "<=",
+"rhs": 108.3
+},
+{
+"name": "c2",
+"terms": {
+"x3": 0.44,
+"x6": 3.35
+},
+"relation": "<=",
+"rhs": 85.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.84,
+"x2": 9.52,
+"x3": 8.21,
+"x4": 6.21,
+"x5": 11.38,
+"x6": 2.49
+},
+"relation": "=",
+"rhs": 245.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -15.869890403
+}
+},
+{
+"model": {
+"title": "case2",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 5,
+"min": 0,
+"max": 175,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 41,
+"min": 0,
+"max": 89,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1,
+"min": 0,
+"max": 167,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 42,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 13,
+"min": null,
+"max": 66,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.0,
+"x2": 6.45,
+"x3": 5.21,
+"x5": 7.87
+},
+"relation": "<=",
+"rhs": 334.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.79,
+"x3": 0.54,
+"x4": 5.88,
+"x5": 4.55
+},
+"relation": ">=",
+"rhs": 32.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.49,
+"x3": 0.17,
+"x4": 5.44,
+"x5": 9.21
+},
+"relation": ">=",
+"rhs": 290.4
+},
+{
+"name": "c4",
+"terms": {
+"x1": 11.96,
+"x3": 1.15,
+"x4": 7.34
+},
+"relation": "=",
+"rhs": 233.5
+},
+{
+"name": "c5",
+"terms": {
+"x1": 5.71,
+"x2": 5.57,
+"x3": 6.17,
+"x4": 8.07,
+"x5": 6.18
+},
+"relation": "<=",
+"rhs": 240.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 245.998896067
+}
+},
+{
+"model": {
+"title": "case3",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29.84,
+"min": 0,
+"max": 84,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -1.86,
+"min": 11,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 25,
+"min": 0,
+"max": 112,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.72
+},
+"relation": "<=",
+"rhs": 184.1
+},
+{
+"name": "c2",
+"terms": {
+"x2": 10.12,
+"x3": 10.91
+},
+"relation": "<=",
+"rhs": 345.5
+},
+{
+"name": "c3",
+"terms": {
+"x2": 7.07,
+"x3": 3.66
+},
+"relation": ">=",
+"rhs": 373.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 3.37,
+"x3": 0.32
+},
+"relation": "<=",
+"rhs": 243.8
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case4",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 1.44,
+"min": 0,
+"max": 116,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 21.16,
+"min": 0,
+"max": 62,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 16,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 0.53,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.27,
+"x2": 2.07,
+"x3": 5.72
+},
+"relation": "=",
+"rhs": 216.2
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case5",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -1.07,
+"min": null,
+"max": 152,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 27.92,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 45,
+"min": 11,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 13,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.32,
+"x2": 1.34,
+"x4": 10.93
+},
+"relation": ">=",
+"rhs": 296.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 332.36
+}
+},
+{
+"model": {
+"title": "case6",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -7.06,
+"min": 0,
+"max": 192,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -1.09,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 28.76,
+"min": 0,
+"max": 159,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 2.63,
+"min": 9,
+"max": null,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 49,
+"min": null,
+"max": 137,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x3": 2.98,
+"x4": 5.96,
+"x5": 5.58
+},
+"relation": ">=",
+"rhs": 353.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.01,
+"x2": 4.0,
+"x4": 5.61,
+"x5": 10.65
+},
+"relation": "<=",
+"rhs": 164.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.26,
+"x2": 2.85,
+"x4": 4.32
+},
+"relation": ">=",
+"rhs": 346.6
+},
+{
+"name": "c4",
+"terms": {
+"x2": 3.73,
+"x3": 1.33,
+"x4": 2.29,
+"x5": 5.4
+},
+"relation": "<=",
+"rhs": 206.3
+},
+{
+"name": "c5",
+"terms": {
+"x2": 2.13
+},
+"relation": "=",
+"rhs": 358.3
+},
+{
+"name": "c6",
+"terms": {
+"x1": 2.2,
+"x2": 0.19,
+"x3": 8.32,
+"x4": 9.46
+},
+"relation": "<=",
+"rhs": 394.5
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case7",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 24.62,
+"min": null,
+"max": 33,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 24.42,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.86,
+"x2": 5.04
+},
+"relation": ">=",
+"rhs": 13.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 30.604972376
+}
+},
+{
+"model": {
+"title": "case8",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 41,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 8.43,
+"min": 0,
+"max": 169,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -6.41,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 8.32,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -2.87,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 2.54,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.45,
+"x2": 7.03,
+"x3": 2.38,
+"x4": 3.6,
+"x5": 9.61,
+"x6": 5.57
+},
+"relation": "<=",
+"rhs": 306.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.66,
+"x2": 3.79,
+"x3": 10.64,
+"x4": 1.89,
+"x5": 8.7,
+"x6": 11.96
+},
+"relation": "<=",
+"rhs": 259.9
+},
+{
+"name": "c3",
+"terms": {
+"x2": 6.6,
+"x3": 0.72,
+"x4": 9.28,
+"x6": 11.88
+},
+"relation": "<=",
+"rhs": 77.7
+},
+{
+"name": "c4",
+"terms": {
+"x2": 7.15,
+"x4": 2.2,
+"x5": 11.33,
+"x6": 5.08
+},
+"relation": "<=",
+"rhs": 368.8
+},
+{
+"name": "c5",
+"terms": {
+"x1": 10.0,
+"x2": 11.77,
+"x3": 3.45,
+"x4": 10.67,
+"x5": 0.31
+},
+"relation": "<=",
+"rhs": 374.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -156.575093985
+}
+},
+{
+"model": {
+"title": "case9",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 46,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": 0,
+"max": 146,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.39,
+"x2": 2.08
+},
+"relation": ">=",
+"rhs": 339.9
+},
+{
+"name": "c2",
+"terms": {
+"x2": 8.58
+},
+"relation": "<=",
+"rhs": 68.4
+},
+{
+"name": "c3",
+"terms": {
+"x2": 3.33
+},
+"relation": "<=",
+"rhs": 96.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.24,
+"x2": 4.03
+},
+"relation": "=",
+"rhs": 357.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 3748.864296081
+}
+},
+{
+"model": {
+"title": "case10",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 36,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20.1,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 36,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.13,
+"x2": 7.06,
+"x3": 4.77
+},
+"relation": "=",
+"rhs": 242.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.36,
+"x2": 1.16,
+"x3": 8.0
+},
+"relation": "<=",
+"rhs": 269.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 2110.314769976
+}
+},
+{
+"model": {
+"title": "case11",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 39,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 43,
+"min": 12,
+"max": 106,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -7.23,
+"min": 15,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 10.82,
+"min": 0,
+"max": 92,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 26.68,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 42,
+"min": 19,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 11.65,
+"x3": 1.02,
+"x4": 9.72,
+"x5": 11.35,
+"x6": 10.74
+},
+"relation": "<=",
+"rhs": 147.3
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.64,
+"x2": 11.89,
+"x3": 0.51,
+"x4": 6.45,
+"x5": 1.07,
+"x6": 10.13
+},
+"relation": "<=",
+"rhs": 382.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 10.12,
+"x2": 10.21,
+"x4": 9.97,
+"x5": 5.4
+},
+"relation": "<=",
+"rhs": 16.8
+},
+{
+"name": "c4",
+"terms": {
+"x2": 7.81,
+"x4": 0.63,
+"x5": 9.49,
+"x6": 11.03
+},
+"relation": "<=",
+"rhs": 192.1
+},
+{
+"name": "c5",
+"terms": {
+"x1": 10.11,
+"x2": 4.8,
+"x3": 7.79,
+"x5": 6.56,
+"x6": 0.85
+},
+"relation": "=",
+"rhs": 93.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case12",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 19,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 16,
+"min": 0,
+"max": 182,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 24.59,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 11.08,
+"min": 0,
+"max": 51,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 29,
+"min": 1,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 11.53,
+"x3": 5.08,
+"x4": 4.6
+},
+"relation": "<=",
+"rhs": 186.7
+},
+{
+"name": "c2",
+"terms": {
+"x3": 1.56,
+"x4": 1.86
+},
+"relation": "=",
+"rhs": 365.2
+},
+{
+"name": "c3",
+"terms": {
+"x2": 11.65,
+"x4": 2.33,
+"x5": 3.91
+},
+"relation": "<=",
+"rhs": 135.4
+},
+{
+"name": "c4",
+"terms": {
+"x2": 9.85,
+"x3": 8.63,
+"x5": 10.71
+},
+"relation": "<=",
+"rhs": 181.4
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case13",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 8.11,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 27.63,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 22,
+"min": 14,
+"max": 94,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 29.39,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.47,
+"x2": 8.12,
+"x3": 9.98
+},
+"relation": "<=",
+"rhs": 346.3
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.99,
+"x2": 8.3,
+"x3": 3.95,
+"x4": 11.27
+},
+"relation": "<=",
+"rhs": 202.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.05,
+"x2": 2.8,
+"x4": 4.4
+},
+"relation": "<=",
+"rhs": 398.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.09,
+"x2": 0.22,
+"x4": 9.86
+},
+"relation": "<=",
+"rhs": 154.2
+},
+{
+"name": "c5",
+"terms": {
+"x1": 8.67,
+"x2": 4.01,
+"x3": 7.03
+},
+"relation": "=",
+"rhs": 72.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case14",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 50,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.45,
+"x2": 9.5
+},
+"relation": "<=",
+"rhs": 167.8
+},
+{
+"name": "c2",
+"terms": {
+"x2": 5.86
+},
+"relation": "<=",
+"rhs": 203.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.4,
+"x2": 4.07
+},
+"relation": "<=",
+"rhs": 212.0
+},
+{
+"name": "c4",
+"terms": {
+"x1": 0.37,
+"x2": 8.09
+},
+"relation": "<=",
+"rhs": 37.9
+},
+{
+"name": "c5",
+"terms": {
+"x2": 2.19
+},
+"relation": "=",
+"rhs": 292.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case15",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 40,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 29,
+"min": null,
+"max": 73,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.0
+},
+"relation": "=",
+"rhs": 198.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 7924.0
+}
+},
+{
+"model": {
+"title": "case16",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 25.89,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 41,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.86,
+"x2": 10.88
+},
+"relation": "=",
+"rhs": 361.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.48,
+"x2": 11.11
+},
+"relation": ">=",
+"rhs": 248.1
+},
+{
+"name": "c3",
+"terms": {
+"x2": 4.53
+},
+"relation": "<=",
+"rhs": 378.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 2.02
+},
+"relation": "<=",
+"rhs": 357.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1363.400735294
+}
+},
+{
+"model": {
+"title": "case17",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 5,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 13,
+"min": 0,
+"max": 61,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 41,
+"min": 8,
+"max": 92,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.94,
+"x3": 0.17
+},
+"relation": ">=",
+"rhs": 66.9
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case18",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 6.13,
+"min": 0,
+"max": 143,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 24.65,
+"min": 18,
+"max": 180,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1,
+"min": 0,
+"max": 157,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 7.51,
+"x3": 4.61
+},
+"relation": "<=",
+"rhs": 395.3
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.67,
+"x2": 5.01,
+"x3": 3.51
+},
+"relation": ">=",
+"rhs": 342.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.15,
+"x2": 1.51,
+"x3": 0.56
+},
+"relation": ">=",
+"rhs": 300.7
+},
+{
+"name": "c4",
+"terms": {
+"x1": 11.2,
+"x2": 1.18
+},
+"relation": "<=",
+"rhs": 350.9
+},
+{
+"name": "c5",
+"terms": {
+"x3": 1.34
+},
+"relation": "<=",
+"rhs": 164.9
+},
+{
+"name": "c6",
+"terms": {
+"x1": 2.44,
+"x2": 9.95,
+"x3": 1.52
+},
+"relation": "<=",
+"rhs": 158.4
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case19",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 1.71,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 12.48,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 0.8,
+"x2": 3.44
+},
+"relation": "<=",
+"rhs": 137.9
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 500.288372093
+}
+},
+{
+"model": {
+"title": "case20",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 25,
+"min": 0,
+"max": 99,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -9.5,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 14.63,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 6,
+"min": 0,
+"max": 123,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 26,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 20.46,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.62,
+"x3": 0.04,
+"x4": 1.28,
+"x5": 9.68,
+"x6": 9.99
+},
+"relation": "<=",
+"rhs": 33.9
+},
+{
+"name": "c2",
+"terms": {
+"x2": 1.19,
+"x3": 5.69,
+"x4": 4.71,
+"x6": 0.6
+},
+"relation": "<=",
+"rhs": 283.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.05,
+"x3": 8.51,
+"x4": 8.86,
+"x5": 1.78
+},
+"relation": "=",
+"rhs": 201.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 11.13,
+"x2": 9.19,
+"x4": 2.62
+},
+"relation": "<=",
+"rhs": 300.7
+},
+{
+"name": "c5",
+"terms": {
+"x2": 10.03,
+"x3": 1.4,
+"x4": 5.58,
+"x5": 8.41,
+"x6": 2.9
+},
+"relation": ">=",
+"rhs": 256.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 238.661587987
+}
+},
+{
+"model": {
+"title": "case21",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 50,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 6.23,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 15,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 27.42,
+"min": 0,
+"max": 172,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 8.71,
+"min": 0,
+"max": 75,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.01,
+"x3": 4.41,
+"x4": 0.97,
+"x5": 10.73
+},
+"relation": "=",
+"rhs": 321.2
+},
+{
+"name": "c2",
+"terms": {
+"x2": 3.11,
+"x3": 10.11,
+"x4": 1.43,
+"x5": 5.5
+},
+"relation": "<=",
+"rhs": 213.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.61,
+"x2": 8.86,
+"x3": 3.93,
+"x5": 4.01
+},
+"relation": "=",
+"rhs": 168.5
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case22",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 13,
+"min": 0,
+"max": 27,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 31,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 4,
+"min": 11,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.23,
+"x2": 0.43
+},
+"relation": "<=",
+"rhs": 305.8
+},
+{
+"name": "c2",
+"terms": {
+"x2": 0.85,
+"x3": 7.5
+},
+"relation": "=",
+"rhs": 228.9
+},
+{
+"name": "c3",
+"terms": {
+"x2": 9.38,
+"x3": 8.88
+},
+"relation": "<=",
+"rhs": 66.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 237.1
+},
+{
+"name": "c5",
+"terms": {
+"x1": 9.46,
+"x2": 8.0,
+"x3": 1.61
+},
+"relation": "<=",
+"rhs": 244.0
+},
+{
+"name": "c6",
+"terms": {
+"x1": 9.83,
+"x2": 6.9
+},
+"relation": ">=",
+"rhs": 293.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case23",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 9.37,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 50,
+"min": 0,
+"max": 122,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 358.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.68,
+"x2": 8.68
+},
+"relation": "=",
+"rhs": 398.5
+},
+{
+"name": "c3",
+"terms": {
+"x1": 4.18,
+"x2": 5.39
+},
+"relation": "<=",
+"rhs": 38.3
+},
+{
+"name": "c4",
+"terms": {
+"x2": 0.98
+},
+"relation": "<=",
+"rhs": 268.3
+},
+{
+"name": "c5",
+"terms": {
+"x1": 5.52,
+"x2": 11.52
+},
+"relation": "<=",
+"rhs": 328.4
+},
+{
+"name": "c6",
+"terms": {
+"x2": 9.81
+},
+"relation": "=",
+"rhs": 153.2
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case24",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 14.75,
+"min": null,
+"max": 123,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 0.41,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.46,
+"x2": 0.11
+},
+"relation": "=",
+"rhs": 119.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.42,
+"x2": 1.09
+},
+"relation": ">=",
+"rhs": 316.6
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 446.527272727
+}
+},
+{
+"model": {
+"title": "case25",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 36,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 19.23,
+"min": 16,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 28.29,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 39,
+"min": 12,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 42,
+"min": 10,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": -0.64,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.58,
+"x2": 8.24,
+"x3": 6.6,
+"x6": 0.2
+},
+"relation": "=",
+"rhs": 164.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.85,
+"x4": 2.77
+},
+"relation": "=",
+"rhs": 336.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 2.83,
+"x4": 0.13
+},
+"relation": ">=",
+"rhs": 217.4
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.22,
+"x2": 5.1,
+"x3": 8.57,
+"x4": 5.07,
+"x5": 8.96,
+"x6": 4.63
+},
+"relation": "<=",
+"rhs": 274.4
+},
+{
+"name": "c5",
+"terms": {
+"x3": 1.61,
+"x5": 2.7,
+"x6": 9.73
+},
+"relation": "<=",
+"rhs": 364.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case26",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 5,
+"min": 13,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 10.16,
+"min": 10,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 45,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 39,
+"min": 13,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x4": 7.23
+},
+"relation": ">=",
+"rhs": 321.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 11.76,
+"x2": 3.94,
+"x3": 0.03,
+"x4": 3.25
+},
+"relation": "=",
+"rhs": 175.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 2.43,
+"x2": 8.89,
+"x3": 0.23,
+"x4": 11.17
+},
+"relation": "<=",
+"rhs": 397.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 11.91,
+"x4": 2.13
+},
+"relation": "<=",
+"rhs": 61.6
+},
+{
+"name": "c5",
+"terms": {
+"x1": 1.49,
+"x2": 5.1,
+"x3": 7.73,
+"x4": 3.44
+},
+"relation": "<=",
+"rhs": 150.9
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case27",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 48,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 8,
+"min": 19,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 7.18,
+"x2": 0.71
+},
+"relation": "<=",
+"rhs": 242.7
+},
+{
+"name": "c2",
+"terms": {
+"x2": 9.55
+},
+"relation": "<=",
+"rhs": 377.4
+},
+{
+"name": "c3",
+"terms": {
+"x2": 3.38
+},
+"relation": "<=",
+"rhs": 315.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1751.079117385
+}
+},
+{
+"model": {
+"title": "case28",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 2,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 27,
+"min": 1,
+"max": 86,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 43,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.67,
+"x3": 5.53
+},
+"relation": "=",
+"rhs": 374.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.0,
+"x2": 11.38
+},
+"relation": "=",
+"rhs": 139.2
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 2005.821971067
+}
+},
+{
+"model": {
+"title": "case29",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 3.86,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -2.28,
+"min": 11,
+"max": 174,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 101.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.18,
+"x2": 7.03
+},
+"relation": ">=",
+"rhs": 210.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.95,
+"x2": 3.99
+},
+"relation": "<=",
+"rhs": 252.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.59,
+"x2": 6.68,
+"x3": 1.43
+},
+"relation": ">=",
+"rhs": 318.9
+},
+{
+"name": "c5",
+"terms": {
+"x1": 3.39,
+"x2": 4.08,
+"x3": 9.44
+},
+"relation": "<=",
+"rhs": 388.2
+},
+{
+"name": "c6",
+"terms": {
+"x1": 3.36,
+"x3": 0.98
+},
+"relation": ">=",
+"rhs": 169.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case30",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -4.99,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -1.93,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.58,
+"x2": 9.98
+},
+"relation": "=",
+"rhs": 351.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 281.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.57,
+"x2": 9.96
+},
+"relation": "=",
+"rhs": 270.9
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.94,
+"x2": 0.7
+},
+"relation": "=",
+"rhs": 23.9
+},
+{
+"name": "c5",
+"terms": {
+"x1": 7.59,
+"x2": 4.36
+},
+"relation": "=",
+"rhs": 26.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case31",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 10.63,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -8.52,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -6.13,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 27,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 5,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.13,
+"x5": 0.68
+},
+"relation": "<=",
+"rhs": 323.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.46,
+"x2": 9.46,
+"x3": 8.45,
+"x4": 2.83,
+"x5": 1.31
+},
+"relation": "<=",
+"rhs": 34.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.97,
+"x2": 0.21,
+"x4": 6.0,
+"x5": 4.1
+},
+"relation": "<=",
+"rhs": 31.6
+},
+{
+"name": "c4",
+"terms": {
+"x1": 8.88,
+"x3": 4.89,
+"x4": 3.04
+},
+"relation": "<=",
+"rhs": 160.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -31.432135307
+}
+},
+{
+"model": {
+"title": "case32",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -7.8,
+"min": 19,
+"max": 67,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 47,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 3.4,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.33,
+"x2": 9.54,
+"x3": 2.87
+},
+"relation": "<=",
+"rhs": 54.2
+},
+{
+"name": "c2",
+"terms": {
+"x2": 0.31,
+"x3": 5.49
+},
+"relation": "<=",
+"rhs": 342.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.23,
+"x2": 1.07,
+"x3": 9.92
+},
+"relation": "<=",
+"rhs": 73.1
+},
+{
+"name": "c4",
+"terms": {
+"x2": 5.25,
+"x3": 0.44
+},
+"relation": "<=",
+"rhs": 99.1
+},
+{
+"name": "c5",
+"terms": {
+"x1": 9.8,
+"x2": 1.55,
+"x3": 5.24
+},
+"relation": "<=",
+"rhs": 29.9
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case33",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 33,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -1.84,
+"min": 11,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 12,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 0.44,
+"x2": 8.39,
+"x3": 6.03
+},
+"relation": "<=",
+"rhs": 330.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 17838.01
+}
+},
+{
+"model": {
+"title": "case34",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29,
+"min": 0,
+"max": 56,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 19,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 6,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 21.35,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 28.13,
+"min": null,
+"max": 130,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.97,
+"x2": 8.51,
+"x3": 4.42,
+"x5": 6.39,
+"x6": 9.73
+},
+"relation": "<=",
+"rhs": 56.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.38,
+"x3": 7.43,
+"x5": 0.73,
+"x6": 10.73
+},
+"relation": "<=",
+"rhs": 156.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.98,
+"x2": 3.91,
+"x3": 7.2,
+"x4": 8.81,
+"x5": 2.58,
+"x6": 11.71
+},
+"relation": "=",
+"rhs": 139.0
+},
+{
+"name": "c4",
+"terms": {
+"x1": 11.14,
+"x5": 3.08
+},
+"relation": "=",
+"rhs": 211.9
+},
+{
+"name": "c5",
+"terms": {
+"x1": 4.89,
+"x3": 4.61,
+"x4": 6.43,
+"x6": 8.53
+},
+"relation": "<=",
+"rhs": 273.5
+},
+{
+"name": "c6",
+"terms": {
+"x1": 3.42,
+"x2": 9.82,
+"x3": 5.13,
+"x4": 0.16,
+"x5": 11.42
+},
+"relation": ">=",
+"rhs": 115.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case35",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 15.52,
+"min": 0,
+"max": 108,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 18.36,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 2.34,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.6,
+"x2": 1.04,
+"x3": 10.94,
+"x4": 5.59
+},
+"relation": "<=",
+"rhs": 260.5
+},
+{
+"name": "c2",
+"terms": {
+"x1": 7.78,
+"x2": 3.35,
+"x3": 11.61,
+"x4": 10.88
+},
+"relation": "=",
+"rhs": 151.1
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.02,
+"x3": 8.21,
+"x4": 10.93
+},
+"relation": ">=",
+"rhs": 68.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.95,
+"x2": 6.82,
+"x3": 11.07,
+"x4": 6.86
+},
+"relation": "<=",
+"rhs": 135.8
+},
+{
+"name": "c5",
+"terms": {
+"x1": 7.15,
+"x3": 7.85
+},
+"relation": "<=",
+"rhs": 92.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 419.80699832
+}
+},
+{
+"model": {
+"title": "case36",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 6.78,
+"min": 6,
+"max": 130,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 49,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 6.31,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 13.53,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 22.89,
+"min": 0,
+"max": 70,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 8.39,
+"x3": 3.78,
+"x4": 11.47,
+"x5": 11.68
+},
+"relation": ">=",
+"rhs": 320.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.32,
+"x2": 1.68,
+"x3": 0.95,
+"x4": 11.95,
+"x5": 8.25
+},
+"relation": "<=",
+"rhs": 230.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.97,
+"x2": 11.03,
+"x5": 1.84
+},
+"relation": ">=",
+"rhs": 53.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 3.18,
+"x2": 5.69,
+"x3": 0.26
+},
+"relation": ">=",
+"rhs": 228.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 5993.013333333
+}
+},
+{
+"model": {
+"title": "case37",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 26.85,
+"min": 17,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 9.73,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 16.44,
+"min": 11,
+"max": 52,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 26.16,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.86,
+"x2": 2.33,
+"x3": 6.92,
+"x4": 8.0
+},
+"relation": ">=",
+"rhs": 377.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.81,
+"x4": 8.92
+},
+"relation": "=",
+"rhs": 107.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 0.78,
+"x2": 6.27,
+"x3": 11.62,
+"x4": 6.27
+},
+"relation": ">=",
+"rhs": 116.9
+},
+{
+"name": "c4",
+"terms": {
+"x1": 3.66,
+"x2": 7.24,
+"x3": 6.17
+},
+"relation": "=",
+"rhs": 278.4
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case38",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -8.43,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 13.31,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -9.56,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.89,
+"x2": 11.03,
+"x3": 0.59
+},
+"relation": "<=",
+"rhs": 343.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.56
+},
+"relation": "<=",
+"rhs": 31.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -5570.725423729
+}
+},
+{
+"model": {
+"title": "case39",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 45,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 43,
+"min": 20,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 23.42,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 25.27,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 11.39,
+"x4": 2.47
+},
+"relation": "<=",
+"rhs": 216.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.03,
+"x3": 4.0,
+"x4": 1.95
+},
+"relation": ">=",
+"rhs": 47.1
+},
+{
+"name": "c3",
+"terms": {
+"x2": 6.36,
+"x3": 5.01,
+"x4": 4.56
+},
+"relation": "<=",
+"rhs": 318.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.09,
+"x2": 0.53,
+"x3": 8.82,
+"x4": 2.72
+},
+"relation": "<=",
+"rhs": 77.0
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case40",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -2.88,
+"min": 15,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 3.26,
+"min": 12,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 0.16,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 25,
+"min": 1,
+"max": 80,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 25,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 47,
+"min": 0,
+"max": 33,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 9.29,
+"x3": 2.43,
+"x4": 10.14,
+"x5": 10.51,
+"x6": 10.03
+},
+"relation": "<=",
+"rhs": 381.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.37,
+"x2": 2.02,
+"x3": 7.02,
+"x6": 11.58
+},
+"relation": "<=",
+"rhs": 311.5
+},
+{
+"name": "c3",
+"terms": {
+"x1": 0.47,
+"x2": 10.49,
+"x3": 8.62,
+"x4": 7.01,
+"x5": 11.01
+},
+"relation": "<=",
+"rhs": 41.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case41",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 4.45,
+"min": null,
+"max": 33,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 24.29,
+"min": 6,
+"max": 57,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 31,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 3,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 7.9,
+"x2": 2.83,
+"x4": 8.08
+},
+"relation": ">=",
+"rhs": 329.6
+},
+{
+"name": "c2",
+"terms": {
+"x2": 8.31,
+"x3": 9.74,
+"x4": 1.96
+},
+"relation": "<=",
+"rhs": 355.3
+},
+{
+"name": "c3",
+"terms": {
+"x2": 4.71,
+"x3": 0.22
+},
+"relation": "<=",
+"rhs": 82.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.81,
+"x2": 11.84,
+"x3": 1.7,
+"x4": 1.05
+},
+"relation": "=",
+"rhs": 190.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1033.636714118
+}
+},
+{
+"model": {
+"title": "case42",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 38,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 13.22,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 3,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 6.59,
+"min": 17,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 3.94,
+"min": 0,
+"max": 177,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 42,
+"min": 11,
+"max": 167,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.57,
+"x2": 2.61,
+"x3": 5.35,
+"x4": 7.05,
+"x5": 3.63
+},
+"relation": "<=",
+"rhs": 354.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.34,
+"x2": 9.34,
+"x4": 9.46,
+"x6": 8.14
+},
+"relation": "=",
+"rhs": 283.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 7377.378515439
+}
+},
+{
+"model": {
+"title": "case43",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29.17,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -9.4,
+"min": 0,
+"max": 29,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1.8,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 79.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.93,
+"x3": 10.13
+},
+"relation": "<=",
+"rhs": 391.5
+},
+{
+"name": "c3",
+"terms": {
+"x3": 0.54
+},
+"relation": ">=",
+"rhs": 129.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case44",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 8.83,
+"min": 0,
+"max": 79,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 15.75,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -6.96,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.99,
+"x3": 4.89
+},
+"relation": "<=",
+"rhs": 217.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.37,
+"x2": 11.97,
+"x3": 6.0
+},
+"relation": "=",
+"rhs": 363.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.73,
+"x2": 3.74
+},
+"relation": "<=",
+"rhs": 30.2
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case45",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 0.02,
+"min": 0,
+"max": 78,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 7,
+"min": 0,
+"max": 48,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 0.42
+},
+"relation": "<=",
+"rhs": 290.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.3,
+"x2": 3.88
+},
+"relation": "<=",
+"rhs": 312.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.87,
+"x2": 1.67
+},
+"relation": ">=",
+"rhs": 277.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 336.767636364
+}
+},
+{
+"model": {
+"title": "case46",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 32,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20.8,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 4.21
+},
+"relation": "<=",
+"rhs": 14.3
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.85,
+"x2": 7.98
+},
+"relation": "<=",
+"rhs": 10.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.17,
+"x2": 7.83
+},
+"relation": "<=",
+"rhs": 297.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.16,
+"x2": 0.35
+},
+"relation": "<=",
+"rhs": 254.2
+},
+{
+"name": "c5",
+"terms": {
+"x1": 0.61,
+"x2": 11.04
+},
+"relation": "<=",
+"rhs": 348.6
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 186.810810811
+}
+},
+{
+"model": {
+"title": "case47",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 11,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -2.43,
+"min": 0,
+"max": 106,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 41,
+"min": 0,
+"max": 84,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 26.61,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.92,
+"x2": 9.11,
+"x3": 11.86
+},
+"relation": "=",
+"rhs": 214.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.65,
+"x3": 1.57
+},
+"relation": "<=",
+"rhs": 278.9
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -57.189023052
+}
+},
+{
+"model": {
+"title": "case48",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 3.76,
+"min": null,
+"max": 90,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -6.25,
+"min": null,
+"max": 46,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 29,
+"min": 6,
+"max": 129,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 6.62,
+"min": null,
+"max": 144,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 3.9,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 27,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 0.26,
+"x3": 3.42,
+"x4": 2.86
+},
+"relation": "=",
+"rhs": 247.6
+},
+{
+"name": "c2",
+"terms": {
+"x3": 9.84,
+"x4": 9.08,
+"x5": 7.36,
+"x6": 2.71
+},
+"relation": "=",
+"rhs": 159.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 0.84,
+"x2": 10.11,
+"x4": 8.44,
+"x5": 6.04,
+"x6": 2.87
+},
+"relation": ">=",
+"rhs": 62.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 0.31,
+"x2": 4.22,
+"x3": 3.0,
+"x4": 1.18,
+"x5": 11.75
+},
+"relation": "<=",
+"rhs": 180.7
+},
+{
+"name": "c5",
+"terms": {
+"x1": 3.98,
+"x2": 9.61,
+"x3": 4.04,
+"x4": 2.8,
+"x5": 9.64
+},
+"relation": "<=",
+"rhs": 133.7
+},
+{
+"name": "c6",
+"terms": {
+"x1": 6.65,
+"x2": 11.99,
+"x3": 4.15,
+"x4": 4.24,
+"x5": 5.17,
+"x6": 6.65
+},
+"relation": "=",
+"rhs": 227.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case49",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 9.91,
+"min": 0,
+"max": 75,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -7.71,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -2.05,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.15,
+"x2": 2.84
+},
+"relation": "<=",
+"rhs": 374.7
+},
+{
+"name": "c2",
+"terms": {
+"x2": 0.94,
+"x3": 10.95
+},
+"relation": "=",
+"rhs": 55.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 11.37,
+"x2": 5.44
+},
+"relation": ">=",
+"rhs": 375.6
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.69,
+"x2": 11.4,
+"x3": 2.04
+},
+"relation": "<=",
+"rhs": 65.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case50",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 22,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -2.6,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.25
+},
+"relation": "=",
+"rhs": 363.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.38,
+"x2": 1.86
+},
+"relation": "=",
+"rhs": 293.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 4.85,
+"x2": 10.92
+},
+"relation": "<=",
+"rhs": 11.4
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.67,
+"x2": 2.68
+},
+"relation": "=",
+"rhs": 70.9
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case51",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -1.57,
+"min": 8,
+"max": 40,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 41,
+"min": 7,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 10.55,
+"min": 0,
+"max": 54,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 1.37,
+"min": 8,
+"max": null,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 31,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.25,
+"x2": 7.98,
+"x3": 4.64,
+"x5": 1.19
+},
+"relation": "=",
+"rhs": 86.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.1,
+"x3": 8.46,
+"x4": 7.71
+},
+"relation": ">=",
+"rhs": 65.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case52",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -4.58,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 12.45,
+"min": 5,
+"max": 176,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 8.66
+},
+"relation": "<=",
+"rhs": 350.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.91
+},
+"relation": ">=",
+"rhs": 174.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.66,
+"x2": 4.66
+},
+"relation": "<=",
+"rhs": 330.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 6.19,
+"x2": 7.04
+},
+"relation": "=",
+"rhs": 218.2
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case53",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 20,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 25.6,
+"min": 13,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 10.28
+},
+"relation": ">=",
+"rhs": 31.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.92,
+"x2": 1.17
+},
+"relation": "<=",
+"rhs": 338.5
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.65,
+"x2": 6.82
+},
+"relation": "<=",
+"rhs": 33.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 9.28,
+"x2": 5.29
+},
+"relation": "<=",
+"rhs": 103.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case54",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 46,
+"min": 15,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28.42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 23,
+"min": 0,
+"max": 199,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 19.8,
+"min": 12,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 6,
+"min": 9,
+"max": 103,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 7.89,
+"x3": 6.19,
+"x4": 0.52,
+"x5": 0.27
+},
+"relation": ">=",
+"rhs": 120.6
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case55",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -9.24,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 24.43,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 15,
+"min": null,
+"max": 122,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -3.63,
+"min": 0,
+"max": 135,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 3.05,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.95,
+"x3": 8.31,
+"x4": 9.13
+},
+"relation": "=",
+"rhs": 271.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.7,
+"x3": 9.27,
+"x4": 6.76
+},
+"relation": ">=",
+"rhs": 373.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.81,
+"x4": 4.7,
+"x5": 0.89
+},
+"relation": "<=",
+"rhs": 360.7
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case56",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 44,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 41,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -2.1,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 0.67,
+"min": 15,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.48,
+"x2": 3.82,
+"x5": 0.96
+},
+"relation": "<=",
+"rhs": 191.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 7.12,
+"x3": 0.81
+},
+"relation": "<=",
+"rhs": 286.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.15,
+"x2": 3.31,
+"x3": 11.66
+},
+"relation": "<=",
+"rhs": 226.5
+},
+{
+"name": "c4",
+"terms": {
+"x3": 6.13,
+"x4": 3.12,
+"x5": 5.54
+},
+"relation": "<=",
+"rhs": 40.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case57",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 3,
+"min": null,
+"max": 120,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -0.85,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 16,
+"min": null,
+"max": 195,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.22,
+"x2": 4.7
+},
+"relation": ">=",
+"rhs": 160.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.83,
+"x2": 8.75,
+"x3": 2.77
+},
+"relation": "<=",
+"rhs": 239.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.31,
+"x2": 4.38,
+"x3": 11.66
+},
+"relation": "<=",
+"rhs": 150.7
+},
+{
+"name": "c4",
+"terms": {
+"x2": 2.83
+},
+"relation": "<=",
+"rhs": 117.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case58",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 0.06,
+"min": 0,
+"max": 47,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": 5,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 5,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 10,
+"min": 17,
+"max": 32,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -0.24,
+"min": 6,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 43,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.89,
+"x2": 2.14,
+"x3": 7.36,
+"x5": 6.46,
+"x6": 11.6
+},
+"relation": "<=",
+"rhs": 17.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.47,
+"x2": 11.41,
+"x4": 10.93,
+"x5": 6.2,
+"x6": 4.58
+},
+"relation": "=",
+"rhs": 100.2
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.61,
+"x2": 11.97,
+"x4": 2.41,
+"x5": 3.72,
+"x6": 5.23
+},
+"relation": "<=",
+"rhs": 33.5
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case59",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 22.89,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 6.43,
+"min": 0,
+"max": 170,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 12.79,
+"min": null,
+"max": 191,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -0.65,
+"min": null,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.43,
+"x2": 10.01,
+"x4": 10.47
+},
+"relation": "<=",
+"rhs": 312.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.92,
+"x2": 1.83,
+"x4": 11.42
+},
+"relation": ">=",
+"rhs": 79.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.22,
+"x2": 9.08,
+"x3": 9.53,
+"x4": 6.37
+},
+"relation": "<=",
+"rhs": 34.1
+},
+{
+"name": "c4",
+"terms": {
+"x2": 1.94,
+"x3": 2.52,
+"x4": 6.71
+},
+"relation": "=",
+"rhs": 155.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case60",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 6,
+"min": 4,
+"max": 131,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 11.58,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 1.62,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x3": 8.94
+},
+"relation": "<=",
+"rhs": 92.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 24.0
+}
+},
+{
+"model": {
+"title": "case61",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29.42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 26.64,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 15.82,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.79,
+"x2": 11.77,
+"x3": 7.62
+},
+"relation": "<=",
+"rhs": 329.3
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.31,
+"x2": 2.81,
+"x3": 4.22
+},
+"relation": "=",
+"rhs": 197.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.29,
+"x2": 3.06,
+"x3": 2.06
+},
+"relation": "<=",
+"rhs": 100.5
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case62",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29.23,
+"min": 1,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28.36,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 46,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -0.11,
+"min": 0,
+"max": 166,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.55,
+"x2": 8.09,
+"x3": 4.4,
+"x4": 0.28
+},
+"relation": "<=",
+"rhs": 247.6
+},
+{
+"name": "c2",
+"terms": {
+"x3": 0.13,
+"x4": 2.19
+},
+"relation": "<=",
+"rhs": 78.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 25.277031963
+}
+},
+{
+"model": {
+"title": "case63",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 25,
+"min": 18,
+"max": 148,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.49,
+"x2": 8.62
+},
+"relation": ">=",
+"rhs": 107.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.24
+},
+"relation": "<=",
+"rhs": 223.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 4.78,
+"x2": 0.46
+},
+"relation": ">=",
+"rhs": 199.9
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case64",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -8.64,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 26.92,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 43,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 17,
+"min": 17,
+"max": 134,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 5.95,
+"x3": 4.81,
+"x4": 8.81
+},
+"relation": "=",
+"rhs": 373.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.47,
+"x3": 7.24,
+"x4": 0.36
+},
+"relation": "<=",
+"rhs": 67.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 0.35
+},
+"relation": "<=",
+"rhs": 244.7
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.77,
+"x2": 1.3,
+"x4": 10.4
+},
+"relation": "<=",
+"rhs": 94.4
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case65",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 13.84,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 43,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.83,
+"x2": 7.99
+},
+"relation": "<=",
+"rhs": 298.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.18,
+"x2": 5.68
+},
+"relation": "=",
+"rhs": 22.2
+},
+{
+"name": "c3",
+"terms": {
+"x1": 4.02,
+"x2": 0.04
+},
+"relation": "<=",
+"rhs": 87.0
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.49,
+"x2": 1.91
+},
+"relation": ">=",
+"rhs": 86.1
+},
+{
+"name": "c5",
+"terms": {
+"x1": 1.0
+},
+"relation": ">=",
+"rhs": 129.7
+},
+{
+"name": "c6",
+"terms": {
+"x1": 8.93,
+"x2": 8.59
+},
+"relation": "=",
+"rhs": 242.8
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case66",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 26.75,
+"min": 0,
+"max": 165,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 29,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -7.1,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 5,
+"min": null,
+"max": 53,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 0.57,
+"x3": 8.03
+},
+"relation": "=",
+"rhs": 116.3
+},
+{
+"name": "c2",
+"terms": {
+"x2": 5.79
+},
+"relation": "<=",
+"rhs": 73.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.91,
+"x2": 1.74
+},
+"relation": "<=",
+"rhs": 208.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -102.830635118
+}
+},
+{
+"model": {
+"title": "case67",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 11,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 49,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.83,
+"x2": 0.04
+},
+"relation": "=",
+"rhs": 357.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 438305.0
+}
+},
+{
+"model": {
+"title": "case68",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 12,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 24.78,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 6.2,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 21.86,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 20.19,
+"min": 10,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 3.98
+},
+"relation": "<=",
+"rhs": 22.0
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case69",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 24,
+"min": null,
+"max": 78,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 3,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1.29,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -8.85,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 19.03,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.24,
+"x2": 1.52,
+"x3": 10.27,
+"x4": 10.0,
+"x5": 0.73
+},
+"relation": "<=",
+"rhs": 230.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.28,
+"x3": 2.19,
+"x5": 8.19
+},
+"relation": "<=",
+"rhs": 19.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.49,
+"x2": 11.51,
+"x4": 7.8,
+"x5": 6.44
+},
+"relation": ">=",
+"rhs": 133.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.92,
+"x2": 8.22,
+"x3": 1.04,
+"x4": 6.52
+},
+"relation": "<=",
+"rhs": 307.8
+},
+{
+"name": "c5",
+"terms": {
+"x2": 3.29,
+"x3": 11.74,
+"x4": 0.08
+},
+"relation": "<=",
+"rhs": 368.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 195.181652289
+}
+},
+{
+"model": {
+"title": "case70",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 25.08,
+"min": 19,
+"max": 134,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 21,
+"min": 0,
+"max": 97,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 4.42
+},
+"relation": "<=",
+"rhs": 12.6
+},
+{
+"name": "c2",
+"terms": {
+"x2": 6.99
+},
+"relation": "<=",
+"rhs": 278.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 476.52
+}
+},
+{
+"model": {
+"title": "case71",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -1.18,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -2.73,
+"min": 14,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 48,
+"min": 0,
+"max": 48,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 42,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.68,
+"x2": 5.78,
+"x3": 4.69,
+"x4": 2.74
+},
+"relation": "<=",
+"rhs": 58.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case72",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 21.5,
+"min": 17,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 5.56,
+"min": 0,
+"max": 31,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 6,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 8,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.57,
+"x2": 10.28,
+"x3": 2.29,
+"x4": 3.59
+},
+"relation": "<=",
+"rhs": 50.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.9,
+"x2": 0.86,
+"x3": 0.37,
+"x4": 8.65
+},
+"relation": "<=",
+"rhs": 106.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 11.45,
+"x2": 3.94,
+"x3": 11.37
+},
+"relation": "<=",
+"rhs": 247.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 365.5
+}
+},
+{
+"model": {
+"title": "case73",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 19,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 47,
+"min": 16,
+"max": 126,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 9.5,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 3,
+"min": 9,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.98,
+"x3": 9.02,
+"x4": 1.11
+},
+"relation": "<=",
+"rhs": 291.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 7.15,
+"x3": 5.69,
+"x4": 7.27
+},
+"relation": ">=",
+"rhs": 39.0
+},
+{
+"name": "c3",
+"terms": {
+"x3": 10.19
+},
+"relation": "=",
+"rhs": 77.6
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.15,
+"x3": 9.67,
+"x4": 7.4
+},
+"relation": "<=",
+"rhs": 21.5
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case74",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 1.28,
+"min": 0,
+"max": 32,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 17.23,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -8.92,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 28.9,
+"min": null,
+"max": 173,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 42,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x3": 0.78,
+"x4": 3.2,
+"x5": 11.54
+},
+"relation": "<=",
+"rhs": 367.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.85,
+"x2": 8.52,
+"x4": 2.62,
+"x5": 6.93
+},
+"relation": "<=",
+"rhs": 236.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 3173.122566622
+}
+},
+{
+"model": {
+"title": "case75",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 26.05,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 44,
+"min": 13,
+"max": 111,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 25,
+"min": 0,
+"max": 80,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 14.35,
+"min": null,
+"max": 96,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.6,
+"x3": 9.71,
+"x4": 11.08
+},
+"relation": "<=",
+"rhs": 219.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.66,
+"x2": 10.78,
+"x3": 9.69,
+"x4": 2.69
+},
+"relation": "<=",
+"rhs": 345.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 572.0
+}
+},
+{
+"model": {
+"title": "case76",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 2,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 7.27,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.28,
+"x3": 0.17
+},
+"relation": "=",
+"rhs": 33.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0,
+"x3": 7.64
+},
+"relation": "=",
+"rhs": 171.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.4,
+"x2": 6.43
+},
+"relation": "<=",
+"rhs": 374.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.09,
+"x2": 8.93,
+"x3": 0.1
+},
+"relation": ">=",
+"rhs": 339.2
+},
+{
+"name": "c5",
+"terms": {
+"x1": 9.97,
+"x3": 2.43
+},
+"relation": "<=",
+"rhs": 197.6
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 591.294745983
+}
+},
+{
+"model": {
+"title": "case77",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 19,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 5,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -0.56,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.9,
+"x2": 3.87,
+"x3": 4.6
+},
+"relation": "<=",
+"rhs": 229.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -27.890434783
+}
+},
+{
+"model": {
+"title": "case78",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 44,
+"min": 19,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 31,
+"min": 4,
+"max": 188,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 22.44,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -4.87,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 4.72,
+"min": 5,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.57,
+"x3": 6.63,
+"x5": 5.19
+},
+"relation": "=",
+"rhs": 374.2
+},
+{
+"name": "c2",
+"terms": {
+"x2": 2.91,
+"x3": 2.4,
+"x4": 11.11,
+"x5": 4.0
+},
+"relation": ">=",
+"rhs": 172.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.68,
+"x3": 0.2,
+"x4": 0.34,
+"x5": 4.04
+},
+"relation": "<=",
+"rhs": 385.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.64,
+"x2": 2.39,
+"x3": 2.23,
+"x4": 8.63,
+"x5": 2.44
+},
+"relation": "=",
+"rhs": 348.4
+},
+{
+"name": "c5",
+"terms": {
+"x1": 10.64,
+"x3": 6.74,
+"x5": 3.64
+},
+"relation": "=",
+"rhs": 287.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case79",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 4,
+"min": 20,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": 11,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -7.56,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 2.48,
+"x3": 1.15
+},
+"relation": ">=",
+"rhs": 143.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 7.73,
+"x3": 4.2
+},
+"relation": "=",
+"rhs": 202.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.83
+},
+"relation": ">=",
+"rhs": 287.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case80",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 22.55,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28.77,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 7.82,
+"min": 1,
+"max": 128,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.86,
+"x4": 0.11
+},
+"relation": "=",
+"rhs": 255.5
+},
+{
+"name": "c2",
+"terms": {
+"x1": 9.34,
+"x3": 9.48,
+"x4": 8.24
+},
+"relation": ">=",
+"rhs": 68.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 2.45,
+"x3": 0.37,
+"x4": 10.36
+},
+"relation": "=",
+"rhs": 35.6
+},
+{
+"name": "c4",
+"terms": {
+"x1": 0.28,
+"x2": 1.41,
+"x3": 3.16,
+"x4": 1.42
+},
+"relation": "<=",
+"rhs": 230.6
+},
+{
+"name": "c5",
+"terms": {
+"x1": 3.99,
+"x2": 6.07,
+"x4": 2.23
+},
+"relation": "=",
+"rhs": 88.2
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case81",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 15,
+"min": 3,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 8,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.65,
+"x2": 8.34
+},
+"relation": "<=",
+"rhs": 189.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.55,
+"x2": 6.76
+},
+"relation": ">=",
+"rhs": 25.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.26,
+"x2": 3.29
+},
+"relation": "<=",
+"rhs": 245.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 497.446043165
+}
+},
+{
+"model": {
+"title": "case82",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 10.29,
+"min": 0,
+"max": 158,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 6.15,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 13,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 21.55,
+"min": 0,
+"max": 119,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 27,
+"min": 0,
+"max": 144,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 45,
+"min": 2,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.57,
+"x3": 0.68,
+"x4": 4.49,
+"x5": 7.7,
+"x6": 8.93
+},
+"relation": "<=",
+"rhs": 188.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 7.73,
+"x2": 9.31,
+"x3": 0.84,
+"x5": 4.61,
+"x6": 6.19
+},
+"relation": "=",
+"rhs": 173.2
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.01,
+"x2": 7.49,
+"x3": 3.2,
+"x5": 5.43,
+"x6": 9.13
+},
+"relation": "<=",
+"rhs": 94.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case83",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 45,
+"min": 8,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": null,
+"max": 80,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 11.4,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 11.4,
+"min": null,
+"max": 59,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 21,
+"min": 0,
+"max": 148,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 10.1,
+"x4": 8.59
+},
+"relation": ">=",
+"rhs": 166.5
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.79,
+"x2": 0.87,
+"x3": 1.79
+},
+"relation": "<=",
+"rhs": 51.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 11.73,
+"x2": 11.0,
+"x3": 2.22
+},
+"relation": ">=",
+"rhs": 278.0
+},
+{
+"name": "c4",
+"terms": {
+"x2": 8.64,
+"x4": 10.22,
+"x5": 8.96
+},
+"relation": "<=",
+"rhs": 390.9
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 828.770909091
+}
+},
+{
+"model": {
+"title": "case84",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 48,
+"min": 0,
+"max": 161,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 8.03,
+"min": 0,
+"max": 192,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 11.01,
+"min": 19,
+"max": 48,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 2,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 19,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.15,
+"x2": 0.78,
+"x5": 7.5
+},
+"relation": "<=",
+"rhs": 343.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.68,
+"x2": 5.68,
+"x3": 6.27,
+"x4": 0.4,
+"x5": 7.38
+},
+"relation": "=",
+"rhs": 40.8
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case85",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 49,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 11,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.89
+},
+"relation": "<=",
+"rhs": 62.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0
+},
+"relation": "=",
+"rhs": 394.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.72
+},
+"relation": ">=",
+"rhs": 276.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 3.93
+},
+"relation": "<=",
+"rhs": 188.3
+},
+{
+"name": "c5",
+"terms": {
+"x1": 8.18
+},
+"relation": "<=",
+"rhs": 308.6
+},
+{
+"name": "c6",
+"terms": {
+"x1": 8.95,
+"x2": 3.78
+},
+"relation": "=",
+"rhs": 392.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case86",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -2.39,
+"min": 0,
+"max": 135,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -5.37,
+"min": 0,
+"max": 118,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 9,
+"min": null,
+"max": 109,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 17.37,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 48,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.12,
+"x3": 6.51,
+"x5": 11.38
+},
+"relation": "<=",
+"rhs": 322.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.88,
+"x2": 11.89,
+"x3": 11.28
+},
+"relation": "<=",
+"rhs": 21.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.06,
+"x2": 9.06,
+"x4": 5.43,
+"x5": 4.02
+},
+"relation": "<=",
+"rhs": 53.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 0.43,
+"x2": 11.44,
+"x3": 11.49
+},
+"relation": "=",
+"rhs": 378.7
+},
+{
+"name": "c5",
+"terms": {
+"x1": 8.28,
+"x2": 3.2,
+"x4": 4.5
+},
+"relation": ">=",
+"rhs": 249.2
+},
+{
+"name": "c6",
+"terms": {
+"x1": 5.3,
+"x2": 6.37,
+"x3": 9.12
+},
+"relation": "=",
+"rhs": 270.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case87",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 17.89,
+"min": 9,
+"max": 167,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 25.0,
+"min": 6,
+"max": 33,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 7.67,
+"x2": 8.77
+},
+"relation": "<=",
+"rhs": 148.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0
+},
+"relation": ">=",
+"rhs": 84.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.83
+},
+"relation": "=",
+"rhs": 292.4
+},
+{
+"name": "c4",
+"terms": {
+"x2": 3.56
+},
+"relation": "<=",
+"rhs": 327.7
+},
+{
+"name": "c5",
+"terms": {
+"x1": 3.63,
+"x2": 8.54
+},
+"relation": ">=",
+"rhs": 151.2
+},
+{
+"name": "c6",
+"terms": {
+"x1": 6.93,
+"x2": 5.22
+},
+"relation": ">=",
+"rhs": 379.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case88",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -1.4,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 23.53,
+"min": 8,
+"max": 35,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 13,
+"min": 17,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 25.09,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 8.9,
+"min": 0,
+"max": 50,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": -7.07,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x3": 8.07,
+"x4": 8.89,
+"x6": 8.71
+},
+"relation": "<=",
+"rhs": 261.5
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.71,
+"x2": 7.36,
+"x3": 6.75,
+"x4": 11.16,
+"x5": 7.71,
+"x6": 2.57
+},
+"relation": "<=",
+"rhs": 223.5
+},
+{
+"name": "c3",
+"terms": {
+"x3": 2.29,
+"x6": 5.08
+},
+"relation": "=",
+"rhs": 18.0
+},
+{
+"name": "c4",
+"terms": {
+"x3": 1.8,
+"x4": 11.69,
+"x6": 4.32
+},
+"relation": "<=",
+"rhs": 140.6
+},
+{
+"name": "c5",
+"terms": {
+"x1": 6.66,
+"x2": 4.23,
+"x4": 5.43,
+"x5": 8.43,
+"x6": 3.8
+},
+"relation": "<=",
+"rhs": 297.8
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case89",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 49,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 6,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 49,
+"min": 2,
+"max": 57,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -1.96,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -5.51,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 14.58,
+"min": 0,
+"max": 101,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 6.56,
+"x3": 7.5
+},
+"relation": ">=",
+"rhs": 315.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.08,
+"x2": 6.74,
+"x3": 0.42,
+"x4": 2.09,
+"x5": 7.04,
+"x6": 3.9
+},
+"relation": "=",
+"rhs": 31.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 2829.263888889
+}
+},
+{
+"model": {
+"title": "case90",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 24,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.06,
+"x2": 11.12
+},
+"relation": "<=",
+"rhs": 87.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.13,
+"x2": 3.94
+},
+"relation": ">=",
+"rhs": 125.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.49,
+"x2": 11.68
+},
+"relation": "<=",
+"rhs": 278.0
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case91",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 11,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -0.73,
+"min": 6,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.83,
+"x2": 8.93
+},
+"relation": "<=",
+"rhs": 344.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.76,
+"x2": 0.85
+},
+"relation": "<=",
+"rhs": 157.2
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 601.815652174
+}
+},
+{
+"model": {
+"title": "case92",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 40,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 11.69,
+"min": 0,
+"max": 160,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.25,
+"x2": 10.56
+},
+"relation": "<=",
+"rhs": 94.3
+},
+{
+"name": "c2",
+"terms": {
+"x2": 10.89
+},
+"relation": "=",
+"rhs": 215.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 11.14,
+"x2": 9.87
+},
+"relation": "=",
+"rhs": 199.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case93",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 14.43,
+"min": 8,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 33,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 16,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 48,
+"min": 0,
+"max": 60,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 26.37,
+"min": null,
+"max": 67,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 4.77,
+"x3": 11.06,
+"x5": 5.47
+},
+"relation": ">=",
+"rhs": 269.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.56,
+"x2": 3.37,
+"x5": 10.19
+},
+"relation": ">=",
+"rhs": 107.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.18,
+"x2": 9.71,
+"x3": 2.58,
+"x5": 0.27
+},
+"relation": "<=",
+"rhs": 238.4
+},
+{
+"name": "c4",
+"terms": {
+"x1": 3.48,
+"x2": 1.15,
+"x3": 11.23,
+"x4": 0.33,
+"x5": 6.82
+},
+"relation": ">=",
+"rhs": 316.2
+},
+{
+"name": "c5",
+"terms": {
+"x1": 3.3,
+"x2": 9.91,
+"x3": 4.19,
+"x5": 6.31
+},
+"relation": "=",
+"rhs": 375.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1422.377022201
+}
+},
+{
+"model": {
+"title": "case94",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 7.95,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -4.31,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 25.0,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 0.73,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 44,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.89,
+"x2": 7.12,
+"x5": 5.45
+},
+"relation": "<=",
+"rhs": 169.5
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case95",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 40,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 15,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.95,
+"x2": 3.48
+},
+"relation": "<=",
+"rhs": 192.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 9.01,
+"x2": 0.41
+},
+"relation": ">=",
+"rhs": 381.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.29,
+"x2": 10.01
+},
+"relation": "<=",
+"rhs": 333.7
+},
+{
+"name": "c4",
+"terms": {
+"x1": 5.18,
+"x2": 11.05
+},
+"relation": "=",
+"rhs": 68.8
+},
+{
+"name": "c5",
+"terms": {
+"x1": 11.15,
+"x2": 9.09
+},
+"relation": "<=",
+"rhs": 42.0
+},
+{
+"name": "c6",
+"terms": {
+"x1": 3.69,
+"x2": 9.07
+},
+"relation": "=",
+"rhs": 94.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case96",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 48,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 33,
+"min": 1,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 15.74,
+"min": 0,
+"max": 119,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 22.25,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 22,
+"min": null,
+"max": 132,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 4.97,
+"x3": 1.12,
+"x4": 7.81
+},
+"relation": "<=",
+"rhs": 93.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 11.35,
+"x2": 1.86,
+"x4": 2.05
+},
+"relation": "<=",
+"rhs": 208.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.93,
+"x3": 7.36,
+"x4": 4.51,
+"x5": 4.15
+},
+"relation": "<=",
+"rhs": 395.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 3134.610449
+}
+},
+{
+"model": {
+"title": "case97",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 8.28,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 13,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 13,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 23.34,
+"min": 19,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 32,
+"min": 3,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 8,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.94,
+"x2": 0.22,
+"x3": 0.18,
+"x4": 6.81,
+"x5": 11.96,
+"x6": 9.01
+},
+"relation": "<=",
+"rhs": 394.8
+},
+{
+"name": "c2",
+"terms": {
+"x5": 7.52,
+"x6": 0.86
+},
+"relation": ">=",
+"rhs": 350.2
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.63,
+"x2": 11.93,
+"x3": 5.94,
+"x5": 1.18,
+"x6": 8.65
+},
+"relation": ">=",
+"rhs": 371.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case98",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 23.08,
+"min": null,
+"max": 128,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 4.69,
+"min": 0,
+"max": 97,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 16,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 4.17,
+"x3": 10.22
+},
+"relation": ">=",
+"rhs": 164.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 9.03,
+"x2": 10.24
+},
+"relation": "<=",
+"rhs": 62.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 11.68,
+"x2": 11.84
+},
+"relation": "<=",
+"rhs": 37.8
+},
+{
+"name": "c4",
+"terms": {
+"x2": 6.52,
+"x3": 0.06
+},
+"relation": "<=",
+"rhs": 24.6
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 254.07
+}
+},
+{
+"model": {
+"title": "case99",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 48,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 6.98,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 24,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 21.1,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.0,
+"x2": 3.46,
+"x3": 10.99,
+"x4": 5.97
+},
+"relation": "<=",
+"rhs": 216.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.06,
+"x2": 8.56,
+"x4": 7.14
+},
+"relation": "<=",
+"rhs": 22.3
+},
+{
+"name": "c3",
+"terms": {
+"x2": 0.4,
+"x4": 6.31
+},
+"relation": "<=",
+"rhs": 44.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.44,
+"x2": 9.09,
+"x4": 9.79
+},
+"relation": "<=",
+"rhs": 373.6
+},
+{
+"name": "c5",
+"terms": {
+"x1": 7.72,
+"x2": 7.76,
+"x3": 2.09,
+"x4": 6.21
+},
+"relation": "=",
+"rhs": 164.3
+},
+{
+"name": "c6",
+"terms": {
+"x1": 4.34,
+"x2": 6.12,
+"x3": 7.68,
+"x4": 4.24
+},
+"relation": "<=",
+"rhs": 290.0
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case100",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -2.88,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 22,
+"min": 0,
+"max": 131,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 3,
+"min": 0,
+"max": 160,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -1.96,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 44,
+"min": 1,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 7,
+"min": 19,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.87,
+"x2": 2.46,
+"x5": 3.25,
+"x6": 5.12
+},
+"relation": ">=",
+"rhs": 133.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.08,
+"x2": 6.84,
+"x4": 10.43,
+"x5": 8.42,
+"x6": 3.46
+},
+"relation": "=",
+"rhs": 164.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1126.472684086
+}
+},
+{
+"model": {
+"title": "case101",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -3.62,
+"min": 2,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 3.99,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 3.15,
+"min": 13,
+"max": 133,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 49,
+"min": 0,
+"max": 198,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 15,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.31,
+"x3": 7.4
+},
+"relation": "<=",
+"rhs": 346.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.21,
+"x2": 6.52,
+"x3": 2.54,
+"x5": 8.14
+},
+"relation": "<=",
+"rhs": 321.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.92,
+"x3": 9.9,
+"x4": 3.2,
+"x5": 8.75
+},
+"relation": "<=",
+"rhs": 314.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 3.53,
+"x2": 4.76,
+"x3": 9.22,
+"x5": 9.17
+},
+"relation": "=",
+"rhs": 325.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 2741.010147059
+}
+},
+{
+"model": {
+"title": "case102",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 48,
+"min": null,
+"max": 70,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -5.06,
+"min": 0,
+"max": 66,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 31,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.59,
+"x3": 5.48
+},
+"relation": "<=",
+"rhs": 289.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.15,
+"x2": 8.17,
+"x3": 5.28
+},
+"relation": "<=",
+"rhs": 51.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.19,
+"x2": 10.94,
+"x3": 2.41
+},
+"relation": "<=",
+"rhs": 304.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 8.04,
+"x3": 5.56
+},
+"relation": ">=",
+"rhs": 183.3
+},
+{
+"name": "c5",
+"terms": {
+"x1": 6.53,
+"x2": 11.18,
+"x3": 9.96
+},
+"relation": "=",
+"rhs": 214.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case103",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 20,
+"min": 0,
+"max": 82,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 33,
+"min": 0,
+"max": 173,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 0.43
+},
+"relation": "<=",
+"rhs": 265.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.19
+},
+"relation": "<=",
+"rhs": 326.2
+},
+{
+"name": "c3",
+"terms": {
+"x1": 8.56,
+"x2": 9.74
+},
+"relation": "<=",
+"rhs": 41.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 140.266940452
+}
+},
+{
+"model": {
+"title": "case104",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -7.26,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 9,
+"min": 6,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 8,
+"min": 0,
+"max": 71,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 45,
+"min": 0,
+"max": 196,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 5,
+"min": 0,
+"max": 111,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 7.09,
+"x3": 8.71,
+"x4": 11.74,
+"x5": 9.56
+},
+"relation": ">=",
+"rhs": 176.0
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case105",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 35,
+"min": 0,
+"max": 138,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 39,
+"min": 0,
+"max": 97,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 21,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 26.41,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -5.79,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 26,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 8.3,
+"x4": 8.43,
+"x5": 7.51,
+"x6": 9.69
+},
+"relation": "<=",
+"rhs": 312.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.11,
+"x2": 5.62,
+"x3": 2.99,
+"x4": 2.53,
+"x5": 10.47,
+"x6": 1.17
+},
+"relation": "<=",
+"rhs": 243.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -134.602292264
+}
+},
+{
+"model": {
+"title": "case106",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 16.36,
+"min": 1,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 0.23,
+"min": 9,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.09,
+"x2": 2.59
+},
+"relation": "<=",
+"rhs": 248.9
+},
+{
+"name": "c2",
+"terms": {
+"x2": 8.44
+},
+"relation": ">=",
+"rhs": 186.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.82
+},
+"relation": "=",
+"rhs": 376.5
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case107",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 15,
+"min": 0,
+"max": 38,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 11.25,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.0
+},
+"relation": ">=",
+"rhs": 227.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.76,
+"x2": 6.78
+},
+"relation": "=",
+"rhs": 322.4
+},
+{
+"name": "c3",
+"terms": {
+"x2": 2.61
+},
+"relation": "<=",
+"rhs": 10.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.17
+},
+"relation": "<=",
+"rhs": 163.7
+},
+{
+"name": "c5",
+"terms": {
+"x1": 0.18,
+"x2": 11.79
+},
+"relation": "<=",
+"rhs": 315.0
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case108",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 3.05,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -8.64,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.68,
+"x2": 9.96
+},
+"relation": "<=",
+"rhs": 210.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.28,
+"x2": 12.0
+},
+"relation": "<=",
+"rhs": 108.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.35,
+"x2": 11.88
+},
+"relation": "<=",
+"rhs": 259.6
+},
+{
+"name": "c4",
+"terms": {
+"x1": 11.5,
+"x2": 6.98
+},
+"relation": "<=",
+"rhs": 246.0
+},
+{
+"name": "c5",
+"terms": {
+"x2": 9.13
+},
+"relation": "<=",
+"rhs": 356.6
+},
+{
+"name": "c6",
+"terms": {
+"x1": 11.33
+},
+"relation": "<=",
+"rhs": 244.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -77.76
+}
+},
+{
+"model": {
+"title": "case109",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 12.57,
+"min": null,
+"max": 45,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 17,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.88,
+"x3": 9.11
+},
+"relation": "=",
+"rhs": 216.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.75,
+"x2": 6.47,
+"x3": 5.78
+},
+"relation": "<=",
+"rhs": 156.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 923.035116279
+}
+},
+{
+"model": {
+"title": "case110",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 14,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 3.52,
+"min": 18,
+"max": 126,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 10,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 29.28,
+"min": 20,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -7.92,
+"min": 0,
+"max": 102,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 16.14,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 7.84,
+"x2": 10.28,
+"x3": 5.18,
+"x4": 7.98,
+"x5": 6.67,
+"x6": 8.76
+},
+"relation": "<=",
+"rhs": 140.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.33,
+"x3": 9.5,
+"x4": 7.85,
+"x6": 4.22
+},
+"relation": "<=",
+"rhs": 28.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.1,
+"x2": 1.12,
+"x3": 0.97,
+"x4": 1.13,
+"x5": 5.17,
+"x6": 3.09
+},
+"relation": ">=",
+"rhs": 162.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case111",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 7,
+"min": 0,
+"max": 116,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -7.64,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -1.33,
+"min": null,
+"max": 150,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 3,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 42,
+"min": 12,
+"max": 191,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 8.34,
+"min": 14,
+"max": 27,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.82,
+"x2": 11.6
+},
+"relation": "=",
+"rhs": 236.3
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case112",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 27.75,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 27.91,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 42,
+"min": null,
+"max": 49,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.61,
+"x3": 8.67
+},
+"relation": "=",
+"rhs": 60.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.49,
+"x2": 3.24,
+"x3": 6.1
+},
+"relation": "<=",
+"rhs": 337.5
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 173.54578564
+}
+},
+{
+"model": {
+"title": "case113",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 44,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 0.6,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 23.13,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 12.42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 6,
+"min": 0,
+"max": 80,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 23,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x3": 6.97,
+"x4": 0.85,
+"x5": 9.39
+},
+"relation": "<=",
+"rhs": 191.6
+},
+{
+"name": "c2",
+"terms": {
+"x3": 11.45,
+"x5": 0.52,
+"x6": 2.19
+},
+"relation": ">=",
+"rhs": 291.2
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case114",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 7,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -9.25,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 11,
+"min": 13,
+"max": 156,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 17.22,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.39,
+"x2": 7.41,
+"x3": 9.54,
+"x4": 7.49
+},
+"relation": "<=",
+"rhs": 139.5
+},
+{
+"name": "c2",
+"terms": {
+"x2": 11.26,
+"x3": 1.96
+},
+"relation": "=",
+"rhs": 40.7
+},
+{
+"name": "c3",
+"terms": {
+"x2": 6.84,
+"x3": 0.91,
+"x4": 6.57
+},
+"relation": "=",
+"rhs": 132.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 6.95,
+"x3": 11.42,
+"x4": 8.71
+},
+"relation": ">=",
+"rhs": 358.2
+},
+{
+"name": "c5",
+"terms": {
+"x2": 7.68,
+"x3": 10.46,
+"x4": 3.33
+},
+"relation": "<=",
+"rhs": 250.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case115",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 18.42,
+"min": null,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.7,
+"x2": 7.64
+},
+"relation": "<=",
+"rhs": 314.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 6.12,
+"x2": 5.56
+},
+"relation": "<=",
+"rhs": 206.4
+},
+{
+"name": "c3",
+"terms": {
+"x2": 4.3
+},
+"relation": ">=",
+"rhs": 301.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case116",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 38,
+"min": 0,
+"max": 43,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -1.52,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 48,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -3.49,
+"min": 17,
+"max": 99,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -9.29,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 8.78,
+"x3": 11.06,
+"x5": 5.85
+},
+"relation": "=",
+"rhs": 193.9
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 2416.188987342
+}
+},
+{
+"model": {
+"title": "case117",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29.93,
+"min": 0,
+"max": 46,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 16.95,
+"min": 0,
+"max": 151,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -7.54,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 3.19,
+"min": 0,
+"max": 166,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 12.2,
+"min": 0,
+"max": 93,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.08,
+"x2": 10.44,
+"x3": 8.44,
+"x4": 9.46,
+"x5": 7.06
+},
+"relation": ">=",
+"rhs": 243.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.36,
+"x2": 1.13,
+"x4": 2.11
+},
+"relation": ">=",
+"rhs": 286.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 11.02,
+"x2": 1.74,
+"x3": 9.6,
+"x5": 10.66
+},
+"relation": "<=",
+"rhs": 343.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 5.79,
+"x2": 0.92,
+"x3": 2.83,
+"x5": 5.32
+},
+"relation": "=",
+"rhs": 218.0
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case118",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -3.7,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -0.33,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 13,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.31,
+"x2": 11.6,
+"x3": 8.5
+},
+"relation": "<=",
+"rhs": 389.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.3,
+"x2": 2.92,
+"x3": 0.27
+},
+"relation": "=",
+"rhs": 255.5
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.63,
+"x2": 0.36,
+"x3": 11.47
+},
+"relation": ">=",
+"rhs": 338.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 2.167897613
+}
+},
+{
+"model": {
+"title": "case119",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 4.98,
+"min": 10,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 31,
+"min": 0,
+"max": 184,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 21,
+"min": 0,
+"max": 127,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 23,
+"min": 0,
+"max": 146,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 24.42,
+"min": 3,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.54,
+"x2": 8.92,
+"x3": 1.09,
+"x5": 5.63
+},
+"relation": ">=",
+"rhs": 248.5
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.63,
+"x2": 9.09,
+"x4": 10.56,
+"x5": 0.69
+},
+"relation": "<=",
+"rhs": 309.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.94,
+"x3": 9.43,
+"x4": 6.89,
+"x5": 2.08
+},
+"relation": ">=",
+"rhs": 40.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.11,
+"x2": 6.54,
+"x4": 6.35,
+"x5": 2.12
+},
+"relation": "<=",
+"rhs": 339.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 6144.606116208
+}
+},
+{
+"model": {
+"title": "case120",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 29,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 27.97,
+"min": null,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1,
+"min": 0,
+"max": 64,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.89,
+"x2": 0.37,
+"x3": 11.76
+},
+"relation": ">=",
+"rhs": 224.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.01
+},
+"relation": "<=",
+"rhs": 321.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 4.18,
+"x2": 7.69,
+"x3": 8.03
+},
+"relation": "=",
+"rhs": 345.4
+},
+{
+"name": "c4",
+"terms": {
+"x2": 7.72,
+"x3": 5.38
+},
+"relation": "<=",
+"rhs": 321.9
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1504.01
+}
+},
+{
+"model": {
+"title": "case121",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 27.66,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": 12,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 34,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 14.47,
+"min": null,
+"max": 70,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 25,
+"min": 0,
+"max": 127,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 36,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.79,
+"x2": 8.09,
+"x3": 5.39,
+"x4": 5.5,
+"x5": 7.74,
+"x6": 9.36
+},
+"relation": ">=",
+"rhs": 350.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.22,
+"x2": 1.39,
+"x3": 9.83,
+"x4": 2.76,
+"x5": 4.29,
+"x6": 2.33
+},
+"relation": ">=",
+"rhs": 177.7
+},
+{
+"name": "c3",
+"terms": {
+"x2": 4.8,
+"x3": 7.83,
+"x5": 11.35,
+"x6": 5.47
+},
+"relation": "=",
+"rhs": 248.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.06,
+"x2": 6.65,
+"x3": 6.31,
+"x5": 1.91,
+"x6": 4.58
+},
+"relation": ">=",
+"rhs": 176.6
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1210.158741497
+}
+},
+{
+"model": {
+"title": "case122",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 9,
+"min": 0,
+"max": 107,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 1.3,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -6.5,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 35,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 16.86,
+"min": 2,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 1.77,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.05,
+"x2": 6.03,
+"x3": 3.1,
+"x5": 8.82
+},
+"relation": "<=",
+"rhs": 253.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.09,
+"x2": 10.86,
+"x4": 4.03
+},
+"relation": "<=",
+"rhs": 266.4
+},
+{
+"name": "c3",
+"terms": {
+"x1": 2.93,
+"x2": 1.59,
+"x3": 3.08,
+"x4": 4.36,
+"x5": 11.74,
+"x6": 11.42
+},
+"relation": ">=",
+"rhs": 68.4
+},
+{
+"name": "c4",
+"terms": {
+"x1": 5.53,
+"x2": 10.04,
+"x3": 9.53,
+"x4": 4.63,
+"x5": 4.02,
+"x6": 2.6
+},
+"relation": "=",
+"rhs": 109.2
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 798.428423326
+}
+},
+{
+"model": {
+"title": "case123",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 23.42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 39,
+"min": null,
+"max": 88,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -1.23,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 3.02,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 28.69,
+"min": 14,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 50,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.1,
+"x3": 9.94,
+"x4": 9.18,
+"x6": 10.43
+},
+"relation": "=",
+"rhs": 76.1
+},
+{
+"name": "c2",
+"terms": {
+"x2": 10.04,
+"x3": 8.51,
+"x4": 3.77,
+"x5": 0.62,
+"x6": 5.09
+},
+"relation": "<=",
+"rhs": 65.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 3318.506356425
+}
+},
+{
+"model": {
+"title": "case124",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -2.51,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 35,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 26.45,
+"min": null,
+"max": 175,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 3.2,
+"x3": 8.95
+},
+"relation": ">=",
+"rhs": 150.7
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case125",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 9.21,
+"min": 0,
+"max": 158,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 14.68,
+"min": 0,
+"max": 30,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 28.45,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 21.42,
+"min": 11,
+"max": 50,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.48,
+"x2": 10.97,
+"x3": 6.82,
+"x4": 2.74
+},
+"relation": ">=",
+"rhs": 356.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.98,
+"x2": 4.2,
+"x3": 8.18,
+"x4": 7.53
+},
+"relation": "=",
+"rhs": 105.6
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case126",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 20,
+"min": 0,
+"max": 189,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 20.16,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 33,
+"min": 0,
+"max": 103,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -6.4,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.49,
+"x3": 9.8,
+"x4": 4.95,
+"x5": 1.65
+},
+"relation": "<=",
+"rhs": 41.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.8,
+"x2": 6.21,
+"x3": 5.43,
+"x4": 9.57
+},
+"relation": "<=",
+"rhs": 12.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.52,
+"x2": 1.95,
+"x3": 3.87,
+"x4": 2.6,
+"x5": 1.98
+},
+"relation": ">=",
+"rhs": 126.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 9.46,
+"x2": 4.03,
+"x3": 6.76,
+"x4": 3.76,
+"x5": 10.93
+},
+"relation": "<=",
+"rhs": 130.4
+},
+{
+"name": "c5",
+"terms": {
+"x1": 7.43,
+"x2": 0.94,
+"x4": 8.28,
+"x5": 8.52
+},
+"relation": "<=",
+"rhs": 155.4
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case127",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -7.88,
+"min": 0,
+"max": 54,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 2.91,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 6,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 21.25,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 7.06,
+"x2": 11.18,
+"x3": 1.54,
+"x4": 2.81
+},
+"relation": "<=",
+"rhs": 378.9
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.92,
+"x2": 9.65
+},
+"relation": "=",
+"rhs": 135.1
+},
+{
+"name": "c3",
+"terms": {
+"x1": 1.2,
+"x2": 3.29
+},
+"relation": "=",
+"rhs": 287.6
+},
+{
+"name": "c4",
+"terms": {
+"x1": 5.94,
+"x2": 8.04
+},
+"relation": ">=",
+"rhs": 117.4
+},
+{
+"name": "c5",
+"terms": {
+"x1": 7.12,
+"x3": 2.34,
+"x4": 1.19
+},
+"relation": "<=",
+"rhs": 230.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case128",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 25.93,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 19,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 2.21,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.93,
+"x2": 4.7,
+"x3": 5.49
+},
+"relation": "<=",
+"rhs": 110.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.86,
+"x2": 5.35,
+"x3": 1.56
+},
+"relation": "=",
+"rhs": 143.2
+},
+{
+"name": "c3",
+"terms": {
+"x1": 10.08,
+"x2": 5.89
+},
+"relation": ">=",
+"rhs": 127.4
+},
+{
+"name": "c4",
+"terms": {
+"x2": 2.33,
+"x3": 0.69
+},
+"relation": "<=",
+"rhs": 224.5
+},
+{
+"name": "c5",
+"terms": {
+"x2": 8.71
+},
+"relation": "<=",
+"rhs": 220.1
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case129",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 3,
+"min": 2,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 23.99,
+"min": 0,
+"max": 101,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 22,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -5.2,
+"min": 14,
+"max": 176,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 5.9,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": -6.43,
+"min": 18,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.32,
+"x2": 0.07,
+"x3": 6.6,
+"x4": 3.15,
+"x5": 9.79,
+"x6": 8.08
+},
+"relation": "<=",
+"rhs": 367.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 7.11,
+"x2": 6.56,
+"x3": 9.61,
+"x4": 5.86
+},
+"relation": "<=",
+"rhs": 42.1
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.93,
+"x2": 3.41,
+"x3": 1.37,
+"x4": 1.16
+},
+"relation": ">=",
+"rhs": 225.7
+},
+{
+"name": "c4",
+"terms": {
+"x1": 5.73,
+"x3": 9.85,
+"x6": 6.69
+},
+"relation": ">=",
+"rhs": 202.0
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case130",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 38,
+"min": 11,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 42,
+"min": 0,
+"max": 160,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -3.63,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 9,
+"min": 0,
+"max": 48,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 2.01,
+"x3": 4.22
+},
+"relation": "<=",
+"rhs": 258.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.66,
+"x2": 6.82,
+"x3": 2.78,
+"x4": 2.65
+},
+"relation": "=",
+"rhs": 230.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.61,
+"x2": 10.59,
+"x3": 0.43,
+"x4": 5.59
+},
+"relation": ">=",
+"rhs": 265.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 642.286586555
+}
+},
+{
+"model": {
+"title": "case131",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -6.02,
+"min": 0,
+"max": 62,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 13.66,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.04,
+"x2": 9.51
+},
+"relation": "<=",
+"rhs": 392.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0
+},
+"relation": "=",
+"rhs": 299.8
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case132",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 25.96,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 46,
+"min": 15,
+"max": 96,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -4.01,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 25.15,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.95,
+"x2": 7.99,
+"x3": 4.35,
+"x4": 5.44
+},
+"relation": ">=",
+"rhs": 51.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 10.74,
+"x2": 2.99,
+"x3": 2.28,
+"x4": 4.36
+},
+"relation": ">=",
+"rhs": 397.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.84,
+"x3": 8.44
+},
+"relation": "<=",
+"rhs": 379.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 7.94,
+"x2": 1.9,
+"x3": 3.18,
+"x4": 10.98
+},
+"relation": ">=",
+"rhs": 239.9
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case133",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 20.32,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -4.27,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 8.85,
+"min": 0,
+"max": 33,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 17.61,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 14.43,
+"min": null,
+"max": 54,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.84,
+"x2": 11.27,
+"x3": 10.44,
+"x5": 8.31
+},
+"relation": ">=",
+"rhs": 251.1
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case134",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 5,
+"min": null,
+"max": 195,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 17,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 50,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 20.08,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 10,
+"min": 0,
+"max": 41,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 12.85,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.8,
+"x2": 3.26,
+"x4": 6.59,
+"x5": 11.55,
+"x6": 8.84
+},
+"relation": "<=",
+"rhs": 211.6
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 0.0
+}
+},
+{
+"model": {
+"title": "case135",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 20.38,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 16.59,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 21.06,
+"min": 0,
+"max": 188,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -9.16,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 33,
+"min": 18,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": -5.68,
+"min": 0,
+"max": 112,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.78,
+"x3": 8.15,
+"x4": 10.75,
+"x6": 8.48
+},
+"relation": "=",
+"rhs": 245.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 5.45,
+"x2": 10.07,
+"x3": 4.2,
+"x4": 5.97,
+"x5": 2.25,
+"x6": 1.54
+},
+"relation": ">=",
+"rhs": 195.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 4.34,
+"x2": 3.21,
+"x4": 4.67,
+"x6": 8.69
+},
+"relation": "<=",
+"rhs": 70.7
+},
+{
+"name": "c4",
+"terms": {
+"x3": 8.88,
+"x4": 10.48,
+"x5": 0.47
+},
+"relation": "<=",
+"rhs": 38.5
+},
+{
+"name": "c5",
+"terms": {
+"x1": 6.92,
+"x2": 8.2,
+"x3": 9.96,
+"x4": 0.18,
+"x5": 6.17
+},
+"relation": "<=",
+"rhs": 356.2
+},
+{
+"name": "c6",
+"terms": {
+"x1": 1.33,
+"x2": 6.21,
+"x3": 6.1,
+"x4": 10.87,
+"x5": 10.17,
+"x6": 3.96
+},
+"relation": "<=",
+"rhs": 95.2
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case136",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -8.55,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20,
+"min": 8,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.88
+},
+"relation": "<=",
+"rhs": 289.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 3.25,
+"x2": 7.34
+},
+"relation": "<=",
+"rhs": 168.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 2.82,
+"x2": 10.0
+},
+"relation": "<=",
+"rhs": 213.5
+},
+{
+"name": "c4",
+"terms": {
+"x1": 8.71,
+"x2": 2.14
+},
+"relation": "<=",
+"rhs": 279.5
+},
+{
+"name": "c5",
+"terms": {
+"x1": 2.15,
+"x2": 5.34
+},
+"relation": "<=",
+"rhs": 304.4
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": -97.560160735
+}
+},
+{
+"model": {
+"title": "case137",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 42,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 28,
+"min": 4,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.68,
+"x2": 0.19
+},
+"relation": "<=",
+"rhs": 338.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 11.5,
+"x2": 11.53
+},
+"relation": "<=",
+"rhs": 388.8
+},
+{
+"name": "c3",
+"terms": {
+"x1": 9.23
+},
+"relation": "<=",
+"rhs": 247.2
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 242.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1288.0
+}
+},
+{
+"model": {
+"title": "case138",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 1,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 0.56,
+"min": 0,
+"max": 191,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 7.35,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 2.34,
+"x3": 8.91
+},
+"relation": "<=",
+"rhs": 260.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 2.09
+},
+"relation": "<=",
+"rhs": 101.3
+},
+{
+"name": "c3",
+"terms": {
+"x2": 4.76
+},
+"relation": "<=",
+"rhs": 42.1
+},
+{
+"name": "c4",
+"terms": {
+"x2": 8.01
+},
+"relation": "<=",
+"rhs": 332.0
+},
+{
+"name": "c5",
+"terms": {
+"x1": 11.93,
+"x2": 7.84,
+"x3": 5.32
+},
+"relation": ">=",
+"rhs": 46.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 219.59603882
+}
+},
+{
+"model": {
+"title": "case139",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 2.59,
+"min": 0,
+"max": 83,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 9,
+"min": 0,
+"max": 64,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 2.09,
+"min": 0,
+"max": 44,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -3.49,
+"min": 4,
+"max": 146,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 17,
+"min": 0,
+"max": 68,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.27,
+"x2": 5.09,
+"x3": 10.51,
+"x4": 11.96
+},
+"relation": "<=",
+"rhs": 142.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 9.61,
+"x2": 4.72,
+"x3": 5.0
+},
+"relation": "<=",
+"rhs": 139.0
+},
+{
+"name": "c3",
+"terms": {
+"x2": 1.06,
+"x3": 8.92,
+"x4": 0.56,
+"x5": 1.95
+},
+"relation": ">=",
+"rhs": 13.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1311.680410806
+}
+},
+{
+"model": {
+"title": "case140",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 2,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 30,
+"min": 0,
+"max": 123,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -4.29,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 36,
+"min": 0,
+"max": 126,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.11,
+"x3": 3.04,
+"x4": 4.26
+},
+"relation": "<=",
+"rhs": 137.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.06,
+"x3": 10.9,
+"x4": 11.68
+},
+"relation": "<=",
+"rhs": 140.9
+},
+{
+"name": "c3",
+"terms": {
+"x1": 3.89,
+"x3": 3.25
+},
+"relation": ">=",
+"rhs": 326.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 10.77,
+"x3": 4.97
+},
+"relation": "<=",
+"rhs": 320.2
+},
+{
+"name": "c5",
+"terms": {
+"x1": 2.69,
+"x2": 3.54,
+"x3": 8.73
+},
+"relation": "=",
+"rhs": 63.9
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case141",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 4,
+"min": 0,
+"max": 150,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 13.32,
+"min": 0,
+"max": 128,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 37,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 3.93,
+"x3": 4.43
+},
+"relation": "<=",
+"rhs": 213.5
+},
+{
+"name": "c2",
+"terms": {
+"x1": 9.83
+},
+"relation": "<=",
+"rhs": 167.1
+},
+{
+"name": "c3",
+"terms": {
+"x2": 5.91
+},
+"relation": "<=",
+"rhs": 260.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 0.0
+}
+},
+{
+"model": {
+"title": "case142",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 13,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 29,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 10.55,
+"min": 17,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.08,
+"x2": 0.57,
+"x3": 9.52
+},
+"relation": "=",
+"rhs": 74.4
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case143",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 18.43,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 10,
+"min": 13,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 32,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.23,
+"x2": 6.54,
+"x3": 1.02
+},
+"relation": ">=",
+"rhs": 12.2
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.52,
+"x2": 4.16,
+"x3": 1.46
+},
+"relation": ">=",
+"rhs": 215.6
+},
+{
+"name": "c3",
+"terms": {
+"x1": 5.34,
+"x2": 0.67,
+"x3": 3.46
+},
+"relation": "<=",
+"rhs": 249.1
+},
+{
+"name": "c4",
+"terms": {
+"x1": 0.76,
+"x2": 3.83
+},
+"relation": "=",
+"rhs": 243.3
+},
+{
+"name": "c5",
+"terms": {
+"x2": 4.82,
+"x3": 9.54
+},
+"relation": "=",
+"rhs": 36.9
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case144",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 16.54,
+"min": 0,
+"max": 112,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 17,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 8.78,
+"x2": 2.98
+},
+"relation": "<=",
+"rhs": 194.0
+},
+{
+"name": "c2",
+"terms": {
+"x1": 11.48,
+"x2": 0.99
+},
+"relation": "<=",
+"rhs": 351.3
+},
+{
+"name": "c3",
+"terms": {
+"x1": 6.09
+},
+"relation": "<=",
+"rhs": 344.7
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.38,
+"x2": 2.86
+},
+"relation": "<=",
+"rhs": 375.1
+},
+{
+"name": "c5",
+"terms": {
+"x1": 5.06,
+"x2": 4.63
+},
+"relation": "<=",
+"rhs": 164.5
+},
+{
+"name": "c6",
+"terms": {
+"x1": 0.13
+},
+"relation": "<=",
+"rhs": 320.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 603.995680346
+}
+},
+{
+"model": {
+"title": "case145",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 7.7,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 22,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 5.28,
+"x2": 5.39
+},
+"relation": "=",
+"rhs": 328.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0
+},
+"relation": "<=",
+"rhs": 233.0
+},
+{
+"name": "c3",
+"terms": {
+"x1": 7.13,
+"x2": 10.25
+},
+"relation": "=",
+"rhs": 85.8
+},
+{
+"name": "c4",
+"terms": {
+"x1": 4.47
+},
+"relation": "=",
+"rhs": 16.2
+},
+{
+"name": "c5",
+"terms": {
+"x1": 11.19
+},
+"relation": "<=",
+"rhs": 114.1
+},
+{
+"name": "c6",
+"terms": {
+"x1": 5.1,
+"x2": 7.61
+},
+"relation": "<=",
+"rhs": 196.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case146",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 6.85,
+"min": 2,
+"max": 104,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 8.81,
+"min": 0,
+"max": 90,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.33
+},
+"relation": "<=",
+"rhs": 175.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 13.7
+}
+},
+{
+"model": {
+"title": "case147",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 5.24,
+"min": null,
+"max": 85,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 6.5,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.35,
+"x2": 2.42,
+"x3": 4.56
+},
+"relation": "<=",
+"rhs": 56.0
+},
+{
+"name": "c2",
+"terms": {
+"x3": 2.78
+},
+"relation": ">=",
+"rhs": 153.7
+},
+{
+"name": "c3",
+"terms": {
+"x2": 7.67,
+"x3": 6.42
+},
+"relation": "<=",
+"rhs": 24.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 0.79,
+"x2": 4.78,
+"x3": 6.44
+},
+"relation": "<=",
+"rhs": 269.8
+},
+{
+"name": "c5",
+"terms": {
+"x2": 11.55,
+"x3": 4.16
+},
+"relation": "=",
+"rhs": 369.3
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case148",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 26.35,
+"min": 9,
+"max": 36,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": -4.15,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 6.12
+},
+"relation": "<=",
+"rhs": 95.0
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case149",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 11.96,
+"min": 0,
+"max": 167,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 20.8,
+"min": 7,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 15.48,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 18,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -2.0,
+"min": null,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 9.84,
+"x2": 5.96,
+"x3": 1.71,
+"x4": 11.63,
+"x5": 4.53
+},
+"relation": "<=",
+"rhs": 78.4
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.3,
+"x2": 10.63,
+"x3": 2.56,
+"x4": 3.1
+},
+"relation": "<=",
+"rhs": 285.6
+},
+{
+"name": "c3",
+"terms": {
+"x5": 6.6
+},
+"relation": "=",
+"rhs": 309.7
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case150",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 7.0,
+"min": 0,
+"max": 63,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 15.48,
+"min": 12,
+"max": 175,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 6.3,
+"min": null,
+"max": 173,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 0.22,
+"x3": 5.34
+},
+"relation": "<=",
+"rhs": 131.8
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.3,
+"x3": 0.24
+},
+"relation": "=",
+"rhs": 291.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 3096.93217858
+}
+},
+{
+"model": {
+"title": "case151",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 7,
+"min": 12,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 8,
+"min": 8,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": -5.57,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -5.42,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 27,
+"min": 0,
+"max": 163,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 0.34,
+"x5": 7.09
+},
+"relation": "=",
+"rhs": 18.3
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case152",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 20,
+"min": 4,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 3.15,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 10.05
+},
+"relation": ">=",
+"rhs": 237.1
+},
+{
+"name": "c2",
+"terms": {
+"x1": 1.0
+},
+"relation": ">=",
+"rhs": 391.3
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 7826.0
+}
+},
+{
+"model": {
+"title": "case153",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 35,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 5,
+"min": 0,
+"max": 168,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 25,
+"min": 1,
+"max": 192,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 2.7,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 3,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 16,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.24,
+"x2": 1.14,
+"x3": 2.39,
+"x4": 10.45,
+"x5": 10.5,
+"x6": 8.91
+},
+"relation": ">=",
+"rhs": 387.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.3,
+"x2": 6.54,
+"x3": 8.89,
+"x4": 10.26,
+"x5": 11.09
+},
+"relation": "<=",
+"rhs": 311.7
+},
+{
+"name": "c3",
+"terms": {
+"x1": 10.48,
+"x2": 5.19,
+"x3": 0.73,
+"x4": 9.98,
+"x5": 7.34,
+"x6": 9.02
+},
+"relation": ">=",
+"rhs": 135.4
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.14,
+"x3": 1.89,
+"x4": 6.23,
+"x5": 4.85,
+"x6": 8.89
+},
+"relation": ">=",
+"rhs": 244.1
+},
+{
+"name": "c5",
+"terms": {
+"x1": 8.58,
+"x2": 6.84,
+"x3": 4.09,
+"x4": 1.33,
+"x6": 6.41
+},
+"relation": "<=",
+"rhs": 375.4
+},
+{
+"name": "c6",
+"terms": {
+"x3": 3.43,
+"x6": 1.66
+},
+"relation": "=",
+"rhs": 90.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 1418.240456719
+}
+},
+{
+"model": {
+"title": "case154",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 1,
+"min": 1,
+"max": null,
+"integer": true
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 35,
+"min": 10,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 1,
+"min": 15,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -4.72,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 11.38,
+"x2": 2.97,
+"x3": 7.13
+},
+"relation": ">=",
+"rhs": 186.3
+},
+{
+"name": "c2",
+"terms": {
+"x1": 4.37,
+"x2": 7.14,
+"x3": 1.23,
+"x4": 0.01
+},
+"relation": "<=",
+"rhs": 249.5
+},
+{
+"name": "c3",
+"terms": {
+"x1": 10.93,
+"x2": 0.34,
+"x3": 2.07,
+"x4": 2.71
+},
+"relation": ">=",
+"rhs": 366.7
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 567.609446494
+}
+},
+{
+"model": {
+"title": "case155",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 26.59,
+"min": 12,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 33,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 16,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": -1.86,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 34,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 24.47,
+"min": null,
+"max": 69,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 4.93,
+"x2": 7.04,
+"x3": 5.39,
+"x4": 9.5,
+"x6": 4.59
+},
+"relation": "<=",
+"rhs": 70.6
+},
+{
+"name": "c2",
+"terms": {
+"x1": 8.24,
+"x2": 10.1,
+"x3": 4.29,
+"x4": 5.6,
+"x5": 4.14,
+"x6": 4.16
+},
+"relation": "<=",
+"rhs": 394.4
+},
+{
+"name": "c3",
+"terms": {
+"x2": 7.0,
+"x4": 5.93,
+"x5": 8.56,
+"x6": 5.7
+},
+"relation": ">=",
+"rhs": 172.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 1.49,
+"x2": 0.52,
+"x3": 4.74,
+"x5": 4.94,
+"x6": 6.52
+},
+"relation": "=",
+"rhs": 359.2
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case156",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 45,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 15,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 12.53,
+"min": 20,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 23,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -9.11,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 24,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 4.52,
+"x3": 1.38,
+"x4": 10.06,
+"x5": 5.63,
+"x6": 9.09
+},
+"relation": "<=",
+"rhs": 238.7
+},
+{
+"name": "c2",
+"terms": {
+"x1": 0.81,
+"x2": 5.5,
+"x3": 6.46,
+"x4": 6.31,
+"x5": 10.73,
+"x6": 0.8
+},
+"relation": "<=",
+"rhs": 121.4
+},
+{
+"name": "c3",
+"terms": {
+"x2": 7.35,
+"x3": 4.34,
+"x4": 5.95,
+"x5": 3.54,
+"x6": 8.15
+},
+"relation": ">=",
+"rhs": 104.3
+},
+{
+"name": "c4",
+"terms": {
+"x1": 6.02,
+"x2": 11.85,
+"x3": 10.96,
+"x4": 4.68,
+"x5": 2.47
+},
+"relation": ">=",
+"rhs": 283.5
+},
+{
+"name": "c5",
+"terms": {
+"x3": 1.54,
+"x4": 7.9,
+"x5": 0.43,
+"x6": 0.55
+},
+"relation": "<=",
+"rhs": 96.1
+},
+{
+"name": "c6",
+"terms": {
+"x1": 6.1,
+"x2": 5.73,
+"x3": 1.56,
+"x4": 3.2,
+"x6": 5.74
+},
+"relation": ">=",
+"rhs": 169.9
+}
+]
+},
+"expected": {
+"status": "infeasible",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case157",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 28,
+"min": 0,
+"max": 148,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 26,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 9,
+"min": 0,
+"max": null,
+"integer": true
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 35,
+"min": 3,
+"max": null,
+"integer": true
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 26.25,
+"min": 0,
+"max": 159,
+"integer": true
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 18.03,
+"min": 0,
+"max": null,
+"integer": true
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x2": 7.29,
+"x3": 1.84,
+"x4": 7.56,
+"x5": 3.59,
+"x6": 9.89
+},
+"relation": "<=",
+"rhs": 325.8
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 6454.0
+}
+},
+{
+"model": {
+"title": "case158",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": -4.57,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 39,
+"min": 0,
+"max": 176,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 22.01,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 1.03,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": 27,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x6",
+"label": "x6",
+"objective": 16.64,
+"min": 0,
+"max": 176,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 3.7,
+"x2": 3.1,
+"x4": 1.25,
+"x6": 7.52
+},
+"relation": "=",
+"rhs": 301.9
+}
+]
+},
+"expected": {
+"status": "unbounded",
+"objective": null
+}
+},
+{
+"model": {
+"title": "case159",
+"direction": "max",
+"objectiveName": "z",
+"nonNegative": false,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 15.57,
+"min": 0,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 29,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 41,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x1": 1.63,
+"x2": 0.84,
+"x3": 7.88
+},
+"relation": "<=",
+"rhs": 338.1
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 11672.5
+}
+},
+{
+"model": {
+"title": "case160",
+"direction": "min",
+"objectiveName": "z",
+"nonNegative": true,
+"variables": [
+{
+"name": "x1",
+"label": "x1",
+"objective": 21.36,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x2",
+"label": "x2",
+"objective": 29.42,
+"min": 0,
+"max": 179,
+"integer": false
+},
+{
+"name": "x3",
+"label": "x3",
+"objective": 8.31,
+"min": null,
+"max": null,
+"integer": false
+},
+{
+"name": "x4",
+"label": "x4",
+"objective": 9,
+"min": 0,
+"max": 117,
+"integer": false
+},
+{
+"name": "x5",
+"label": "x5",
+"objective": -0.77,
+"min": 0,
+"max": null,
+"integer": false
+}
+],
+"constraints": [
+{
+"name": "c1",
+"terms": {
+"x3": 3.62,
+"x5": 1.8
+},
+"relation": "<=",
+"rhs": 249.0
+},
+{
+"name": "c2",
+"terms": {
+"x2": 6.29,
+"x4": 6.28,
+"x5": 7.94
+},
+"relation": "=",
+"rhs": 387.9
+},
+{
+"name": "c3",
+"terms": {
+"x2": 0.47,
+"x3": 3.24,
+"x5": 4.45
+},
+"relation": "<=",
+"rhs": 153.7
+},
+{
+"name": "c4",
+"terms": {
+"x2": 0.98,
+"x3": 11.98,
+"x4": 8.19,
+"x5": 0.52
+},
+"relation": "<=",
+"rhs": 171.2
+},
+{
+"name": "c5",
+"terms": {
+"x2": 9.99,
+"x3": 9.02,
+"x4": 2.32,
+"x5": 7.17
+},
+"relation": "<=",
+"rhs": 381.1
+},
+{
+"name": "c6",
+"terms": {
+"x1": 10.1,
+"x2": 4.79,
+"x5": 1.89
+},
+"relation": "<=",
+"rhs": 269.0
+}
+]
+},
+"expected": {
+"status": "optimal",
+"objective": 136.290033636
+}
+}
+]

@@ -54,13 +54,22 @@ export const DOCUMENTS_SCHEMA = obj({
 export const OPTIMIZE_SCHEMA = obj({
   title: str(),
   direction: en(["max", "min"]),
-  objectiveName: str("e.g. Profit, Cost"),
-  variables: arr(obj({ name: str("short identifier, no spaces"), label: str(), objective: num("objective coefficient"), min: num(), max: { type: ["number", "null"] }, integer: { type: "boolean" } })),
+  objectiveName: str("e.g. Weekly profit ($), Total employees"),
+  variables: arr(obj({
+    name: str("short identifier: letters, digits, underscores; no spaces"),
+    label: str("what one unit of the variable means, with units"),
+    objective: num("objective coefficient: contribution of one unit to the objective (e.g. price minus variable cost)"),
+    min: { type: ["number", "null"], description: "lower bound; 0 for ordinary quantities, null only if negative values make sense" },
+    max: { type: ["number", "null"], description: "upper bound, or null for none" },
+    integer: { type: "boolean" },
+  })),
   constraints: arr(obj({
     name: str(),
     terms: arr(obj({ variable: str(), coefficient: num() })),
     relation: en(["<=", ">=", "="]),
     rhs: num(),
+    note: str("plain-language form if the constraint was linearised (average, ratio, share), else empty string"),
   })),
-  notes: str("assumptions you made"),
+  notes: str("data-to-coefficient calculations and every assumption you made"),
+  linear: { type: "boolean", description: "false if the real problem is nonlinear (products of variables, squares, curves) and this is only an approximation" },
 });

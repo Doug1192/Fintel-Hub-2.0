@@ -6,7 +6,9 @@ import { buildSampleDataset } from "../src/lib/sample";
 import { computeKpis, summarize } from "../src/lib/finance";
 import { forecastPnl } from "../src/lib/forecast";
 import { baselineFrom, evaluate, goalSeek, ZERO_DRIVERS } from "../src/lib/scenario";
-import { solve, TEMPLATES } from "../src/lib/optimize";
+import { checkFeasible, formulation, sensitivity, solve, toLpFormat, toPulp, toScipy, type OptModel } from "../src/lib/optimize";
+import { TEMPLATES } from "../src/lib/optTemplates";
+import { readFileSync } from "node:fs";
 import { simulate, STRATEGIES } from "../src/lib/pricing";
 import { analyzeWorkflowRules } from "../src/lib/workflow";
 
@@ -77,17 +79,93 @@ t("goal seek reaches target", () => {
   }
 });
 
-t("optimizer templates", () => {
+t("optimizer: every template solves and matches its known answer (Excel Solver / SciPy)", () => {
   for (const tpl of TEMPLATES) {
     const r = solve(tpl.model);
-    assert.ok(r.feasible, tpl.id);
-    for (const c of r.constraints) {
-      if (c.relation === "<=") assert.ok(c.lhs <= c.rhs + 1e-6, `${tpl.id}:${c.name}`);
-      if (c.relation === ">=") assert.ok(c.lhs >= c.rhs - 1e-6, `${tpl.id}:${c.name}`);
+    assert.equal(r.status, "optimal", tpl.id);
+    assert.ok(checkFeasible(tpl.model, r.values).ok, tpl.id + " solution must satisfy every constraint");
+    if (tpl.expected) {
+      assert.ok(Math.abs(r.objective - tpl.expected.objective) <= 1e-6 * Math.max(1, Math.abs(tpl.expected.objective)), `${tpl.id}: ${r.objective} vs ${tpl.expected.objective}`);
+      // The reference solution must itself be feasible and give the same objective (alternative optima are fine).
+      if (tpl.expected.values) {
+        assert.ok(checkFeasible(tpl.model, tpl.expected.values).ok, tpl.id + " expected solution feasible");
+        const objOfExpected = tpl.model.variables.reduce((a, v) => a + v.objective * (tpl.expected!.values![v.name] ?? 0), 0);
+        assert.ok(Math.abs(objOfExpected - tpl.expected.objective) < 1e-6 * Math.max(1, tpl.expected.objective), tpl.id + " expected objective");
+      }
     }
   }
-  const mix = solve(TEMPLATES[0].model);
-  assert.ok(mix.objective > 0);
+  // Molokai Nut has a unique optimum, so the plan itself must match Excel exactly.
+  const p1 = solve(TEMPLATES.find((t) => t.id === "lab-p1")!.model);
+  assert.deepEqual(p1.values, { Whole: 1000, Cluster: 500, Crunch: 80, Roasted: 200 });
+});
+
+t("optimizer: 160 random LP/MILP cases agree with SciPy (HiGHS)", () => {
+  const cases = JSON.parse(readFileSync(new URL("./fixtures/lp-crosscheck.json", import.meta.url), "utf8")) as { model: OptModel; expected: { status: string; objective: number | null } }[];
+  let checked = 0;
+  for (const [k, c] of cases.entries()) {
+    const r = solve(c.model);
+    assert.equal(r.status, c.expected.status, `case ${k + 1}: status`);
+    if (r.status === "optimal") {
+      const e = c.expected.objective!;
+      assert.ok(Math.abs(r.objective - e) <= 1e-6 * Math.max(1, Math.abs(e)), `case ${k + 1}: ${r.objective} vs ${e}`);
+      assert.ok(checkFeasible(c.model, r.values).ok, `case ${k + 1}: feasible`);
+    }
+    checked++;
+  }
+  assert.equal(checked, cases.length);
+});
+
+t("optimizer: sensitivity report (shadow prices, reduced costs, ranges)", () => {
+  // Concert problem 9(c): the fire-code capacity is worth $100 per extra ticket over the allowable increase.
+  const p9 = TEMPLATES.find((t) => t.id === "lab-p9")!.model;
+  const s9 = sensitivity(p9, solve(p9))!;
+  const cap = s9.constraints.find((c) => c.name === "Fire code capacity")!;
+  assert.equal(cap.shadowPrice, 100);
+  assert.ok(cap.allowIncrease >= 400, "the extra 400 tickets are within the allowable increase");
+  const after = solve({ ...p9, constraints: p9.constraints.map((c) => (c.name === "Fire code capacity" ? { ...c, rhs: 20400 } : c)) });
+  assert.equal(after.objective - solve(p9).objective, 40000);
+  // Strong duality: Σ shadow price × RHS + bound terms = objective, checked on every LP template.
+  for (const tpl of TEMPLATES) {
+    if (tpl.model.variables.some((v) => v.integer)) continue;
+    const r = solve(tpl.model);
+    const s = sensitivity(tpl.model, r)!;
+    assert.ok(s, tpl.id);
+    for (const c of s.constraints) {
+      const res = r.constraints.find((x) => x.name === c.name)!;
+      if (!res.binding) assert.ok(Math.abs(c.shadowPrice) < 1e-9, `${tpl.id}: non-binding ${c.name} must have zero shadow price`);
+    }
+    for (const v of s.variables) {
+      // A variable strictly between its bounds must have zero reduced cost.
+      const tv = tpl.model.variables.find((x) => x.name === v.name)!;
+      const lb = Math.max(0, tv.min ?? 0), ub = tv.max;
+      if (v.value > lb + 1e-7 && (ub === null || v.value < ub - 1e-7)) assert.ok(Math.abs(v.reducedCost) < 1e-7, `${tpl.id}: ${v.name} reduced cost`);
+    }
+  }
+  // Problems 2 and 3 have alternative optima; Molokai does not.
+  const alt = (id: string) => { const m = TEMPLATES.find((t) => t.id === id)!.model; return sensitivity(m, solve(m))!.alternativeOptima; };
+  assert.equal(alt("lab-p3"), true);
+});
+
+t("optimizer: Value Of target, free variables, infeasible/unbounded", () => {
+  const base: OptModel = { title: "t", direction: "target", target: 120, objectiveName: "z", variables: [
+    { name: "a", label: "a", objective: 3, min: 0, max: 30, integer: false }, { name: "b", label: "b", objective: 2, min: 0, max: 40, integer: false }], constraints: [] };
+  const r = solve(base);
+  assert.equal(r.status, "optimal");
+  assert.ok(Math.abs(3 * r.values.a + 2 * r.values.b - 120) < 1e-6);
+  assert.equal(solve({ ...base, target: 1000 }).status, "infeasible");
+  const free: OptModel = { title: "f", direction: "min", objectiveName: "z", nonNegative: false, variables: [{ name: "x", label: "x", objective: 1, min: null, max: null, integer: false }], constraints: [{ name: "c", terms: { x: 1 }, relation: ">=", rhs: -5 }] };
+  assert.equal(solve(free).objective, -5);
+  assert.equal(solve({ ...free, constraints: [] }).status, "unbounded");
+});
+
+t("optimizer: formulation and exports", () => {
+  const p3 = TEMPLATES.find((t) => t.id === "lab-p3")!.model;
+  const f = formulation(p3);
+  assert.ok(f.objective.startsWith("Maximize  2.5 Basket_G1"));
+  assert.ok(f.constraints.some((c) => c.text.startsWith("−2.75 Basket_G1 − 1.75 Basket_G2 − 0.75 Basket_G3 + 0.25 Basket_G4 + 1.25 Basket_G5 ≥ 0")));
+  assert.ok(toPulp(p3).includes("pulp.LpMaximize"));
+  assert.ok(toScipy(p3).includes("linprog"));
+  assert.ok(toLpFormat(p3).includes("Subject To"));
 });
 
 t("pricing simulation", () => {

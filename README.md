@@ -14,7 +14,7 @@ which documents you need for any analysis, and finds where AI can make roles and
 | **Dashboard** | KPIs (growth, gross / contribution / operating / net margin, break-even, margin of safety, operating leverage), trends, cost and income breakdowns, a condensed P&L, a quick forecast, and rule-based insights (plus an AI deep-dive). |
 | **Forecast** | Monthly, quarterly or yearly timeline with a choice of horizon. Auto-selects Holt-Winters, damped Holt, linear or CAGR, shows 80% prediction ranges, and adjusts for growth, inflation, cost ratio and tax. CSV export. |
 | **Sensitivity & Goal Seek** | What-if sliders (price, volume, unit cost, fixed cost, productivity, headcount, elasticity), a profit bridge, a tornado chart, and a price × volume data table. **Reverse goal seek**: set a target profit, revenue or margin and get the move each lever needs (volume, price, cost, workforce, balanced mix). |
-| **Optimizer** | A linear and integer programming builder: decision variables, constraints and objective. Templates (product mix, marketing budget, staffing), binding constraints, slack and shadow prices. Can build a model from a plain-English description using AI. |
+| **Optimizer** | Excel Solver-style LP / integer programming: Max, Min or **Value Of** objective, changing variables with bounds and types (continuous, integer, binary), constraints, and "make unconstrained variables non-negative". Helpers turn weighted averages, shares and ratios into linear constraints. **Answer report**, **Sensitivity report** (shadow prices, reduced costs, allowable ranges), the written **LP formulation**, and exports to an **Excel workbook with Solver pre-configured**, **Python (PuLP or SciPy)** and **LP files**. Templates include the Module 1 lab problems with their Excel Solver answers. Linear and integer models only (no GRG Nonlinear yet). |
 | **Pricing Lab** | Simulates pricing strategies (premium, penetration, value-based, discount, custom) with elasticity, churn and CAC. Compares on NPV, LTV:CAC and payback, and runs a health check of whether pricing pays off long term. |
 | **Document Advisor** | For 13 analyses (loan application, valuation, pricing review, audit…), the exact documents needed, the periods to cover, why each matters and where to get it. Tracks which ones you've uploaded. AI handles custom requests. |
 | **AI Workflow Analyzer** | Paste a job description or end-to-end process to get task-level automation scores, automate / augment / eliminate / keep-human recommendations, hours freed, an efficiency roadmap and risks. |
@@ -37,7 +37,8 @@ A demo company is preloaded. Use **Statements & Data → CSV template** to see t
 
 - `npm run dev` / `npm run build` / `npm start`
 - `npm run lint`, `npm run typecheck`
-- `npm run selftest` runs the engine tests (classifier, parser, forecast, goal seek, optimizer, pricing, workflow, aliases & vault)
+- `npm run selftest` runs the engine tests (classifier, parser, forecast, goal seek, optimizer, pricing, workflow, aliases & vault). The optimizer is checked against the Excel Solver answers for the lab problems and against 160 random LP/MILP cases solved by SciPy (HiGHS).
+- `python scripts/make_lp_fixtures.py` regenerates those SciPy reference cases (`pip install scipy`); `scripts/crosscheck.py` solves any exported model list with SciPy.
 
 ## Tech
 
