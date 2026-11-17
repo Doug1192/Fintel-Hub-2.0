@@ -6,8 +6,9 @@ import { buildSampleDataset } from "../src/lib/sample";
 import { computeKpis, summarize } from "../src/lib/finance";
 import { forecastPnl } from "../src/lib/forecast";
 import { baselineFrom, evaluate, goalSeek, ZERO_DRIVERS } from "../src/lib/scenario";
-import { checkFeasible, formulation, sensitivity, solve, toLpFormat, toPulp, toScipy, type OptModel } from "../src/lib/optimize";
+import { addFixedCharge, checkFeasible, formulation, maxOfSum, sensitivity, solve, toLpFormat, toPulp, toScipy, weightedAverageConstraint, type OptModel } from "../src/lib/optimize";
 import { TEMPLATES } from "../src/lib/optTemplates";
+import { allocationModel, coverageModel, inventoryModel, networkModel, parsePerPeriod } from "../src/lib/optBuilders";
 import { readFileSync } from "node:fs";
 import { simulate, STRATEGIES } from "../src/lib/pricing";
 import { analyzeWorkflowRules } from "../src/lib/workflow";
@@ -126,7 +127,7 @@ t("optimizer: sensitivity report (shadow prices, reduced costs, ranges)", () => 
   assert.equal(after.objective - solve(p9).objective, 40000);
   // Strong duality: Σ shadow price × RHS + bound terms = objective, checked on every LP template.
   for (const tpl of TEMPLATES) {
-    if (tpl.model.variables.some((v) => v.integer)) continue;
+    if (tpl.model.variables.some((v) => v.integer || v.binary)) continue; // no sensitivity report for integer models (as in Excel)
     const r = solve(tpl.model);
     const s = sensitivity(tpl.model, r)!;
     assert.ok(s, tpl.id);
@@ -144,6 +145,162 @@ t("optimizer: sensitivity report (shadow prices, reduced costs, ranges)", () => 
   // Problems 2 and 3 have alternative optima; Molokai does not.
   const alt = (id: string) => { const m = TEMPLATES.find((t) => t.id === id)!.model; return sensitivity(m, solve(m))!.alternativeOptima; };
   assert.equal(alt("lab-p3"), true);
+});
+
+t("optimizer: sensitivity reports match HiGHS on 80 random non-degenerate LPs", () => {
+  type E = { objective: number; rows: { shadow: number; inc: number | null; dec: number | null }[]; cols: { value: number; reducedCost: number; inc: number | null; dec: number | null }[] };
+  const cases = JSON.parse(readFileSync(new URL("./fixtures/sensitivity-crosscheck.json", import.meta.url), "utf8")) as { model: OptModel; expected: E }[];
+  const close = (a: number, b: number | null) => (b === null ? !isFinite(a) : Math.abs(a - b) <= 1e-6 * Math.max(1, Math.abs(b)));
+  for (const [k, c] of cases.entries()) {
+    const r = solve(c.model);
+    const s = sensitivity(c.model, r)!;
+    assert.ok(close(r.objective, c.expected.objective), `case ${k + 1} objective`);
+    c.expected.rows.forEach((e, i) => {
+      const g = s.constraints[i];
+      assert.ok(close(g.shadowPrice, e.shadow), `case ${k + 1} row ${i + 1} shadow price ${g.shadowPrice} vs ${e.shadow}`);
+      assert.ok(close(g.allowIncrease, e.inc), `case ${k + 1} row ${i + 1} allowable increase ${g.allowIncrease} vs ${e.inc}`);
+      assert.ok(close(g.allowDecrease, e.dec), `case ${k + 1} row ${i + 1} allowable decrease ${g.allowDecrease} vs ${e.dec}`);
+    });
+    c.expected.cols.forEach((e, j) => {
+      const g = s.variables[j];
+      assert.ok(close(g.reducedCost, e.reducedCost), `case ${k + 1} x${j + 1} reduced cost`);
+      assert.ok(close(g.allowIncrease, e.inc), `case ${k + 1} x${j + 1} cost allowable increase ${g.allowIncrease} vs ${e.inc}`);
+      assert.ok(close(g.allowDecrease, e.dec), `case ${k + 1} x${j + 1} cost allowable decrease ${g.allowDecrease} vs ${e.dec}`);
+    });
+  }
+});
+
+t("optimizer: Module 3 lab answers, exact values and sensitivity (HiGHS reference)", () => {
+  const get = (id: string) => TEMPLATES.find((t) => t.id === id)!.model;
+  const near = (a: number, b: number) => Math.abs(a - b) <= 1e-7 * Math.max(1, Math.abs(b));
+  // P1 STL Chocolatier
+  const p1 = get("m3-p1"), r1 = solve(p1), s1 = sensitivity(p1, r1)!;
+  assert.equal(r1.objective, 594);
+  assert.deepEqual(r1.values, { Value: 0, Regular: 540, Deluxe: 0 });
+  const labor = s1.constraints.find((c) => c.name.startsWith("Labor"))!, weight = s1.constraints.find((c) => c.name.startsWith("Weight"))!;
+  assert.ok(near(labor.shadowPrice, 0.275) && near(labor.allowIncrease, 2270 / 3) && near(labor.allowDecrease, 2160));
+  assert.equal(weight.shadowPrice, 0);
+  assert.ok(!isFinite(weight.allowIncrease) && near(weight.allowDecrease, 90.8));
+  assert.ok(near(180 * labor.shadowPrice, 49.5), "(d) 3 extra hours are worth $49.50 > $40");
+  // P2 Clayton Brewery: exact vertex, shadow prices and ranges
+  const p2 = get("m3-p2"), r2 = solve(p2), s2 = sensitivity(p2, r2)!;
+  assert.ok(Math.abs(r2.values.A - 265 / 23) < 1e-12 && Math.abs(r2.values.B - 675 / 23) < 1e-12, "exact vertex, no round-off");
+  assert.deepEqual(r2.constraints.map((c) => c.binding), [true, true, false]);
+  const [corn, hops, malt] = s2.constraints;
+  assert.ok(near(corn.shadowPrice, 65 / 46) && near(hops.shadowPrice, 30 / 23) && malt.shadowPrice === 0);
+  assert.ok(near(corn.allowIncrease, 132.5) && near(corn.allowDecrease, 229.75) && near(hops.allowIncrease, 919 / 37) && near(hops.allowDecrease, 265 / 7));
+  assert.ok(near(malt.allowDecrease, 4595 / 23) && !isFinite(malt.allowIncrease));
+  assert.ok(hops.shadowPrice < 1.4, "(e) don't buy hops at $1.40");
+  assert.ok(190 < malt.allowDecrease, "(f) malt drop to 1,000 lb leaves the plan unchanged");
+  assert.ok(near(s2.variables[0].allowIncrease, 16.25) && near(s2.variables[0].allowDecrease, 30 / 7) && near(s2.variables[1].allowIncrease, 10) && near(s2.variables[1].allowDecrease, 13));
+  // P4 coal blend: the mixed-scale case that exposed the precision issue
+  const p4 = get("m3-p4"), r4 = solve(p4), s4 = sensitivity(p4, r4)!;
+  assert.ok(near(r4.objective, 2220000 / 69) && near(r4.values.C1, 4 / 69) && near(r4.values.C2, 38 / 69) && near(r4.values.C3, 27 / 69));
+  const [blend, sulfur, dust] = s4.constraints;
+  assert.ok(near(blend.allowIncrease, 2 / 9) && near(blend.allowDecrease, 1 / 53), "blend ranges");
+  assert.ok(near(sulfur.shadowPrice, 40 / 23) && near(sulfur.allowIncrease, 360) && near(sulfur.allowDecrease, 100), "sulfur ranges");
+  assert.ok(near(dust.allowIncrease, 0.4 / 11) && near(dust.allowDecrease, 0.225), "dust ranges");
+  assert.ok(s4.variables.every((v) => v.reducedCost === 0), "no round-off in reduced costs");
+  // P3 / P5 networks
+  assert.equal(solve(get("m3-p3")).objective, 455);
+  assert.equal(solve(get("m3-p5")).objective, 12750);
+  const optional = get("m3-p5");
+  assert.equal(solve({ ...optional, constraints: optional.constraints.map((c) => (c.name.includes("all cotton") ? { ...c, relation: "<=" as const } : c)) }).objective, 12775);
+  // Large-coefficient rows with a zero limit don't raise false violations
+  const tons: OptModel = { ...p4, variables: p4.variables.map((v) => ({ ...v, name: v.name.replace("C", "T") })), constraints: [
+    { name: "cap", terms: { T1: 1, T2: 1, T3: 1 }, relation: "<=", rhs: 30 },
+    weightedAverageConstraint("sulfur", [{ variable: "T1", attribute: 1100 }, { variable: "T2", attribute: 3500 }, { variable: "T3", attribute: 1300 }], "<=", 2500),
+    weightedAverageConstraint("dust", [{ variable: "T1", attribute: 1.7 }, { variable: "T2", attribute: 3.2 }, { variable: "T3", attribute: 2.4 }], "<=", 2.8),
+  ] };
+  const rt = solve(tons);
+  assert.ok(near(rt.objective, 30 * 2220000 / 69) && checkFeasible(tons, rt.values).ok, "(d) 965,217.4 lb/hour, feasible");
+});
+
+t("optimizer: pattern builders reproduce verified answers (Module 1 & 4)", () => {
+  const near = (a: number, b: number) => Math.abs(a - b) <= 1e-7 * Math.max(1, Math.abs(b));
+  assert.deepEqual(parsePerPeriod("3.06, 4.01\t6.03  $4.06"), [3.06, 4.01, 6.03, 4.06]);
+  assert.equal(parsePerPeriod("1.5"), 1.5);
+  assert.equal(parsePerPeriod("abc"), null);
+  // Coverage: cyclic shifts (Module 1 P2) and leases that must end in the horizon (Module 4 P2)
+  assert.equal(solve(coverageModel({ title: "s", periodLabel: "Period", requirement: [90, 215, 250, 165, 300, 125], options: [{ length: 2, cost: 1 }], cyclic: true })).objective, 640);
+  const lease = coverageModel({ title: "p", periodLabel: "Month", requirement: [25, 10, 20, 10, 5], options: [300, 525, 775, 850, 975].map((cost, k) => ({ length: k + 1, cost })), cyclic: false });
+  assert.equal(lease.variables.length, 15);
+  assert.equal(solve(lease).objective, 16625);
+  // Allocation with weighted-average quality (Module 1 P3, Module 4 P1)
+  assert.equal(solve(allocationModel({ title: "f", goal: "max", unitLabel: "lb", sources: [90, 225, 300, 100, 75].map((supply, g) => ({ name: `G${g + 1}`, supply, attributes: { grade: g + 1 } })),
+    uses: [{ name: "Baskets", value: 2.5, quality: { grade: { min: 3.75 } } }, { name: "Juice", value: 1.75, quality: { grade: { min: 2.5 } } }] })).objective, 1526.5);
+  // Route costs and blocked routes
+  const ship = allocationModel({ title: "t", goal: "min", unitLabel: "u", sources: [{ name: "A", supply: 50 }, { name: "B", supply: 60 }], uses: [{ name: "X", amount: 40, amountRelation: "=" }, { name: "Y", amount: 50, amountRelation: "=" }], pairCost: [[4, 6], [5, null]] });
+  assert.equal(ship.variables.length, 3, "blocked route has no variable");
+  assert.equal(solve(ship).objective, 6 * 50 + 5 * 40, "A→Y is the only way to Y, so B serves X");
+  // Inventory: Module 4 P3, P4 (+ part d), P5 — totals include the starting-stock holding cost via the objective constant
+  for (const t of TEMPLATES.filter((x) => x.group === "lab4")) assert.ok(near(solve(t.model).objective, t.expected!.objective), t.id);
+  const acme = TEMPLATES.find((t) => t.id === "m4-p4")!.model;
+  assert.equal(acme.objectiveConstant, 90, "1.5 × 120 / 2 on the starting stock");
+  const spec = (acme.source as { spec: Parameters<typeof inventoryModel>[0] }).spec;
+  const noMin = solve(inventoryModel({ ...spec, activities: spec.activities.map((a) => ({ ...a, min: 0 })) }));
+  assert.ok(near(solve(acme).objective - noMin.objective, 45), "(d) dropping the 400 minimum saves $45");
+  const gas = solve(TEMPLATES.find((t) => t.id === "m4-p3")!.model);
+  assert.equal(gas.values.Sell_1, 0);
+  assert.ok(gas.values.Sell_3 === 180 && gas.values.Buy_1 === 200, "sells at the day-3 peak, buys on day 1");
+});
+
+t("optimizer: fixed-cost helper (binary + computed big-M)", () => {
+  const base: OptModel = { title: "setup", direction: "max", objectiveName: "profit", variables: [
+    { name: "A", label: "A", objective: 12, min: 0, max: null, integer: false }, { name: "B", label: "B", objective: 9, min: 0, max: null, integer: false }],
+    constraints: [{ name: "hours", terms: { A: 2, B: 1 }, relation: "<=", rhs: 100 }, { name: "demand B", terms: { B: 1 }, relation: "<=", rhs: 40 }] };
+  assert.equal(maxOfSum(base, ["A"]), 50);
+  const r1 = addFixedCharge(base, { variables: ["A"], fixedCost: 500, name: "A setup" });
+  assert.ok(!("error" in r1));
+  const r2 = addFixedCharge((r1 as { model: OptModel }).model, { variables: ["B"], fixedCost: 300, name: "B setup" });
+  assert.ok(!("error" in r2));
+  const { model, bigM } = r2 as { model: OptModel; bigM: number };
+  assert.equal(bigM, 40, "tight: demand caps B at 40");
+  assert.equal(model.variables.find((v) => v.name === "Use_A_setup")!.objective, -500, "cost lowers profit in a Max model");
+  // Brute force over the 4 open/closed combinations: A only (100), B only (60), both (−80), none (0).
+  const r = solve(model);
+  assert.equal(r.objective, 100);
+  assert.deepEqual([r.values.Use_A_setup, r.values.Use_B_setup], [1, 0]);
+  const unb = addFixedCharge({ ...base, constraints: [] }, { variables: ["A"], fixedCost: 1, name: "x" });
+  assert.ok("error" in unb, "no safe big-M without a limit");
+  assert.ok(!("error" in addFixedCharge({ ...base, constraints: [] }, { variables: ["A"], fixedCost: 1, name: "x", bigM: 1000 })), "user-supplied M is accepted");
+});
+
+t("optimizer: network builder — 30 random fixed-cost networks match SciPy (HiGHS MILP)", () => {
+  const cases = JSON.parse(readFileSync(new URL("./fixtures/network-crosscheck.json", import.meta.url), "utf8")) as { model: OptModel; expected: { status: string; objective: number | null } }[];
+  for (const [k, c] of cases.entries()) {
+    const r = solve(c.model);
+    assert.equal(r.status, c.expected.status, `network ${k + 1} status`);
+    if (r.status === "optimal") {
+      assert.ok(Math.abs(r.objective - c.expected.objective!) <= 1e-6 * Math.max(1, Math.abs(c.expected.objective!)), `network ${k + 1}: ${r.objective} vs ${c.expected.objective}`);
+      assert.ok(checkFeasible(c.model, r.values).ok, `network ${k + 1} feasible`);
+    }
+  }
+  // Structure: a fixed-cost route gets a yes/no variable and a link; a capacity becomes its big-M.
+  const m = networkModel({ title: "n", periods: 1, periodLabel: "Month", holdingOn: "ending",
+    nodes: [{ name: "F", produceMax: 100, produceCost: 1, canStore: false }, { name: "S", demand: 60 }],
+    arcs: [{ from: "F", to: "S", unitCost: 2, fixedCost: 50, capacity: 80 }] });
+  const link = m.constraints.find((c) => c.name.includes("only if used"))!;
+  assert.equal(link.terms.Use_F_to_S_1, -80);
+  assert.equal(solve(m).objective, 60 * 3 + 50);
+  // Starting stock that covers demand: the route stays closed and the fixed cost is avoided.
+  assert.equal(solve(networkModel({ title: "n", periods: 1, periodLabel: "Month", holdingOn: "ending",
+    nodes: [{ name: "F", produceMax: 100, produceCost: 1, canStore: false }, { name: "S", demand: 60, startingStock: 60 }],
+    arcs: [{ from: "F", to: "S", unitCost: 2, fixedCost: 50 }] })).objective, 0);
+});
+
+t("optimizer: objective constant", () => {
+  const base: OptModel = { title: "k", direction: "max", objectiveName: "z", objectiveConstant: -25, variables: [{ name: "x", label: "x", objective: 2, min: 0, max: 10, integer: false }], constraints: [] };
+  assert.equal(solve(base).objective, -5);
+  const tv = solve({ ...base, direction: "target", target: -9 });
+  assert.equal(tv.status, "optimal");
+  assert.equal(tv.values.x, 8, "Value Of counts the constant: 2x − 25 = −9");
+  const imp = solve({ ...base, direction: "target", target: 5 });
+  assert.equal(imp.status, "infeasible", "2x − 25 = 5 needs x = 15 > 10");
+  assert.equal(imp.values.x, 0, "no stale values without a solution");
+  assert.ok(formulation(base).objective.endsWith("2 x − 25"));
+  assert.ok(toPulp(base).includes("+ -25") && toScipy(base).includes("+ -25"));
+  assert.ok(sensitivity(base, solve(base)), "constant doesn't break sensitivity");
 });
 
 t("optimizer: Value Of target, free variables, infeasible/unbounded", () => {

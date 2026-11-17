@@ -37,8 +37,9 @@ def solve(model):
             A_ub.append([-a for a in row]); b_ub.append(-con["rhs"])
         else:
             A_eq.append(row); b_eq.append(con["rhs"])
+    k = model.get("objectiveConstant") or 0
     if model["direction"] == "target":
-        A_eq.append([v["objective"] for v in vs]); b_eq.append(model.get("target", 0))
+        A_eq.append([v["objective"] for v in vs]); b_eq.append(model.get("target", 0) - k)
     integrality = [1 if (v.get("integer") or v.get("binary")) else 0 for v in vs]
     res = linprog(c, A_ub=A_ub or None, b_ub=b_ub or None, A_eq=A_eq or None, b_eq=b_eq or None,
                   bounds=[bounds_for(model, v) for v in vs], integrality=integrality, method="highs")
@@ -46,11 +47,18 @@ def solve(model):
     out = {"status": status}
     if status == "optimal":
         x = list(res.x)
-        out["objective"] = round(sum(v["objective"] * xi for v, xi in zip(vs, x)), 9)
+        out["objective"] = round(sum(v["objective"] * xi for v, xi in zip(vs, x)) + k, 9)
         out["values"] = {n: round(xi, 9) for n, xi in zip(names, x)}
     return out
 
 
 if __name__ == "__main__":
     models = json.load(sys.stdin)
-    json.dump([solve(m) for m in models], sys.stdout, indent=1)
+    if "--pairs" in sys.argv:  # model + expected answer, the fixture format used by `npm run selftest`
+        out = []
+        for m in models:
+            r = solve(m)
+            out.append({"model": m, "expected": {"status": r["status"], "objective": r.get("objective")}})
+        json.dump(out, sys.stdout, indent=0)
+    else:
+        json.dump([solve(m) for m in models], sys.stdout, indent=1)

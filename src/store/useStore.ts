@@ -17,6 +17,12 @@ interface State {
   aliases: Alias[];
   activeAliasId: string | null;
   docs: VaultDoc[];
+  /** Built-in optimizer templates the user has removed from the gallery (restorable). */
+  hiddenTemplates: string[];
+
+  // ---- optimizer templates
+  hideTemplates: (ids: string[]) => void;
+  restoreTemplates: () => void;
 
   // ---- aliases
   createAlias: (name: string, modules: ModuleKey[], description?: string, activate?: boolean) => string;
@@ -79,6 +85,10 @@ export const useStore = create<State>()(
 
       return {
         ...initial(),
+        hiddenTemplates: [],
+
+        hideTemplates: (ids) => set((s) => ({ hiddenTemplates: [...new Set([...s.hiddenTemplates, ...ids])] })),
+        restoreTemplates: () => set({ hiddenTemplates: [] }),
 
         createAlias: (name, modules, description, activate = true) => {
           const a = newAlias(name, modules, get().aliases.length);
@@ -143,7 +153,7 @@ export const useStore = create<State>()(
         if (version < 2) return migrateV1(persisted as { dataset?: Dataset; docs?: UploadedDoc[] }) as unknown as State;
         return persisted as State;
       },
-      partialize: (s) => ({ aliases: s.aliases, activeAliasId: s.activeAliasId, docs: s.docs }),
+      partialize: (s) => ({ aliases: s.aliases, activeAliasId: s.activeAliasId, docs: s.docs, hiddenTemplates: s.hiddenTemplates }),
       storage: createJSONStorage(() => {
         try {
           return localStorage;

@@ -6,18 +6,19 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import {
-  AlertTriangle, BookOpen, Calculator, Check, CheckCircle2, ChevronDown, ChevronRight, Copy, Download, FileSpreadsheet, FileText,
+  AlertTriangle, BookOpen, RotateCcw, X, Calculator, Check, CheckCircle2, ChevronDown, ChevronRight, Copy, Download, FileSpreadsheet, FileText,
   FunctionSquare, Info, Plus, Sigma, Sparkles, Trash2, Wand2, XCircle,
 } from "lucide-react";
 import { Badge, Button, Callout, Card, CardHeader, inputCls, PageHeader, Segmented } from "@/components/ui";
 import { PreviewTable } from "@/components/PreviewTable";
+import { ModelBuilder, type BuilderSpec } from "@/components/ModelBuilder";
 import { postAi, useAiStatus } from "@/components/useAi";
 import { useActiveAlias, useAliasDocs, useStore } from "@/store/useStore";
 import {
-  checkFeasible, formulation, ratioConstraint, sensitivity, shareConstraint, solve, toLpFormat, toPulp, toScipy, validateModel,
+  addFixedCharge, checkFeasible, formulation, ratioConstraint, sensitivity, shareConstraint, solve, toLpFormat, toPulp, toScipy, validateModel,
   weightedAverageConstraint, type OptConstraint, type OptModel, type OptResult, type Relation, type Sensitivity,
 } from "@/lib/optimize";
-import { TEMPLATES, type OptTemplate } from "@/lib/optTemplates";
+import { TEMPLATE_GROUPS, TEMPLATES, type OptTemplate } from "@/lib/optTemplates";
 import { downloadText } from "@/lib/fileReaders";
 import { fmtNum } from "@/lib/format";
 import type { VaultDoc } from "@/lib/types";
@@ -53,6 +54,9 @@ export default function OptimizePage() {
   const alias = useActiveAlias();
   const refDocs = useAliasDocs();
   const saveOptModel = useStore((s) => s.saveOptModel);
+  const hidden = useStore((s) => s.hiddenTemplates);
+  const hideTemplates = useStore((s) => s.hideTemplates);
+  const restoreTemplates = useStore((s) => s.restoreTemplates);
   const saved = alias && isModel(alias.optModel) ? (alias.optModel as OptModel) : null;
   const initialTpl = saved ? TEMPLATES.find((t) => t.model.title === saved.title) : TEMPLATES[0];
   const [tplId, setTplId] = useState<string>(initialTpl?.id ?? "");
@@ -65,6 +69,16 @@ export default function OptimizePage() {
   const [err, setErr] = useState<string | null>(null);
   const [aiNote, setAiNote] = useState<string | null>(null);
   const [showProblem, setShowProblem] = useState(true);
+  const [showBuilder, setShowBuilder] = useState(false);
+  const builderSpec = (model.source && ["inventory", "allocation", "coverage", "network"].includes(model.source.kind) ? model.source : null) as BuilderSpec | null;
+  const generate = (m: OptModel, spec: BuilderSpec) => {
+    const next = { ...m, source: spec };
+    setModel(next);
+    setSolved(next);
+    setTplId("");
+    setShowBuilder(false);
+    setAiNote(null);
+  };
 
   useEffect(() => {
     if (alias) saveOptModel(alias.id, solved);
@@ -111,11 +125,11 @@ export default function OptimizePage() {
     }
   };
 
-  const groups: { key: OptTemplate["group"]; title: string; hint: string }[] = [
-    { key: "lab", title: "Module 1 lab · verified against Excel Solver", hint: "Required problems 1–3, answers match your workbook" },
-    { key: "practice", title: "More practice · verified against Python (SciPy)", hint: "Optional problems 4, 5, 7, 9" },
-    { key: "business", title: "Business templates", hint: "Starting points for your own models" },
-  ];
+  const visible = TEMPLATES.filter((t) => !hidden.includes(t.id));
+  const removeTemplates = (ids: string[], what: string) => {
+    if (confirm(`Remove ${what} from your template list? Your own models aren't affected, and you can restore removed templates at any time.`)) hideTemplates(ids);
+  };
+
 
   return (
     <>
@@ -123,26 +137,45 @@ export default function OptimizePage() {
         eyebrow="Decide"
         title="Optimization studio"
         subtitle={<>Built the way Excel Solver works: <b className="text-ink">set the objective</b>, choose the <b className="text-ink">changing (decision) variables</b>, add the <b className="text-ink">constraints</b>, and solve with the Simplex LP method. Linear and integer models are supported. The model is saved to the alias <b className="text-ink">{alias?.name}</b>.</>}
-        right={<Button onClick={() => setSolved(clone(model))} disabled={pendingErrors.length > 0}><Calculator className="h-4 w-4" />Solve{dirty ? " (changes pending)" : ""}</Button>}
+        right={
+          <>
+            <Button variant="secondary" onClick={() => setShowBuilder((v) => !v)}><Wand2 className="h-4 w-4" />{builderSpec ? "Edit in builder" : "Build from a pattern"}</Button>
+            <Button onClick={() => setSolved(clone(model))} disabled={pendingErrors.length > 0}><Calculator className="h-4 w-4" />Solve{dirty ? " (changes pending)" : ""}</Button>
+          </>
+        }
       />
 
       <div className="mb-5 grid gap-4 xl:grid-cols-[1.6fr_1fr]">
         <Card className="p-5">
-          <div className="grid gap-4 md:grid-cols-3">
-            {groups.map((g) => (
-              <div key={g.key}>
-                <div className="text-[11.5px] font-semibold uppercase tracking-wide text-muted">{g.title}</div>
-                <div className="mb-2 text-[11px] text-slate-400">{g.hint}</div>
-                <div className="flex flex-col gap-1.5">
-                  {TEMPLATES.filter((t) => t.group === g.key).map((t) => (
-                    <button key={t.id} onClick={() => loadTpl(t)} className={clsx("flex items-center justify-between gap-2 rounded-lg border px-3 py-1.5 text-left text-[12.5px] font-medium", tplId === t.id ? "border-brand bg-brand-soft text-brand" : "border-line hover:bg-slate-50")}>
-                      {t.label}{t.expected && <Check className="h-3.5 w-3.5 shrink-0 text-good" />}
-                    </button>
-                  ))}
+          <div className="grid gap-5 md:grid-cols-2">
+            {TEMPLATE_GROUPS.map((g) => {
+              const items = visible.filter((t) => t.group === g.key);
+              if (!items.length) return null;
+              return (
+                <div key={g.key} className="group/g">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="text-[11.5px] font-semibold uppercase tracking-wide text-muted">{g.title}</div>
+                    <button className="shrink-0 rounded px-1.5 py-0.5 text-[11px] text-slate-400 hover:bg-red-50 hover:text-bad" onClick={() => removeTemplates(items.map((t) => t.id), `all ${items.length} “${g.title.split(" · ")[0]}” templates`)} aria-label={`Remove the ${g.title} templates`} title="Remove this group">Remove group</button>
+                  </div>
+                  <div className="mb-2 text-[11px] text-slate-400">{g.hint}</div>
+                  <div className="flex flex-col gap-1.5">
+                    {items.map((t) => (
+                      <div key={t.id} className="group/t relative">
+                        <button onClick={() => loadTpl(t)} className={clsx("flex w-full items-center justify-between gap-2 rounded-lg border py-1.5 pl-3 pr-8 text-left text-[12.5px] font-medium", tplId === t.id ? "border-brand bg-brand-soft text-brand" : "border-line hover:bg-slate-50")}>
+                          {t.label}{t.expected && <Check className="h-3.5 w-3.5 shrink-0 text-good" />}
+                        </button>
+                        <button className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded p-1 text-slate-300 hover:bg-red-50 hover:text-bad" onClick={() => removeTemplates([t.id], `“${t.label}”`)} aria-label={`Remove template ${t.label}`} title="Remove template"><X className="h-3.5 w-3.5" /></button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+          {!visible.length && <p className="text-[13px] text-muted">All templates are removed. Build your own model below, or restore the templates.</p>}
+          {hidden.length > 0 && (
+            <button className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-brand hover:underline" onClick={restoreTemplates}><RotateCcw className="h-3.5 w-3.5" />Restore {hidden.length} removed template{hidden.length === 1 ? "" : "s"}</button>
+          )}
         </Card>
         <Card className="p-5">
           <div className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-muted"><Sparkles className="h-3.5 w-3.5 text-brand" />Describe a problem in words</div>
@@ -155,6 +188,17 @@ export default function OptimizePage() {
         </Card>
       </div>
 
+      {showBuilder && (
+        <ModelBuilder
+          key={JSON.stringify(builderSpec ?? "new")}
+          initial={builderSpec}
+          onClose={() => setShowBuilder(false)}
+          onGenerate={(m, spec) => {
+            if (!builderSpec && model.variables.length && !confirm("Replace the current model with the generated one?")) return;
+            generate(m, spec);
+          }}
+        />
+      )}
       {template?.problem && (
         <Card className="mb-5">
           <button className="flex w-full flex-wrap items-center gap-2 px-5 py-3 text-left" onClick={() => setShowProblem((v) => !v)} aria-expanded={showProblem}>
@@ -163,7 +207,12 @@ export default function OptimizePage() {
             <span className="text-[14px] font-semibold">{template.label}: problem statement</span>
             {template.expected && <Badge tone="good" className="whitespace-normal sm:ml-auto">Answer on file: {template.expected.source}</Badge>}
           </button>
-          {showProblem && <p className="border-t border-line px-5 py-3 text-[13px] leading-relaxed text-slate-700">{template.problem}</p>}
+          {showProblem && (
+            <div className="border-t border-line px-5 py-3 text-[13px] leading-relaxed text-slate-700">
+              {template.problem}
+              {builderSpec && !showBuilder && <button className="ml-2 inline-flex items-center gap-1 font-medium text-brand hover:underline" onClick={() => setShowBuilder(true)}><Wand2 className="h-3.5 w-3.5" />See how it was built</button>}
+            </div>
+          )}
         </Card>
       )}
       {aiNote && <div className="mb-5"><Callout tone="warn" title="Check this model">{aiNote}</Callout></div>}
@@ -226,6 +275,11 @@ function ObjectiveCard({ model, upd }: { model: OptModel; upd: Upd }) {
           <input aria-label="Objective name" className={inputCls} value={model.objectiveName} onChange={(e) => upd((m) => { m.objectiveName = e.target.value; })} />
           {model.direction === "target" && <input aria-label="Target value" type="number" className={clsx(inputCls, "w-36 text-right")} value={model.target ?? 0} onChange={(e) => upd((m) => { m.target = Number(e.target.value); })} />}
         </div>
+        <label className="flex flex-wrap items-center gap-2 text-[12.5px] sm:col-span-2">
+          <span className="text-muted" title="A fixed amount no decision changes, e.g. the holding cost of stock already on hand. It shifts the total, not the plan.">+ Constant</span>
+          <input aria-label="Objective constant" type="number" className={clsx(inputCls, "h-8 w-32 text-right")} value={model.objectiveConstant ?? 0} onChange={(e) => upd((m) => { const v = Number(e.target.value); m.objectiveConstant = v ? v : undefined; })} />
+          <span className="text-[11.5px] text-muted">A fixed amount that no decision changes, e.g. the holding cost of stock already on hand. It changes the total, not the plan.</span>
+        </label>
       </div>
       {model.notes && <div className="px-5 pb-4"><Callout tone="info" title="Modelling notes">{model.notes}</Callout></div>}
     </Card>
@@ -281,12 +335,19 @@ function ConstraintsCard({ model, upd }: { model: OptModel; upd: Upd }) {
         subtitle="Each row: Σ coefficient × variable, then the relation and the limit"
         right={
           <>
-            <Button size="sm" variant="secondary" onClick={() => setHelper((h) => !h)}><FunctionSquare className="h-3.5 w-3.5" />Average / ratio / share</Button>
+            <Button size="sm" variant="secondary" onClick={() => setHelper((h) => !h)}><FunctionSquare className="h-3.5 w-3.5" />Average / ratio / fixed cost</Button>
             <Button size="sm" variant="secondary" onClick={() => upd((m) => { m.constraints.push({ name: `Constraint ${m.constraints.length + 1}`, terms: {}, relation: "<=", rhs: 0 }); })}><Plus className="h-3.5 w-3.5" />Add</Button>
           </>
         }
       />
-      {helper && <ConstraintHelper model={model} onAdd={(c) => { upd((m) => { m.constraints.push(c); }); setHelper(false); }} onClose={() => setHelper(false)} />}
+      {helper && (
+        <ConstraintHelper
+          model={model}
+          onAdd={(c) => { upd((m) => { m.constraints.push(c); }); setHelper(false); }}
+          onReplace={(next) => { upd((m) => { m.variables = next.variables; m.constraints = next.constraints; }); setHelper(false); }}
+          onClose={() => setHelper(false)}
+        />
+      )}
       <div className="overflow-x-auto">
         <table className="w-full text-[12.5px]" style={{ minWidth: 360 + model.variables.length * 88 }}>
           <thead className="bg-slate-50 text-[11px] uppercase tracking-wide text-muted">
@@ -324,8 +385,9 @@ function ConstraintsCard({ model, upd }: { model: OptModel; upd: Upd }) {
 }
 
 /** Builds linear constraints from common nonlinear-looking business rules (averages, shares, ratios). */
-function ConstraintHelper({ model, onAdd, onClose }: { model: OptModel; onAdd: (c: OptConstraint) => void; onClose: () => void }) {
-  const [kind, setKind] = useState<"average" | "share" | "ratio" | "sum">("average");
+function ConstraintHelper({ model, onAdd, onReplace, onClose }: { model: OptModel; onAdd: (c: OptConstraint) => void; onReplace: (m: OptModel) => void; onClose: () => void }) {
+  const [kind, setKind] = useState<"average" | "share" | "ratio" | "sum" | "fixed">("average");
+  const [bigM, setBigM] = useState("");
   const [name, setName] = useState("");
   const [relation, setRelation] = useState<Relation>(">=");
   const [k, setK] = useState(0);
@@ -338,7 +400,9 @@ function ConstraintHelper({ model, onAdd, onClose }: { model: OptModel; onAdd: (
     : kind === "average" ? weightedAverageConstraint(name || `Average ${label}`, picked.map((v) => ({ variable: v, attribute: attr[v] ?? 0 })), relation, k, label)
     : kind === "share" ? (others.length ? shareConstraint(name || "Share of total", picked, others, relation, k / 100) : null)
     : kind === "ratio" ? (others.length ? ratioConstraint(name || "Ratio", picked, others, relation, k) : null)
+    : kind === "fixed" ? null
     : { name: name || "Sum", terms: Object.fromEntries(picked.map((v) => [v, 1])), relation, rhs: k, note: `${picked.join(" + ")} ${REL[relation]} ${k}` };
+  const fixed = kind === "fixed" && picked.length ? addFixedCharge(model, { variables: picked, fixedCost: k, name: name || `${picked.join("+")} fixed cost`, bigM: bigM.trim() ? Number(bigM) : undefined }) : null;
   const Picker = ({ list, set, title }: { list: string[]; set: (v: string[]) => void; title: string }) => (
     <div>
       <div className="mb-1 text-[11.5px] font-medium text-muted">{title}</div>
@@ -351,12 +415,13 @@ function ConstraintHelper({ model, onAdd, onClose }: { model: OptModel; onAdd: (
   );
   return (
     <div className="space-y-3 border-b border-line bg-indigo-50/40 p-5 text-[12.5px]">
-      <Segmented size="sm" value={kind} onChange={setKind} options={[{ value: "average", label: "Weighted average" }, { value: "share", label: "Share of total (%)" }, { value: "ratio", label: "Ratio A : B" }, { value: "sum", label: "Sum of variables" }]} />
+      <Segmented size="sm" value={kind} onChange={setKind} options={[{ value: "average", label: "Weighted average" }, { value: "share", label: "Share of total (%)" }, { value: "ratio", label: "Ratio A : B" }, { value: "sum", label: "Sum of variables" }, { value: "fixed", label: "Fixed cost (if used)" }]} />
       <p className="text-muted">
         {kind === "average" && "For blends and quality rules, e.g. “basket fruit must average grade ≥ 3.75” or “octane ≥ 90”. Enter each variable's attribute; it's converted to Σ(attribute − target)·x ⋚ 0."}
         {kind === "share" && "For rules like “personal loans ≤ 25% of the portfolio”. Pick the part and the total."}
         {kind === "ratio" && "For rules like “at least 3 standard seats per premium seat” or “FastLink ≥ 2 × HyperLink”."}
         {kind === "sum" && "Quick total of several variables, e.g. “total invested = 650,000”."}
+        {kind === "fixed" && "For costs paid only when something is used at all: a route shipped on, a plant opened, a machine set up. Fintel adds a yes/no variable carrying the fixed cost and the link Σ x ≤ M × yes/no, with M worked out from your other constraints."}
       </p>
       <Picker list={picked} set={setPicked} title={kind === "share" ? "Part (numerator)" : kind === "ratio" ? "A (left side)" : "Variables"} />
       {(kind === "share" || kind === "ratio") && <Picker list={others} set={setOthers} title={kind === "share" ? "Total (denominator)" : "B (right side)"} />}
@@ -371,16 +436,31 @@ function ConstraintHelper({ model, onAdd, onClose }: { model: OptModel; onAdd: (
           ))}
         </div>
       )}
-      <div className="flex flex-wrap items-center gap-2">
-        <input aria-label="Constraint name" className={clsx(inputCls, "h-8 w-56")} placeholder="Constraint name" value={name} onChange={(e) => setName(e.target.value)} />
-        <select aria-label="Relation" className={clsx(inputCls, "h-8 w-16 px-1")} value={relation} onChange={(e) => setRelation(e.target.value as Relation)}><option value=">=">≥</option><option value="<=">≤</option><option value="=">=</option></select>
-        <input aria-label="Value" type="number" className={clsx(inputCls, "h-8 w-28 text-right")} value={k} onChange={(e) => setK(Number(e.target.value))} />
-        <span className="text-muted">{kind === "average" ? `target ${label}` : kind === "share" ? "% of total" : kind === "ratio" ? "× B" : "limit"}</span>
-      </div>
+      {kind === "fixed" ? (
+        <div className="flex flex-wrap items-center gap-2">
+          <input aria-label="Fixed cost name" className={clsx(inputCls, "h-8 w-56")} placeholder="Name, e.g. Plant → Warehouse route" value={name} onChange={(e) => setName(e.target.value)} />
+          <span className="text-muted">fixed cost</span>
+          <input aria-label="Fixed cost amount" type="number" min={0} className={clsx(inputCls, "h-8 w-28 text-right")} value={k} onChange={(e) => setK(Math.abs(Number(e.target.value)))} />
+          <span className="text-muted">big-M</span>
+          <input aria-label="Big-M (optional)" type="number" className={clsx(inputCls, "h-8 w-28 text-right")} placeholder="auto" value={bigM} onChange={(e) => setBigM(e.target.value)} />
+        </div>
+      ) : (
+        <div className="flex flex-wrap items-center gap-2">
+          <input aria-label="Constraint name" className={clsx(inputCls, "h-8 w-56")} placeholder="Constraint name" value={name} onChange={(e) => setName(e.target.value)} />
+          <select aria-label="Relation" className={clsx(inputCls, "h-8 w-16 px-1")} value={relation} onChange={(e) => setRelation(e.target.value as Relation)}><option value=">=">≥</option><option value="<=">≤</option><option value="=">=</option></select>
+          <input aria-label="Value" type="number" className={clsx(inputCls, "h-8 w-28 text-right")} value={k} onChange={(e) => setK(Number(e.target.value))} />
+          <span className="text-muted">{kind === "average" ? `target ${label}` : kind === "share" ? "% of total" : kind === "ratio" ? "× B" : "limit"}</span>
+        </div>
+      )}
       {preview && <div className="rounded-lg bg-white p-2.5 font-mono text-[11.5px]">{formulation({ ...model, constraints: [preview] }).constraints[0].text}<div className="mt-1 font-sans text-[11.5px] text-brand">{preview.note}</div></div>}
+      {fixed && ("error" in fixed
+        ? <Callout tone="warn">{fixed.error}</Callout>
+        : <div className="rounded-lg bg-white p-2.5 font-mono text-[11.5px]">{formulation({ ...fixed.model, constraints: [fixed.model.constraints.at(-1)!] }).constraints[0].text}<div className="mt-1 font-sans text-[11.5px] text-brand">Adds yes/no variable <b>{fixed.model.variables.at(-1)!.name}</b> with cost {k}; big-M = {fixed.bigM} ({fixed.basis}).</div></div>)}
       <div className="flex justify-end gap-2">
         <Button size="sm" variant="ghost" onClick={onClose}>Cancel</Button>
-        <Button size="sm" disabled={!preview} onClick={() => preview && onAdd(preview)}>Add constraint</Button>
+        {kind === "fixed"
+          ? <Button size="sm" disabled={!fixed || "error" in fixed} onClick={() => fixed && !("error" in fixed) && onReplace(fixed.model)}>Add fixed cost</Button>
+          : <Button size="sm" disabled={!preview} onClick={() => preview && onAdd(preview)}>Add constraint</Button>}
       </div>
     </div>
   );

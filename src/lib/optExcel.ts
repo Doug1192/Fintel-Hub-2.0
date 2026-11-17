@@ -44,7 +44,9 @@ export function buildWorkbook(X: XLSX, m: OptModel, res: OptResult | null, sens:
 
   s("A12", "OBJECTIVE FUNCTION");
   s("B12", `${m.direction === "max" ? "Maximize" : m.direction === "min" ? "Minimize" : "Value of"}: ${m.objectiveName}`);
-  fx("C12", `SUMPRODUCT(${firstV}7:${lastV}7,${firstV}10:${lastV}10)`, res?.objective ?? 0);
+  const k = m.objectiveConstant ?? 0;
+  fx("C12", `SUMPRODUCT(${firstV}7:${lastV}7,${firstV}10:${lastV}10)${k ? (k < 0 ? `-${Math.abs(k)}` : `+${k}`) : ""}`, res?.objective ?? 0);
+  if (k) s("D11", `includes constant ${k}`);
   if (m.direction === "target") { s("D12", "Target"); num("E12", m.target ?? 0); }
 
   s("A14", "CONSTRAINTS");
